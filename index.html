@@ -26,11 +26,36 @@
         const randomizedTrials = true;
         //Images to use for each and their path
         const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
-        const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG"
+        const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG";
         const imageLocationSadCongruent = "img/SadCongruent.PNG";
-        const imageLocationSadIncongruent = "img/SadIncongruent.PNG"
+        const imageLocationSadIncongruent = "img/SadIncongruent.PNG";
+        //image names
+        const imageNameHappyCongruent = "Happy Congruent";
+        const imageNameHappyIncongruent = "Happy Incongruent";
+        const imageNameSadCongruent = "Sad Congruent";
+        const imageNameSadIncongruent = "Sad Incongruent";
         //Timeline is used as the set of trials we want to run in the experiment
         let timeline = [];
+
+        /***********Instructions Screen*************/
+        //instructions for the experiment
+        let instructions = {
+            type: "html-keyboard-response",
+            stimulus: "<p>In this experiment, an image will appear in the center " +
+                "of the screen.</p><p>If the image is <strong>" + imageNameHappyCongruent + "</strong> or <strong>" + imageNameHappyIncongruent + "</strong>, " +
+                "press the letter <strong>" + keyboardPressHappy + "</strong> on the keyboard as fast as you can.</p>" +
+                "<p>If the image is <strong>" + imageNameSadCongruent + "</strong> or <strong>" + imageNameSadIncongruent + "</strong>, press the letter <strong>" + keyboardPressSad + "</strong> " +
+                "as fast as you can.</p>" + "<p>Press any key to begin.</p>" + 
+                "<div style='width: 1000px;'>" +
+                "<div style='float: left;'><img src=" + imageLocationHappyCongruent + "></img><img src=" + imageLocationHappyIncongruent + "></img>" +
+                "<p class='small'><strong>Press the " + keyboardPressHappy + " key</strong></p></div>" +
+                "<div class='float: right;'><img src=" + imageLocationSadCongruent + "></img><img src=" + imageLocationSadIncongruent + "></img>" +
+                "<p class='small'><strong>Press the " + keyboardPressSad + " key</strong></p></div>" +
+                "</div>",
+            post_trial_gap: 2000
+        };
+        //add instructions to the timeline
+        timeline.push(instructions);
 
         /***********Test trials*************/
         //test trials. Chooses where the images are located.
