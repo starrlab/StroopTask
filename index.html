@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stroop Task</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="jspsych-6.1.0/jspsych.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
@@ -20,7 +21,7 @@
         //Key to display between trials to user
         const fixationKey = '+';
         //Number of trials
-        const numberOfTrials = 5;
+        const numberOfTrials = 2;
         //Randomize order of trials set to true, if not randomized set to false
         const randomizedTrials = true;
         //Images to use for each and their path
@@ -34,12 +35,33 @@
         /***********Test trials*************/
         //test trials. Chooses where the images are located.
         //Adds data fields to show if what the correct key is supposed to be
+        let h0 =  { 
+            stimulus: imageLocationHappyCongruent, 
+            data: { test_part: 'test', correct_response: keyboardPressHappy } 
+        }
+
+
+        let h1 = {
+            stimulus: imageLocationHappyIncongruent, 
+            data: { test_part: 'test', correct_response: keyboardPressHappy }
+        }
+
+        let s0 = {
+            stimulus: imageLocationSadCongruent, 
+            data: { test_part: 'test', correct_response: keyboardPressSad }
+        }
+
+        let s1 = {
+            stimulus: imageLocationSadIncongruent, 
+            data: { test_part: 'test', correct_response: keyboardPressSad }
+        }
+        /*
         let test_stimuli = [
             { stimulus: imageLocationHappyCongruent, data: { test_part: 'test', correct_response: keyboardPressHappy } },
             { stimulus: imageLocationHappyIncongruent, data: { test_part: 'test', correct_response: keyboardPressHappy } },
             { stimulus: imageLocationSadCongruent, data: { test_part: 'test', correct_response: keyboardPressSad } },
             { stimulus: imageLocationSadIncongruent, data: { test_part: 'test', correct_response: keyboardPressSad } }
-        ];
+        ];*/
         //Adds a + in between trials for randomized number of millisecond. This is set in trial_duration
         //User cannot press key to move forward
         let fixation = {
@@ -78,12 +100,32 @@
         //Order of tests are randomized and repeated n number of times
         let test_procedure = {
             timeline: [fixation, test],
-            timeline_variables: test_stimuli,
+            timeline_variables: [s0, h0, h1, s1],
             randomize_order: randomizedTrials,
             repetitions: numberOfTrials
         };
         //add this to the timeline
         timeline.push(test_procedure);
+
+        /***********Debrief Screen************/
+        //allows you to show user statistics of trials
+        var debrief_block = {
+            type: "html-keyboard-response",
+            stimulus: function () {
+    
+                var trials = jsPsych.data.get().filter({ test_part: 'test' });
+                var correct_trials = trials.filter({ correct: true });
+                var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+                var rt = Math.round(correct_trials.select('rt').mean());
+    
+                return "<p>You got <strong>" + accuracy + "%</strong> correct.</p>" +
+                    "<p>Average response time was <strong>" + rt + "ms</strong>.</p>" +
+                    "<p>Press any key to complete the experiment. Thank you!</p>";
+    
+            }
+        };
+        //add this to timeline
+        timeline.push(debrief_block);
 
         /*********Start Experiment************/
         //Display data shows the data displayed at end of trials
