@@ -24,13 +24,22 @@
         //Randomize order of trials set to true, if not randomized set to false
         const randomizedTrials = true;
         //Images to use for each and their path
-        const imageLocationHappyCongruent = "img/blue.png";
-        const imageLocationHappyIncongruent = "img/orange.png"
-        const imageLocationSadCongruent = "img/blue.png";
-        const imageLocationSadIncongruent = "img/orange.png"
+        const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
+        const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG"
+        const imageLocationSadCongruent = "img/SadCongruent.PNG";
+        const imageLocationSadIncongruent = "img/SadIncongruent.PNG"
         //Timeline is used as the set of trials we want to run in the experiment
         let timeline = [];
 
+        /***********Test trials*************/
+        //test trials. Chooses where the images are located.
+        //Adds data fields to show if what the correct key is supposed to be
+        let test_stimuli = [
+            { stimulus: imageLocationHappyCongruent, data: { test_part: 'test', correct_response: keyboardPressHappy } },
+            { stimulus: imageLocationHappyIncongruent, data: { test_part: 'test', correct_response: keyboardPressHappy } },
+            { stimulus: imageLocationSadCongruent, data: { test_part: 'test', correct_response: keyboardPressSad } },
+            { stimulus: imageLocationSadIncongruent, data: { test_part: 'test', correct_response: keyboardPressSad } }
+        ];
         //Adds a + in between trials for randomized number of millisecond. This is set in trial_duration
         //User cannot press key to move forward
         let fixation = {
