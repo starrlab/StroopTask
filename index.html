@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stroop Task</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="jspsych-6.1.0/jspsych.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
     <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
     </link>
 </head>
+
 <body>
     <script>
         /*************Variables************/
@@ -29,23 +31,46 @@
         const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG";
         const imageLocationSadCongruent = "img/SadCongruent.PNG";
         const imageLocationSadIncongruent = "img/SadIncongruent.PNG";
-        //image names
-        const imageNameHappyCongruent = "Happy Congruent";
-        const imageNameHappyIncongruent = "Happy Incongruent";
-        const imageNameSadCongruent = "Sad Congruent";
-        const imageNameSadIncongruent = "Sad Incongruent";
         //Timeline is used as the set of trials we want to run in the experiment
         let timeline = [];
+
+        /*
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "data.txt",
+                dataType: "text",
+                success: function (data) { processData(data); }
+            });
+        });
+
+        function processData(allText) {
+            var record_num = 5;  // or however many elements there are in each row
+            var allTextLines = allText.split(/\r\n|\n/);
+            var entries = allTextLines[0].split(',');
+            var lines = [];
+
+            var headings = entries.splice(0, record_num);
+            while (entries.length > 0) {
+                var tarr = [];
+                for (var j = 0; j < record_num; j++) {
+                    tarr.push(headings[j] + ":" + entries.shift());
+                }
+                lines.push(tarr);
+            }
+            console.log(lines);
+        }
+*/
 
         /***********Instructions Screen*************/
         //instructions for the experiment
         let instructions = {
             type: "html-keyboard-response",
             stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
-                " and you will also see red text written over these faces.</p>" + 
+                " and you will also see red text written over these faces.</p>" +
                 "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-                "<strong>" + keyboardPressHappy + "</strong> for happy and <strong>" + keyboardPressSad + "</strong> for fear.</p>" + 
-                "<p>-Press any key to continue-</p>" + 
+                "<strong>" + keyboardPressHappy + "</strong> for happy and <strong>" + keyboardPressSad + "</strong> for fear.</p>" +
+                "<p>-Press any key to continue-</p>" +
                 "<div style='width: 1000px;'>" +
                 "<div style='float: left;'><img src=" + imageLocationHappyCongruent + "></img><img src=" + imageLocationHappyIncongruent + "></img>" +
                 "<p class='small'><strong>Press the " + keyboardPressHappy + " key</strong></p></div>" +
@@ -60,24 +85,24 @@
         /***********Test trials*************/
         //test trials. Chooses where the images are located.
         //Adds data fields to show if what the correct key is supposed to be
-        let h0 =  { 
-            stimulus: imageLocationHappyCongruent, 
-            data: { test_part: 'test', correct_response: keyboardPressHappy } 
+        let h0 = {
+            stimulus: imageLocationHappyCongruent,
+            data: { test_part: 'test', correct_response: keyboardPressHappy }
         }
 
 
         let h1 = {
-            stimulus: imageLocationHappyIncongruent, 
+            stimulus: imageLocationHappyIncongruent,
             data: { test_part: 'test', correct_response: keyboardPressHappy }
         }
 
         let s0 = {
-            stimulus: imageLocationSadCongruent, 
+            stimulus: imageLocationSadCongruent,
             data: { test_part: 'test', correct_response: keyboardPressSad }
         }
 
         let s1 = {
-            stimulus: imageLocationSadIncongruent, 
+            stimulus: imageLocationSadIncongruent,
             data: { test_part: 'test', correct_response: keyboardPressSad }
         }
         /*
@@ -91,7 +116,7 @@
         //User cannot press key to move forward
         let fixation = {
             type: 'html-keyboard-response',
-            stimulus: '<div style="font-size:60px;">'+fixationKey+'</div>',
+            stimulus: '<div style="font-size:60px;">' + fixationKey + '</div>',
             choices: jsPsych.NO_KEYS,
             trial_duration: 2000,
             data: { test_part: 'fixation' }
@@ -137,16 +162,16 @@
         var debrief_block = {
             type: "html-keyboard-response",
             stimulus: function () {
-    
+
                 var trials = jsPsych.data.get().filter({ test_part: 'test' });
                 var correct_trials = trials.filter({ correct: true });
                 var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
                 var rt = Math.round(correct_trials.select('rt').mean());
-    
+
                 return "<p>You got <strong>" + accuracy + "%</strong> correct.</p>" +
                     "<p>Average response time was <strong>" + rt + "ms</strong>.</p>" +
                     "<p>Press any key to complete the experiment. Thank you!</p>";
-    
+
             }
         };
         //add this to timeline
@@ -283,4 +308,5 @@
     </script>
 -->
 </body>
+
 </html>
