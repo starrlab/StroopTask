@@ -11,37 +11,84 @@
     </link>
 </head>
 <body>
-    <!--
     <script>
-
         /*************Variables************/
         //JsPsych Vars
         //Chooses what keyboard inputs that can be adjusted and are allowed for user click for each image
-        const keyboardPressOne = 'f';
-        const keyboardPressTwo = 'j';
+        const keyboardPressHappy = 'h';
+        const keyboardPressSad = 's';
         //Key to display between trials to user
         const fixationKey = '+';
-        //Different times allowed between each trial. Can be adjusted
-        let millisecondsToChooseFrom = [250, 500, 750, 1000, 1250, 1500, 1750, 2000];
         //Number of trials
         const numberOfTrials = 5;
         //Randomize order of trials set to true, if not randomized set to false
         const randomizedTrials = true;
         //Images to use for each and their path
-        const imageLocationOne = "img/blue.png";
-        const imageLocationTwo = "img/orange.png"
-        //Name of Images
-        const imageNameOne = "blue";
-        const imageNameTwo = "orange";
+        const imageLocationHappyCongruent = "img/blue.png";
+        const imageLocationHappyIncongruent = "img/orange.png"
+        const imageLocationSadCongruent = "img/blue.png";
+        const imageLocationSadIncongruent = "img/orange.png"
         //Timeline is used as the set of trials we want to run in the experiment
         let timeline = [];
-    
-        //0mq Vars
-        /*
-        const zmq = require("zeromq");
-        const sock = new zmq.Request;       
-        sock.connect("tcp://127.0.0.1:3000");
-        */
+
+        //Adds a + in between trials for randomized number of millisecond. This is set in trial_duration
+        //User cannot press key to move forward
+        let fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<div style="font-size:60px;">'+fixationKey+'</div>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 2000,
+            data: { test_part: 'fixation' }
+        };
+
+        //Chooses what keyboard inputs are allowed for user to move forward
+        let test = {
+            type: "image-keyboard-response",
+            stimulus: jsPsych.timelineVariable('stimulus'),
+            choices: [keyboardPressHappy, keyboardPressSad],
+            data: jsPsych.timelineVariable('data'),
+            on_start: function (data) {
+                //send data to rcs for start
+                /*
+                sock.send(numMilliSecSinceNineteenSeventy);
+                sock.receive();
+                */
+            },
+            on_finish: function (data) {
+                //send data to rcs for stop
+                /*
+                sock.send(numMilliSecSinceNineteenSeventy);
+                sock.receive();
+                */
+                data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+            }
+        };
+
+        //create a test object with images and keyboard inputs. 
+        //Order of tests are randomized and repeated n number of times
+        let test_procedure = {
+            timeline: [fixation, test],
+            timeline_variables: test_stimuli,
+            randomize_order: randomizedTrials,
+            repetitions: numberOfTrials
+        };
+        //add this to the timeline
+        timeline.push(test_procedure);
+
+        /*********Start Experiment************/
+        //Display data shows the data displayed at end of trials
+        jsPsych.init({
+            timeline: timeline,
+            on_finish: function () {
+                jsPsych.data.displayData();
+            }
+        });
+    </script>
+    <!--
+    <script>
+
+        
+
     
         /***********Welcome Screen*************/
         //welcome message with keyboard input as the first item for our timeline
