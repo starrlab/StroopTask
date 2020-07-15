@@ -55,6 +55,7 @@
             type: "image-keyboard-response",
             stimulus: jsPsych.timelineVariable('stimulus'),
             choices: [keyboardPressHappy, keyboardPressSad],
+            stimulus_duration: 1000,
             data: jsPsych.timelineVariable('data'),
             on_start: function (data) {
                 //send data to rcs for start
