@@ -17,7 +17,7 @@
         //JsPsych Vars
         //Chooses what keyboard inputs that can be adjusted and are allowed for user click for each image
         const keyboardPressHappy = 'h';
-        const keyboardPressSad = 's';
+        const keyboardPressSad = 'f';
         //Key to display between trials to user
         const fixationKey = '+';
         //Number of trials
@@ -41,18 +41,18 @@
         //instructions for the experiment
         let instructions = {
             type: "html-keyboard-response",
-            stimulus: "<p>In this experiment, an image will appear in the center " +
-                "of the screen.</p><p>If the image is <strong>" + imageNameHappyCongruent + "</strong> or <strong>" + imageNameHappyIncongruent + "</strong>, " +
-                "press the letter <strong>" + keyboardPressHappy + "</strong> on the keyboard as fast as you can.</p>" +
-                "<p>If the image is <strong>" + imageNameSadCongruent + "</strong> or <strong>" + imageNameSadIncongruent + "</strong>, press the letter <strong>" + keyboardPressSad + "</strong> " +
-                "as fast as you can.</p>" + "<p>Press any key to begin.</p>" + 
+            stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
+                " and you will also see red text written over these faces.</p>" + 
+                "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
+                "<strong>" + keyboardPressHappy + "</strong> for happy and <strong>" + keyboardPressSad + "</strong> for fear.</p>" + 
+                "<p>-Press any key to continue-</p>" + 
                 "<div style='width: 1000px;'>" +
                 "<div style='float: left;'><img src=" + imageLocationHappyCongruent + "></img><img src=" + imageLocationHappyIncongruent + "></img>" +
                 "<p class='small'><strong>Press the " + keyboardPressHappy + " key</strong></p></div>" +
                 "<div class='float: right;'><img src=" + imageLocationSadCongruent + "></img><img src=" + imageLocationSadIncongruent + "></img>" +
                 "<p class='small'><strong>Press the " + keyboardPressSad + " key</strong></p></div>" +
                 "</div>",
-            post_trial_gap: 2000
+            post_trial_gap: 1500
         };
         //add instructions to the timeline
         timeline.push(instructions);
