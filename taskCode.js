@@ -1,23 +1,20 @@
 /*************Variables************/
-    //JsPsych Vars
-//Chooses what keyboard inputs that can be adjusted and are allowed for user click for each image
-const keyboardPressHappy = 'h';
-const keyboardPressSad = 'f';
+//JsPsych Vars
+let timeline = [];
+const VERSION = "1";
+const KEYBOARD_PRESS_HAPPY = 'h';
+const KEYBOARD_PRESS_FEAR = 'f';
 const STIMULUS_DURATION = 1000;
 const FIXATION_DURATION = 2000;
-//Key to display between trials to user
-const fixationKey = '+';
-//Number of trials
+const FIXATION_KEY = '+';
 const numberOfTrials = 1;
-//Randomize order of trials set to true, if not randomized set to false
 const randomizedTrials = true;
-//Images to use for each and their path
+//Images
 const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
 const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG";
 const imageLocationSadCongruent = "img/SadCongruent.PNG";
 const imageLocationSadIncongruent = "img/SadIncongruent.PNG";
-//Timeline is used as the set of trials we want to run in the experiment
-let timeline = [];
+
 
 /***********Instructions Screen*************/
     //instructions for the experiment
@@ -26,13 +23,13 @@ let instructions = {
         stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
             " and you will also see red text written over these faces.</p>" +
             "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-            "<strong>" + keyboardPressHappy + "</strong> for happy and <strong>" + keyboardPressSad + "</strong> for fear.</p>" +
+            "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
             "<p>-Press any key to continue-</p>" +
             "<div style='width: 1000px;'>" +
             "<div style='float: left;'><img src=" + imageLocationHappyCongruent + "></img><img src=" + imageLocationHappyIncongruent + "></img>" +
-            "<p class='small'><strong>Press the " + keyboardPressHappy + " key</strong></p></div>" +
+            "<p class='small'><strong>Press the " + KEYBOARD_PRESS_HAPPY + " key</strong></p></div>" +
             "<div class='float: right;'><img src=" + imageLocationSadCongruent + "></img><img src=" + imageLocationSadIncongruent + "></img>" +
-            "<p class='small'><strong>Press the " + keyboardPressSad + " key</strong></p></div>" +
+            "<p class='small'><strong>Press the " + KEYBOARD_PRESS_FEAR + " key</strong></p></div>" +
             "</div>"
     };
 //add instructions to the timeline
@@ -43,30 +40,30 @@ timeline.push(instructions);
     //Adds data fields to show if what the correct key is supposed to be
 let h0 = {
         stimulus: imageLocationHappyCongruent,
-        data: { test_part: 'test', correct_response: keyboardPressHappy }
+        data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
     }
 
 
 let h1 = {
     stimulus: imageLocationHappyIncongruent,
-    data: { test_part: 'test', correct_response: keyboardPressHappy }
+    data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
 }
 
 let s0 = {
     stimulus: imageLocationSadCongruent,
-    data: { test_part: 'test', correct_response: keyboardPressSad }
+    data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
 }
 
 let s1 = {
     stimulus: imageLocationSadIncongruent,
-    data: { test_part: 'test', correct_response: keyboardPressSad }
+    data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
 }
 
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
 let fixation = {
     type: 'html-keyboard-response',
-    stimulus: '<div style="font-size:60px;">' + fixationKey + '</div>',
+    stimulus: '<div style="font-size:60px;">' + FIXATION_KEY + '</div>',
     choices: jsPsych.NO_KEYS,
     trial_duration: FIXATION_DURATION,
     data: { test_part: 'fixation' }
@@ -76,7 +73,7 @@ let fixation = {
 let test = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: [keyboardPressHappy, keyboardPressSad],
+    choices: [KEYBOARD_PRESS_HAPPY, KEYBOARD_PRESS_FEAR],
     stimulus_duration: STIMULUS_DURATION,
     data: jsPsych.timelineVariable('data'),
     on_load: function (data) {
@@ -123,6 +120,25 @@ timeline.push(debrief_block);
 jsPsych.init({
     timeline: timeline,
     on_finish: function () {
-        jsPsych.data.displayData();
+        let filename = "task_" + Date.now().toString() + "_ver" + VERSION + ".json";
+        saveData(jsPsych.data.get().json(), filename);
     }
 });
+
+///////////////////
+/// SAVE DATA
+//////////////////
+var saveData = (function () {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+    return function (data, fileName) {
+        var json = data,
+            blob = new Blob([json], { type: "octet/stream" }),
+            url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+}());
