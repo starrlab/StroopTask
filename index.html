@@ -23,7 +23,7 @@
         //Key to display between trials to user
         const fixationKey = '+';
         //Number of trials
-        const numberOfTrials = 2;
+        const numberOfTrials = 1;
         //Randomize order of trials set to true, if not randomized set to false
         const randomizedTrials = true;
         //Images to use for each and their path
@@ -33,34 +33,6 @@
         const imageLocationSadIncongruent = "img/SadIncongruent.PNG";
         //Timeline is used as the set of trials we want to run in the experiment
         let timeline = [];
-
-        /*
-        $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: "data.txt",
-                dataType: "text",
-                success: function (data) { processData(data); }
-            });
-        });
-
-        function processData(allText) {
-            var record_num = 5;  // or however many elements there are in each row
-            var allTextLines = allText.split(/\r\n|\n/);
-            var entries = allTextLines[0].split(',');
-            var lines = [];
-
-            var headings = entries.splice(0, record_num);
-            while (entries.length > 0) {
-                var tarr = [];
-                for (var j = 0; j < record_num; j++) {
-                    tarr.push(headings[j] + ":" + entries.shift());
-                }
-                lines.push(tarr);
-            }
-            console.log(lines);
-        }
-*/
 
         /***********Instructions Screen*************/
         //instructions for the experiment
@@ -76,8 +48,7 @@
                 "<p class='small'><strong>Press the " + keyboardPressHappy + " key</strong></p></div>" +
                 "<div class='float: right;'><img src=" + imageLocationSadCongruent + "></img><img src=" + imageLocationSadIncongruent + "></img>" +
                 "<p class='small'><strong>Press the " + keyboardPressSad + " key</strong></p></div>" +
-                "</div>",
-            post_trial_gap: 1500
+                "</div>"
         };
         //add instructions to the timeline
         timeline.push(instructions);
@@ -186,127 +157,7 @@
             }
         });
     </script>
-    <!--
-    <script>
-
-        
-
     
-        /***********Welcome Screen*************/
-        //welcome message with keyboard input as the first item for our timeline
-        let welcome = {
-            type: "html-keyboard-response",
-            stimulus: "Welcome to the experiment. Press any key to begin."
-        };
-        //need to add the welcome message to the timeline
-        timeline.push(welcome);
-    
-    
-        /***********Instructions Screen*************/
-        //instructions for the experiment
-        let instructions = {
-            type: "html-keyboard-response",
-            stimulus: "<p>In this experiment, an image will appear in the center " +
-                "of the screen.</p><p>If the image is <strong>" + imageNameOne + "</strong>, " +
-                "press the letter " + keyboardPressOne + " on the keyboard as fast as you can.</p>" +
-                "<p>If the image is <strong>" + imageNameTwo + "</strong>, press the letter " + keyboardPressTwo + " " +
-                "as fast as you can.</p>" +
-                "<div style='width: 700px;'>" +
-                "<div style='float: left;'><img src=" + imageLocationOne + "></img>" +
-                "<p class='small'><strong>Press the " + keyboardPressOne + " key</strong></p></div>" +
-                "<div class='float: right;'><img src=" + imageLocationTwo + "></img>" +
-                "<p class='small'><strong>Press the " + keyboardPressTwo + " key</strong></p></div>" +
-                "</div>" +
-                "<p>Press any key to begin.</p>",
-            post_trial_gap: 2000
-        };
-        //add instructions to the timeline
-        timeline.push(instructions);
-    
-    
-        /***********Test trials*************/
-        //test trials. Chooses where the images are located.
-        //Adds data fields to show if what the correct key is supposed to be
-        let test_stimuli = [
-            { stimulus: imageLocationOne, data: { test_part: 'test', correct_response: keyboardPressOne } },
-            { stimulus: imageLocationTwo, data: { test_part: 'test', correct_response: keyboardPressTwo } }
-        ];
-        //Adds a + in between trials for randomized number of millisecond. This is set in trial_duration
-        //User cannot press key to move forward
-        let fixation = {
-            type: 'html-keyboard-response',
-            stimulus: '<div style="font-size:60px;">'+fixationKey+'</div>',
-            choices: jsPsych.NO_KEYS,
-            trial_duration: function () {
-                return jsPsych.randomization.sampleWithoutReplacement(millisecondsToChooseFrom, 1)[0];
-            },
-            data: { test_part: 'fixation' }
-        };
-        //Chooses what keyboard inputs are allowed for user to move forward
-        let test = {
-            type: "image-keyboard-response",
-            stimulus: jsPsych.timelineVariable('stimulus'),
-            choices: [keyboardPressOne, keyboardPressTwo],
-            data: jsPsych.timelineVariable('data'),
-            on_start: function (data) {
-                //send data to rcs for start
-                /*
-                sock.send(numMilliSecSinceNineteenSeventy);
-                sock.receive();
-                */
-            },
-            on_finish: function (data) {
-                //send data to rcs for stop
-                /*
-                sock.send(numMilliSecSinceNineteenSeventy);
-                sock.receive();
-                */
-                data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
-            }
-        };
-        //create a test object with images and keyboard inputs. 
-        //Order of tests are randomized and repeated n number of times
-        let test_procedure = {
-            timeline: [fixation, test],
-            timeline_variables: test_stimuli,
-            randomize_order: randomizedTrials,
-            repetitions: numberOfTrials
-        };
-        //add this to the timeline
-        timeline.push(test_procedure);
-    
-    
-        /***********Debrief Screen************/
-        //allows you to show user statistics of trials
-        var debrief_block = {
-            type: "html-keyboard-response",
-            stimulus: function () {
-    
-                var trials = jsPsych.data.get().filter({ test_part: 'test' });
-                var correct_trials = trials.filter({ correct: true });
-                var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
-                var rt = Math.round(correct_trials.select('rt').mean());
-    
-                return "<p>You responded correctly on " + accuracy + "% of the trials.</p>" +
-                    "<p>Your average response time was " + rt + "ms.</p>" +
-                    "<p>Press any key to complete the experiment. Thank you!</p>";
-    
-            }
-        };
-        //add this to timeline
-        timeline.push(debrief_block);
-    
-    
-        /*********Start Experiment************/
-        //Display data shows the data displayed at end of trials
-        jsPsych.init({
-            timeline: timeline,
-            on_finish: function () {
-                jsPsych.data.displayData();
-            }
-        });
-    </script>
--->
 </body>
 
 </html>
