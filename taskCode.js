@@ -7,13 +7,13 @@ const KEYBOARD_PRESS_FEAR = 'f';
 const STIMULUS_DURATION = 1000;
 const FIXATION_DURATION = 2000;
 const FIXATION_KEY = '+';
-const numberOfTrials = 1;
+const numberOfTrials = 10;
 const randomizedTrials = true;
 //Images
 const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
 const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG";
-const imageLocationSadCongruent = "img/SadCongruent.PNG";
-const imageLocationSadIncongruent = "img/SadIncongruent.PNG";
+const imageLocationFearCongruent = "img/FearCongruent.PNG";
+const imageLocationFearIncongruent = "img/FearIncongruent.PNG";
 
 
 /***********Instructions Screen*************/
@@ -28,7 +28,7 @@ let instructions = {
             "<div style='width: 1000px;'>" +
             "<div style='float: left;'><img src=" + imageLocationHappyCongruent + "></img><img src=" + imageLocationHappyIncongruent + "></img>" +
             "<p class='small'><strong>Press the " + KEYBOARD_PRESS_HAPPY + " key</strong></p></div>" +
-            "<div class='float: right;'><img src=" + imageLocationSadCongruent + "></img><img src=" + imageLocationSadIncongruent + "></img>" +
+            "<div class='float: right;'><img src=" + imageLocationFearCongruent + "></img><img src=" + imageLocationFearIncongruent + "></img>" +
             "<p class='small'><strong>Press the " + KEYBOARD_PRESS_FEAR + " key</strong></p></div>" +
             "</div>"
     };
@@ -50,12 +50,12 @@ let h1 = {
 }
 
 let s0 = {
-    stimulus: imageLocationSadCongruent,
+    stimulus: imageLocationFearCongruent,
     data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
 }
 
 let s1 = {
-    stimulus: imageLocationSadIncongruent,
+    stimulus: imageLocationFearIncongruent,
     data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
 }
 
