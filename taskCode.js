@@ -1,8 +1,10 @@
 /*************Variables************/
     //JsPsych Vars
-    //Chooses what keyboard inputs that can be adjusted and are allowed for user click for each image
+//Chooses what keyboard inputs that can be adjusted and are allowed for user click for each image
 const keyboardPressHappy = 'h';
 const keyboardPressSad = 'f';
+const STIMULUS_DURATION = 1000;
+const FIXATION_DURATION = 2000;
 //Key to display between trials to user
 const fixationKey = '+';
 //Number of trials
@@ -59,20 +61,14 @@ let s1 = {
     stimulus: imageLocationSadIncongruent,
     data: { test_part: 'test', correct_response: keyboardPressSad }
 }
-/*
-let test_stimuli = [
-    { stimulus: imageLocationHappyCongruent, data: { test_part: 'test', correct_response: keyboardPressHappy } },
-    { stimulus: imageLocationHappyIncongruent, data: { test_part: 'test', correct_response: keyboardPressHappy } },
-    { stimulus: imageLocationSadCongruent, data: { test_part: 'test', correct_response: keyboardPressSad } },
-    { stimulus: imageLocationSadIncongruent, data: { test_part: 'test', correct_response: keyboardPressSad } }
-];*/
-//Adds a + in between trials for randomized number of millisecond. This is set in trial_duration
+
+//Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
 let fixation = {
     type: 'html-keyboard-response',
     stimulus: '<div style="font-size:60px;">' + fixationKey + '</div>',
     choices: jsPsych.NO_KEYS,
-    trial_duration: 2000,
+    trial_duration: FIXATION_DURATION,
     data: { test_part: 'fixation' }
 };
 
@@ -81,21 +77,12 @@ let test = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('stimulus'),
     choices: [keyboardPressHappy, keyboardPressSad],
-    stimulus_duration: 1000,
+    stimulus_duration: STIMULUS_DURATION,
     data: jsPsych.timelineVariable('data'),
-    on_start: function (data) {
-        //send data to rcs for start
-        /*
-        sock.send(numMilliSecSinceNineteenSeventy);
-        sock.receive();
-        */
+    on_load: function (data) {
+        //do work
     },
     on_finish: function (data) {
-        //send data to rcs for stop
-        /*
-        sock.send(numMilliSecSinceNineteenSeventy);
-        sock.receive();
-        */
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
     }
 };
