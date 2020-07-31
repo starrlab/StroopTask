@@ -81,6 +81,7 @@ let test = {
     },
     on_finish: function (data) {
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
     }
 };
 
