@@ -1,14 +1,14 @@
 /*************Variables************/
-//JsPsych Vars
-let timeline = [];
 const VERSION = "1";
-const KEYBOARD_PRESS_HAPPY = 'h';
-const KEYBOARD_PRESS_FEAR = 'f';
 const STIMULUS_DURATION = 1000;
 const FIXATION_DURATION = 2000;
-const FIXATION_KEY = '+';
 const numberOfTrials = 1;
 const randomizedTrials = true;
+const KEYBOARD_PRESS_HAPPY = 'h';
+const KEYBOARD_PRESS_FEAR = 'f';
+const FIXATION_KEY = '+';
+let timeline = [];
+
 //Images
 const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
 const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG";
