@@ -7,7 +7,7 @@ const KEYBOARD_PRESS_FEAR = 'f';
 const STIMULUS_DURATION = 1000;
 const FIXATION_DURATION = 2000;
 const FIXATION_KEY = '+';
-const numberOfTrials = 10;
+const numberOfTrials = 1;
 const randomizedTrials = true;
 //Images
 const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
@@ -110,6 +110,10 @@ var debrief_block = {
                 "<p>Average response time was <strong>" + rt + "ms</strong>.</p>" +
                 "<p>Press any key to complete the experiment. Thank you!</p>";
 
+        },
+        on_load: function () {
+            let filename = "task_" + Date.now().toString() + "_ver" + VERSION + ".json";
+            saveData(jsPsych.data.get().json(), filename);
         }
     };
 //add this to timeline
@@ -118,11 +122,7 @@ timeline.push(debrief_block);
 /*********Start Experiment************/
 //Display data shows the data displayed at end of trials
 jsPsych.init({
-    timeline: timeline,
-    on_finish: function () {
-        let filename = "task_" + Date.now().toString() + "_ver" + VERSION + ".json";
-        saveData(jsPsych.data.get().json(), filename);
-    }
+    timeline: timeline
 });
 
 ///////////////////
