@@ -20,8 +20,7 @@ let instructions = {
             " and you will also see red text written over these faces.</p>" +
             "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
             "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
-            "<p>-Press any key to continue-</p>" +
-            "<div style='width: 1000px;'>"
+            "<p><strong>-Press any key to continue-</strong></p>"
     };
 //add instructions to the timeline
 timeline.push(instructions);
@@ -208,6 +207,7 @@ let test = {
         //do work
     },
     on_finish: function (data) {
+        jsPsych.data.addProperties({sequence: SEQUENCE_NUMBER});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
     }
