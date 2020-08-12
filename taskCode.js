@@ -1,20 +1,16 @@
 /*************Variables************/
 const VERSION = "1";
+
+const SEQUENCE_NUMBER = 2; //Choose 1-8
 const STIMULUS_DURATION = 1000;
 const FIXATION_DURATION = 2000;
-const numberOfTrials = 1;
-const randomizedTrials = true;
+
+const NUMBER_OF_TRIALS = 1;
 const KEYBOARD_PRESS_HAPPY = 'h';
 const KEYBOARD_PRESS_FEAR = 'f';
 const FIXATION_KEY = '+';
 let timeline = [];
-
-//Images
-const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
-const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG";
-const imageLocationFearCongruent = "img/FearCongruent.PNG";
-const imageLocationFearIncongruent = "img/FearIncongruent.PNG";
-
+let sequence = [];
 
 /***********Instructions Screen*************/
     //instructions for the experiment
@@ -24,39 +20,170 @@ let instructions = {
             " and you will also see red text written over these faces.</p>" +
             "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
             "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
-            "<p>-Press any key to continue-</p>" +
-            "<div style='width: 1000px;'>" +
-            "<div style='float: left;'><img src=" + imageLocationHappyCongruent + "></img><img src=" + imageLocationHappyIncongruent + "></img>" +
-            "<p class='small'><strong>Press the " + KEYBOARD_PRESS_HAPPY + " key</strong></p></div>" +
-            "<div class='float: right;'><img src=" + imageLocationFearCongruent + "></img><img src=" + imageLocationFearIncongruent + "></img>" +
-            "<p class='small'><strong>Press the " + KEYBOARD_PRESS_FEAR + " key</strong></p></div>" +
-            "</div>"
+            "<p><strong>-Press any key to continue-</strong></p>"
     };
 //add instructions to the timeline
 timeline.push(instructions);
 
-/***********Test trials*************/
-    //test trials. Chooses where the images are located.
-    //Adds data fields to show if what the correct key is supposed to be
-let h0 = {
-        stimulus: imageLocationHappyCongruent,
-        data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
-    }
+/***********Image variables (pre-loaded)*************/
+let f_c_f_af_1 = {stimulus: "img/f_c_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_af_2 = {stimulus: "img/f_c_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_af_3 = {stimulus: "img/f_c_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_af_4 = {stimulus: "img/f_c_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_af_1 = {stimulus: "img/f_i_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_af_2 = {stimulus: "img/f_i_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_af_3 = {stimulus: "img/f_i_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_af_4 = {stimulus: "img/f_i_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_f_af_1 = {stimulus: "img/h_c_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_af_2 = {stimulus: "img/h_c_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_af_3 = {stimulus: "img/h_c_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_af_4 = {stimulus: "img/h_c_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_af_1 = {stimulus: "img/h_i_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_af_2 = {stimulus: "img/h_i_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_af_3 = {stimulus: "img/h_i_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_af_4 = {stimulus: "img/h_i_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_f_as_1 = {stimulus: "img/f_c_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_as_2 = {stimulus: "img/f_c_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_as_3 = {stimulus: "img/f_c_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_as_4 = {stimulus: "img/f_c_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_as_1 = {stimulus: "img/f_i_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_as_2 = {stimulus: "img/f_i_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_as_3 = {stimulus: "img/f_i_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_as_4 = {stimulus: "img/f_i_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_f_as_1 = {stimulus: "img/h_c_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_as_2 = {stimulus: "img/h_c_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_as_3 = {stimulus: "img/h_c_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_as_4 = {stimulus: "img/h_c_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_as_1 = {stimulus: "img/h_i_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_as_2 = {stimulus: "img/h_i_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_as_3 = {stimulus: "img/h_i_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_as_4 = {stimulus: "img/h_i_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_f_ca_1 = {stimulus: "img/f_c_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_ca_2 = {stimulus: "img/f_c_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_ca_3 = {stimulus: "img/f_c_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_ca_4 = {stimulus: "img/f_c_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_ca_1 = {stimulus: "img/f_i_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_ca_2 = {stimulus: "img/f_i_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_ca_3 = {stimulus: "img/f_i_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_ca_4 = {stimulus: "img/f_i_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_f_ca_1 = {stimulus: "img/h_c_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_ca_2 = {stimulus: "img/h_c_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_ca_3 = {stimulus: "img/h_c_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_ca_4 = {stimulus: "img/h_c_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_ca_1 = {stimulus: "img/h_i_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_ca_2 = {stimulus: "img/h_i_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_ca_3 = {stimulus: "img/h_i_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_ca_4 = {stimulus: "img/h_i_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_f_hi_1 = {stimulus: "img/f_c_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_hi_2 = {stimulus: "img/f_c_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_hi_3 = {stimulus: "img/f_c_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_f_hi_4 = {stimulus: "img/f_c_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_hi_1 = {stimulus: "img/f_i_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_hi_2 = {stimulus: "img/f_i_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_hi_3 = {stimulus: "img/f_i_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_f_hi_4 = {stimulus: "img/f_i_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_f_hi_1 = {stimulus: "img/h_c_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_hi_2 = {stimulus: "img/h_c_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_hi_3 = {stimulus: "img/h_c_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_f_hi_4 = {stimulus: "img/h_c_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_hi_1 = {stimulus: "img/h_i_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_hi_2 = {stimulus: "img/h_i_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_hi_3 = {stimulus: "img/h_i_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_f_hi_4 = {stimulus: "img/h_i_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_m_af_1 = {stimulus: "img/f_c_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_af_2 = {stimulus: "img/f_c_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_af_3 = {stimulus: "img/f_c_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_af_4 = {stimulus: "img/f_c_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_af_1 = {stimulus: "img/f_i_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_af_2 = {stimulus: "img/f_i_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_af_3 = {stimulus: "img/f_i_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_af_4 = {stimulus: "img/f_i_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_m_af_1 = {stimulus: "img/h_c_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_af_2 = {stimulus: "img/h_c_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_af_3 = {stimulus: "img/h_c_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_af_4 = {stimulus: "img/h_c_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_af_1 = {stimulus: "img/h_i_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_af_2 = {stimulus: "img/h_i_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_af_3 = {stimulus: "img/h_i_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_af_4 = {stimulus: "img/h_i_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_m_as_1 = {stimulus: "img/f_c_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_as_2 = {stimulus: "img/f_c_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_as_3 = {stimulus: "img/f_c_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_as_4 = {stimulus: "img/f_c_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_as_1 = {stimulus: "img/f_i_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_as_2 = {stimulus: "img/f_i_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_as_3 = {stimulus: "img/f_i_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_as_4 = {stimulus: "img/f_i_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_m_as_1 = {stimulus: "img/h_c_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_as_2 = {stimulus: "img/h_c_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_as_3 = {stimulus: "img/h_c_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_as_4 = {stimulus: "img/h_c_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_as_1 = {stimulus: "img/h_i_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_as_2 = {stimulus: "img/h_i_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_as_3 = {stimulus: "img/h_i_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_as_4 = {stimulus: "img/h_i_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_m_ca_1 = {stimulus: "img/f_c_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_ca_2 = {stimulus: "img/f_c_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_ca_3 = {stimulus: "img/f_c_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_ca_4 = {stimulus: "img/f_c_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_ca_1 = {stimulus: "img/f_i_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_ca_2 = {stimulus: "img/f_i_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_ca_3 = {stimulus: "img/f_i_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_ca_4 = {stimulus: "img/f_i_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_m_ca_1 = {stimulus: "img/h_c_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_ca_2 = {stimulus: "img/h_c_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_ca_3 = {stimulus: "img/h_c_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_ca_4 = {stimulus: "img/h_c_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_ca_1 = {stimulus: "img/h_i_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_ca_2 = {stimulus: "img/h_i_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_ca_3 = {stimulus: "img/h_i_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_ca_4 = {stimulus: "img/h_i_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_m_hi_1 = {stimulus: "img/f_c_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_hi_2 = {stimulus: "img/f_c_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_hi_3 = {stimulus: "img/f_c_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_c_m_hi_4 = {stimulus: "img/f_c_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_hi_1 = {stimulus: "img/f_i_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_hi_2 = {stimulus: "img/f_i_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_hi_3 = {stimulus: "img/f_i_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let f_i_m_hi_4 = {stimulus: "img/f_i_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
+let h_c_m_hi_1 = {stimulus: "img/h_c_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_hi_2 = {stimulus: "img/h_c_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_hi_3 = {stimulus: "img/h_c_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_c_m_hi_4 = {stimulus: "img/h_c_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_hi_1 = {stimulus: "img/h_i_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_hi_2 = {stimulus: "img/h_i_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_hi_3 = {stimulus: "img/h_i_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let h_i_m_hi_4 = {stimulus: "img/h_i_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
 
 
-let h1 = {
-    stimulus: imageLocationHappyIncongruent,
-    data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
-}
-
-let s0 = {
-    stimulus: imageLocationFearCongruent,
-    data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
-}
-
-let s1 = {
-    stimulus: imageLocationFearIncongruent,
-    data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
+/***********Test trials sequences*************/
+switch(SEQUENCE_NUMBER) {
+    case 1:
+        sequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4, f_i_m_ca_1, f_c_m_af_4, h_c_m_af_2, f_c_f_ca_2, f_i_f_hi_1, h_i_f_as_2, f_i_f_af_4, f_c_f_af_3, h_c_f_hi_1, h_i_f_ca_1, h_c_m_hi_1, f_i_f_hi_4, h_i_f_af_4, f_i_m_hi_2, h_c_m_af_4, f_c_f_af_1, h_c_m_ca_3, f_c_f_as_1, h_i_f_as_3, f_i_m_af_4, f_c_f_hi_3, h_i_m_hi_2, f_i_f_hi_3, h_c_m_ca_4, h_i_m_af_2, h_c_f_as_4, h_i_m_af_1, h_c_f_af_2, h_i_f_as_4, f_i_f_ca_3, h_i_f_hi_3, f_c_f_ca_1, f_i_m_hi_4, f_c_f_af_2, f_i_f_as_3, f_c_m_as_3, h_i_m_af_3, f_c_m_as_4, f_i_m_hi_3, h_c_f_as_1, h_i_m_as_2, f_c_m_ca_3, f_i_f_as_2, f_c_f_hi_2, h_i_f_as_1, f_c_m_af_2, f_i_f_af_3, h_i_f_ca_4, h_c_f_hi_2, f_i_f_ca_2, h_c_f_af_3, f_i_f_ca_1, f_c_m_as_1, h_i_f_ca_2, h_c_f_ca_1, f_c_m_ca_4, h_c_m_as_2, f_i_f_ca_4, h_i_m_af_4, h_c_m_ca_2, h_i_f_hi_4, f_c_f_hi_1, h_i_f_af_1, f_c_m_hi_3, f_i_m_ca_2, h_i_m_as_4, f_i_m_ca_4, h_c_m_hi_4, f_i_f_as_4, h_i_f_hi_2, h_c_m_as_3, f_c_m_ca_1, h_c_f_hi_4, f_c_f_ca_3, h_i_m_ca_2, h_c_f_ca_2, h_i_m_as_1, f_c_m_hi_2, h_c_m_as_1, f_c_f_hi_4, f_i_m_as_4, h_c_f_hi_3, h_i_f_ca_3, f_c_f_ca_4, f_i_m_as_1, h_i_m_ca_1, f_i_f_hi_2, h_c_f_as_3, f_c_m_af_3, h_i_f_af_3, f_c_f_as_3, h_i_m_as_3, f_i_m_af_2, h_c_f_as_2, h_i_m_hi_4, h_c_f_ca_3, h_i_m_hi_1, h_c_m_af_1, f_c_m_as_2, h_i_m_hi_3, f_i_m_ca_3, h_c_m_hi_3, f_c_f_af_4, h_c_f_ca_4, h_i_m_ca_3, h_c_m_hi_2, h_i_f_hi_1, f_c_m_ca_2, f_i_f_af_1, h_c_m_ca_1, f_c_m_hi_1, h_i_f_af_2, h_c_m_af_3, f_i_f_as_1, f_c_m_hi_4, f_i_m_af_3, h_c_f_af_1, f_c_m_af_1, f_i_m_hi_1, f_c_f_as_2, f_i_m_af_1, f_c_f_as_4, f_i_f_af_2];
+        break;
+    case 2:
+        sequence = [f_i_f_as_3, h_c_m_hi_1, h_i_f_as_3, f_c_m_hi_3, f_i_m_af_4, h_c_f_af_1, f_i_m_af_1, h_i_f_hi_2, f_i_f_as_2, h_i_f_af_2, h_c_f_as_3, f_c_m_as_1, h_i_f_ca_2, f_c_f_as_2, h_i_f_hi_1, f_c_f_af_2, f_i_m_as_1, f_c_f_as_3, h_i_m_hi_2, h_c_m_as_3, f_c_m_ca_1, h_c_f_as_2, f_c_m_ca_2, f_i_f_af_4, h_i_m_ca_3, f_i_f_as_4, h_i_m_ca_1, h_c_f_hi_4, f_c_m_as_4, h_c_f_as_4, f_i_m_ca_1, h_i_f_ca_4, f_c_f_ca_3, f_i_m_hi_4, h_c_m_as_1, h_i_m_af_4, h_c_f_af_4, f_i_f_af_1, f_c_f_as_4, h_c_m_ca_1, f_i_m_as_4, h_c_m_hi_2, f_c_f_as_1, f_i_m_af_3, h_i_m_as_1, f_c_m_ca_3, h_c_f_as_1, f_c_m_hi_4, f_i_f_ca_4, h_c_f_ca_1, f_c_f_hi_4, f_i_m_ca_2, h_c_f_af_2, f_i_m_hi_2, h_i_f_af_3, h_c_f_ca_2, h_i_m_hi_3, h_c_m_ca_3, f_c_m_af_4, f_i_m_hi_3, h_i_m_hi_1, f_i_f_ca_1, h_c_m_hi_4, h_i_f_as_4, h_c_f_hi_3, h_i_m_as_2, f_i_f_hi_1, h_c_m_af_1, f_i_m_hi_1, h_i_f_af_4, f_c_m_as_3, h_i_f_hi_3, f_i_f_as_1, f_c_m_as_2, f_i_m_ca_4, f_c_m_af_1, h_c_f_af_3, f_c_f_af_1, h_i_f_ca_3, f_c_f_hi_1, f_i_f_hi_4, h_i_m_ca_2, h_c_m_af_4, f_c_f_af_3, h_c_f_ca_4, f_i_f_af_3, f_c_f_ca_2, h_c_m_af_3, h_i_f_ca_1, f_i_f_hi_2, h_c_f_ca_3, h_i_m_af_1, f_i_m_ca_3, f_c_f_ca_4, h_i_f_as_2, f_i_f_ca_3, h_c_m_ca_2, f_c_m_hi_2, f_i_m_as_2, f_c_f_hi_2, f_i_m_af_2, h_i_m_ca_4, h_c_f_hi_1, h_i_m_as_3, f_c_m_af_2, f_i_f_hi_3, h_i_f_as_1, f_c_f_hi_3, h_c_m_ca_4, f_c_m_ca_4, f_i_f_af_2, h_c_m_as_2, h_i_m_as_4, f_c_f_ca_1, h_i_m_af_2, f_c_m_hi_1, h_i_f_af_1, h_c_m_as_4, f_i_m_as_3, h_i_m_af_3, h_c_m_hi_3, f_c_f_af_4, h_i_f_hi_4, f_c_m_af_3, f_i_f_ca_2, h_c_f_hi_2, h_i_m_hi_4, h_c_m_af_2];
+        break;
+    case 3:
+        sequence = [h_c_f_hi_2, h_i_f_af_2, f_c_f_hi_3, h_c_m_ca_4, h_i_m_af_3, h_c_f_as_1, f_i_m_af_3, f_c_f_hi_1, f_i_m_as_3, h_i_f_as_3, h_c_m_ca_3, f_c_f_ca_1, h_i_m_af_2, f_c_f_af_1, h_i_m_hi_2, f_i_f_hi_1, f_c_m_hi_1, h_i_f_as_2, h_c_f_ca_3, h_i_f_as_4, h_c_m_hi_1, f_i_f_hi_4, h_i_m_ca_3, f_c_f_ca_2, h_i_f_hi_1, h_c_f_hi_4, f_i_m_ca_4, h_c_m_ca_1, f_c_m_ca_2, f_i_f_af_3, h_c_m_as_3, h_i_f_as_1, f_i_m_af_2, h_i_f_hi_2, f_c_m_as_4, h_i_f_hi_4, f_i_m_hi_2, h_i_m_af_1, h_c_m_hi_2, h_i_m_as_4, f_i_m_af_1, f_c_m_as_2, h_c_m_as_4, f_c_f_ca_3, f_i_m_ca_3, h_i_f_ca_2, f_c_f_hi_2, h_i_f_hi_3, h_c_f_as_4, h_i_f_af_4, f_i_m_af_4, h_c_f_hi_1, f_i_f_ca_1, f_c_m_af_4, f_i_f_af_1, h_c_m_af_3, f_c_m_ca_4, f_i_m_as_2, f_c_f_ca_4, f_i_f_ca_3, f_c_m_as_1, h_i_m_af_4, f_i_m_as_1, f_c_m_hi_4, f_i_f_as_4, h_c_m_hi_3, f_c_f_af_4, f_i_m_ca_2, f_c_m_af_1, h_i_m_hi_3, h_c_f_ca_4, h_i_m_ca_4, f_i_f_af_4, h_i_f_af_1, f_c_f_af_3, f_i_f_as_2, f_c_f_as_1, h_i_m_hi_4, f_i_m_hi_3, h_i_m_as_1, h_c_m_as_2, h_i_f_ca_4, f_c_f_af_2, h_c_f_ca_1, f_c_m_hi_2, h_c_f_af_2, f_c_m_af_2, h_i_m_ca_2, f_c_f_as_2, f_i_m_ca_1, h_c_f_as_2, h_i_m_as_3, h_c_f_ca_2, f_i_f_hi_3, h_c_m_hi_4, f_i_f_af_2, h_i_m_as_2, f_c_m_hi_3, h_i_f_af_3, f_c_f_hi_4, f_i_f_ca_2, h_c_m_af_4, h_i_f_ca_3, f_c_f_as_4, f_i_f_ca_4, h_i_f_ca_1, h_c_m_af_1, f_i_m_hi_4, h_c_f_af_4, f_i_f_as_3, h_i_m_hi_1, h_c_f_af_3, f_i_m_as_4, f_c_m_ca_3, f_i_m_hi_1, h_c_m_ca_2, f_c_m_af_3, h_i_m_ca_1, h_c_f_hi_3, f_i_f_hi_2, h_c_f_as_3, f_i_f_as_1, h_c_m_af_2, f_c_m_as_3, h_c_m_as_1, f_c_m_ca_1, h_c_f_af_1, f_c_f_as_3];
+        break;
+    case 4:
+        sequence = [f_c_m_as_4, h_c_f_hi_2, f_i_m_af_2, h_c_f_ca_2, f_c_f_hi_2, f_i_f_af_1, h_i_f_ca_4, f_c_m_hi_1, f_i_f_hi_2, h_i_f_af_3, f_c_m_hi_3, h_c_f_hi_3, f_c_f_ca_4, h_c_f_hi_4, f_i_f_ca_2, f_c_f_as_3, f_i_m_as_4, h_i_m_ca_3, f_i_f_hi_4, h_i_m_af_1, f_i_f_ca_1, h_i_f_as_4, f_c_f_af_1, h_c_f_af_2, f_c_f_as_2, h_c_f_ca_3, f_c_m_af_4, f_i_m_af_3, h_c_m_as_2, h_i_m_hi_4, f_i_m_hi_3, h_i_m_af_4, h_c_m_ca_2, f_i_m_ca_3, f_c_f_af_4, h_c_m_hi_4, h_i_m_as_3, f_c_f_hi_4, f_i_f_ca_4, h_i_f_ca_1, f_i_f_as_4, h_i_m_as_2, f_i_m_ca_4, h_i_m_af_2, f_i_m_as_1, h_i_m_hi_3, f_c_f_hi_3, h_i_f_af_4, f_i_f_hi_1, f_c_f_ca_1, h_c_m_hi_1, f_c_f_ca_2, f_i_f_as_2, f_c_m_af_1, h_i_m_as_4, h_c_m_hi_3, f_i_m_hi_2, h_c_m_af_1, f_c_m_ca_1, h_i_m_ca_2, f_c_m_as_3, f_i_f_as_1, h_i_f_as_3, h_c_f_af_3, h_i_f_hi_4, f_c_m_af_3, h_c_f_ca_1, f_c_m_ca_2, f_i_m_hi_4, h_c_m_af_2, f_c_m_hi_2, f_i_m_ca_2, f_c_m_hi_4, h_c_m_as_1, h_i_m_ca_1, f_i_f_af_4, f_c_m_as_2, h_i_m_hi_2, f_c_m_ca_3, h_c_f_as_4, h_i_f_as_1, f_c_f_af_2, h_c_m_af_4, f_i_f_af_2, f_c_m_ca_4, h_i_f_ca_3, h_c_m_ca_3, f_i_m_ca_1, h_c_f_ca_4, f_i_m_as_3, f_c_f_ca_3, h_i_m_af_3, h_c_f_af_1, f_c_m_af_2, h_i_m_as_1, h_c_m_ca_1, h_i_m_hi_1, h_c_f_as_1, h_i_f_as_2, f_i_m_as_2, f_c_f_hi_1, f_i_f_ca_3, h_i_f_af_1, h_c_m_af_3, f_c_f_as_4, h_c_m_ca_4, f_c_f_af_3, h_i_f_hi_2, h_c_f_af_4, h_i_m_ca_4, h_c_f_as_2, f_c_f_as_1, h_c_m_as_3, h_i_f_hi_3, h_c_m_hi_2, f_i_m_hi_1, h_i_f_af_2, f_i_m_af_1, f_c_m_as_1, h_c_f_as_3, f_i_f_af_3, h_i_f_hi_1, f_i_f_as_3, h_c_f_hi_1, h_i_f_ca_2, f_i_f_hi_3, h_c_m_as_4, f_i_m_af_4];
+        break;
+    case 5:
+        sequence = [h_i_m_af_2, h_c_f_as_4, h_i_f_as_2, f_i_f_af_4, h_i_f_af_1, h_c_m_af_2, f_i_m_af_4, h_c_m_af_3, f_c_m_as_1, h_i_f_as_3, f_c_m_af_2, h_c_f_as_1, f_c_f_ca_4, h_c_m_hi_1, f_c_m_af_3, h_c_m_hi_3, h_i_f_ca_2, h_c_m_as_1, f_c_m_ca_3, f_i_f_as_1, f_c_f_as_4, h_c_f_as_3, h_i_f_ca_4, h_c_f_af_4, h_i_m_hi_4, f_c_f_hi_3, h_c_m_as_3, f_c_f_as_3, h_i_f_as_4, f_c_m_ca_1, h_c_f_af_1, f_i_m_as_4, f_c_m_af_4, h_i_m_hi_3, h_c_m_ca_1, h_i_m_hi_1, f_i_m_as_3, h_c_f_ca_1, h_i_m_ca_4, h_c_f_ca_2, h_i_m_ca_1, f_c_m_hi_1, h_i_f_ca_1, f_i_m_as_2, h_i_f_hi_4, h_c_f_af_2, h_i_m_ca_2, f_i_f_af_3, h_c_f_hi_3, f_c_m_as_3, f_i_f_af_1, h_c_f_hi_2, h_i_m_as_3, f_i_f_as_2, f_c_f_ca_2, f_i_m_ca_4, h_i_f_hi_1, f_c_m_hi_3, f_i_m_ca_2, f_c_f_af_3, f_i_f_ca_4, h_c_m_hi_2, h_i_f_af_3, f_i_f_as_3, h_i_m_af_4, h_c_m_ca_4, f_i_m_hi_3, h_i_f_ca_3, f_c_f_hi_2, f_i_m_af_1, h_i_f_hi_2, f_i_f_ca_1, h_i_m_af_3, f_c_m_as_2, h_c_m_af_4, f_i_m_hi_4, f_c_m_as_4, h_i_f_af_4, f_c_f_hi_1, f_i_m_hi_2, h_c_m_as_2, h_i_m_af_1, f_c_f_af_4, f_i_m_ca_3, h_c_m_hi_4, f_c_f_af_1, f_i_m_hi_1, f_c_m_hi_4, h_c_m_ca_3, f_i_m_ca_1, h_c_f_ca_4, h_i_f_as_1, h_c_m_as_4, f_c_f_ca_3, h_c_f_hi_4, f_c_f_ca_1, f_i_m_as_1, h_i_f_hi_3, h_c_m_ca_2, f_i_f_hi_4, h_i_f_af_2, h_c_f_af_3, f_i_f_hi_3, f_c_m_ca_2, h_c_f_as_2, f_c_m_ca_4, f_i_f_af_2, h_i_m_hi_2, f_i_m_af_2, h_c_m_af_1, h_i_m_ca_3, f_i_f_as_4, h_c_f_ca_3, f_i_f_hi_1, h_i_m_as_4, f_c_f_af_2, h_i_m_as_2, f_c_m_af_1, f_i_f_ca_2, f_c_f_as_1, h_i_m_as_1, f_c_f_as_2, f_i_m_af_3, f_c_m_hi_2, f_i_f_ca_3, f_c_f_hi_4, h_c_f_hi_1, f_i_f_hi_2];
+        break;
+    case 6:
+        sequence = [h_i_f_hi_2, h_c_f_as_3, h_i_f_as_1, f_i_f_as_2, h_c_m_ca_3, f_i_f_hi_1, h_i_f_as_3, h_c_f_hi_1, f_c_f_ca_1, h_c_m_af_2, f_c_f_as_4, f_i_m_hi_2, h_c_m_hi_1, f_c_f_hi_3, h_c_f_hi_2, h_i_f_as_4, f_c_f_af_3, f_i_m_as_4, f_c_f_af_4, h_c_f_as_4, f_i_m_as_2, h_i_f_af_1, f_c_f_as_1, h_i_f_hi_3, f_i_m_hi_1, f_c_f_hi_4, h_c_f_ca_2, f_c_m_hi_1, h_c_f_ca_3, h_i_f_ca_4, h_c_f_as_2, f_c_f_af_1, f_i_f_ca_4, f_c_m_ca_4, f_i_f_hi_2, h_c_f_af_3, f_c_m_as_1, h_i_f_ca_3, f_c_m_as_4, f_i_f_hi_4, h_c_f_hi_3, h_i_f_af_2, h_c_m_ca_2, h_i_f_ca_2, f_c_f_af_2, h_i_m_af_1, f_i_f_af_2, f_c_m_ca_3, f_i_f_as_4, h_i_m_hi_3, h_c_m_af_3, f_c_m_hi_3, f_i_m_as_3, h_i_m_hi_1, h_c_f_ca_1, f_c_m_as_2, h_i_m_as_1, f_c_m_af_4, h_c_m_hi_3, h_i_m_hi_4, f_i_f_as_1, h_c_m_af_4, h_i_f_hi_4, f_i_f_af_3, h_i_f_ca_1, f_i_m_af_4, h_i_f_hi_1, f_c_m_ca_2, h_i_m_as_3, f_i_f_ca_3, f_c_m_hi_4, h_c_m_af_1, h_i_m_af_2, f_c_f_ca_4, h_c_f_hi_4, f_i_f_af_1, h_c_m_as_3, h_i_m_ca_1, f_i_m_hi_4, h_i_m_ca_4, f_i_m_ca_2, h_c_m_hi_2, f_c_f_ca_3, f_i_m_hi_3, h_c_m_as_1, h_i_f_af_3, h_c_m_as_4, f_c_f_as_3, f_i_m_as_1, h_i_m_as_2, f_c_f_as_2, h_i_m_as_4, f_i_m_af_3, h_c_m_ca_4, h_i_m_af_4, f_i_m_af_2, h_i_m_hi_2, f_c_m_af_1, h_c_f_ca_4, f_i_f_ca_2, h_c_m_ca_1, f_c_m_af_3, f_i_f_ca_1, h_c_f_af_4, f_i_m_af_1, f_c_f_hi_1, f_i_f_as_3, f_c_m_hi_2, f_i_m_ca_1, h_i_f_as_2, f_c_f_hi_2, h_c_f_as_1, h_i_f_af_4, f_c_f_ca_2, f_i_m_ca_4, h_c_m_hi_4, h_i_m_af_3, f_c_m_af_2, f_i_m_ca_3, h_c_m_as_2, f_c_m_as_3, f_i_f_af_4, f_c_m_ca_1, f_i_f_hi_3, h_i_m_ca_2, h_c_f_af_1, h_i_m_ca_3, h_c_f_af_2];
+        break;
+    case 7:
+        sequence = [h_c_f_hi_2, h_i_m_af_3, f_c_m_ca_1, f_i_m_af_1, h_i_f_ca_1, h_c_m_af_2, f_i_m_hi_3, h_c_m_af_4, f_c_m_as_3, h_i_m_hi_3, h_c_f_af_4, f_c_m_af_2, h_i_f_as_1, f_c_m_as_1, h_i_m_as_2, f_i_m_hi_2, h_c_m_ca_4, h_i_f_as_4, h_c_f_ca_4, f_i_f_hi_3, h_i_f_as_3, f_c_m_ca_3, f_i_m_af_3, h_c_m_af_1, f_c_f_ca_2, f_i_f_ca_3, h_i_m_ca_3, f_c_f_hi_4, h_c_m_as_3, f_c_f_hi_2, f_i_m_as_3, h_c_f_as_2, h_i_m_hi_1, h_c_m_as_2, f_i_f_af_3, h_i_m_af_2, h_c_m_ca_1, h_i_m_af_4, f_i_m_hi_1, h_i_f_as_2, h_c_f_af_1, h_i_f_hi_2, h_c_f_ca_1, h_i_f_hi_4, f_c_f_hi_3, f_i_f_as_3, h_c_m_as_1, f_i_f_ca_4, h_i_m_as_4, h_c_f_ca_2, h_i_m_ca_2, h_c_f_hi_1, h_i_m_hi_4, f_i_m_ca_3, f_c_f_as_3, h_i_f_ca_2, f_c_f_af_3, h_i_m_as_1, h_c_f_hi_3, f_c_f_ca_4, f_i_f_as_4, f_c_m_as_2, f_i_f_hi_4, f_c_m_ca_4, f_i_f_ca_1, h_c_m_hi_3, f_c_f_as_1, f_i_m_ca_1, h_i_f_hi_3, f_c_f_af_1, h_i_m_ca_4, f_c_m_hi_4, f_i_f_af_1, h_c_f_af_2, f_i_m_af_4, h_i_f_af_4, f_c_f_as_2, f_i_f_af_2, f_c_m_af_1, f_i_m_hi_4, h_c_m_ca_3, f_c_m_as_4, h_i_f_hi_1, f_i_m_af_2, f_c_m_hi_1, f_i_m_ca_4, f_c_f_ca_3, h_i_f_af_3, h_c_f_hi_4, h_i_f_ca_3, f_i_f_af_4, h_c_f_as_3, h_i_m_hi_2, f_c_f_af_2, h_c_m_af_3, f_i_f_as_1, f_c_m_ca_2, h_c_f_as_4, f_i_m_as_1, h_i_m_af_1, f_c_f_as_4, h_c_f_as_1, h_i_m_ca_1, f_i_m_as_4, h_c_m_ca_2, h_i_f_ca_4, f_i_m_as_2, h_c_f_af_3, f_i_f_hi_1, f_c_m_hi_3, f_i_f_as_2, f_c_f_hi_1, h_i_f_af_2, f_i_f_hi_2, f_c_m_hi_2, h_i_m_as_3, f_i_m_ca_2, h_c_m_as_4, f_c_f_ca_1, h_c_f_ca_3, f_c_f_af_4, h_i_f_af_1, f_c_m_af_4, h_c_m_hi_4, f_i_f_ca_2, h_c_m_hi_1, f_c_m_af_3, h_c_m_hi_2];
+        break;
+    case 8:
+        sequence = [f_i_f_ca_4, f_c_f_ca_2, f_i_f_hi_3, f_c_m_hi_4, h_c_f_hi_1, h_i_m_hi_1, h_c_m_hi_4, h_i_m_hi_3, f_i_f_hi_1, h_c_f_af_3, f_i_f_af_1, h_c_f_hi_4, h_i_m_ca_2, f_i_f_ca_2, h_c_m_af_2, h_i_m_as_3, f_i_m_ca_4, h_c_m_ca_3, f_c_f_af_1, h_c_f_ca_4, f_c_m_as_2, h_c_m_ca_2, f_i_f_as_2, f_c_f_hi_1, f_i_f_as_3, f_c_m_af_1, h_i_m_ca_4, f_c_f_ca_1, h_i_f_hi_4, f_i_m_hi_2, h_i_m_af_1, f_i_f_af_3, h_i_m_as_1, f_i_m_af_2, h_c_f_ca_3, f_c_m_hi_1, f_i_m_ca_1, f_c_m_hi_3, f_i_f_hi_2, h_i_m_hi_4, h_c_f_hi_3, h_i_f_af_1, f_i_f_ca_3, f_c_f_as_1, h_i_f_ca_4, f_i_m_ca_2, h_i_f_as_4, h_c_m_hi_1, f_i_m_af_4, h_i_m_as_4, f_c_m_af_4, h_i_f_af_2, f_i_m_as_2, h_i_m_hi_2, f_c_f_as_4, h_i_f_ca_2, f_i_m_hi_4, h_c_m_as_2, f_i_f_as_4, h_c_m_af_1, f_i_m_ca_3, f_c_f_af_3, f_i_m_hi_3, h_i_f_as_2, f_i_m_as_4, h_i_f_as_3, f_i_m_hi_1, h_c_m_as_3, f_i_f_hi_4, h_c_m_ca_1, f_c_f_af_2, h_i_f_af_4, h_c_f_af_1, f_c_f_hi_4, h_c_m_hi_3, f_i_f_af_2, f_c_f_af_4, h_i_f_af_3, h_c_f_ca_2, f_c_f_hi_2, h_i_f_hi_3, h_c_m_hi_2, f_c_f_hi_3, h_c_f_as_2, h_i_m_as_2, h_c_m_as_1, f_c_m_af_2, f_i_m_as_1, h_i_m_ca_1, f_c_f_as_2, h_i_m_af_4, f_i_f_ca_1, h_c_f_af_4, h_i_m_af_2, f_i_f_as_1, f_c_m_as_1, f_i_m_af_1, h_c_f_af_2, h_i_f_ca_3, h_c_m_as_4, f_i_f_af_4, h_c_f_ca_1, f_c_m_ca_3, h_c_m_af_3, h_i_f_ca_1, h_c_f_hi_2, f_c_m_ca_4, f_i_m_as_3, h_c_m_af_4, f_c_f_ca_4, h_i_m_ca_3, f_c_m_hi_2, h_i_m_af_3, f_c_m_ca_1, h_c_f_as_1, f_c_m_as_3, h_c_m_ca_4, f_c_f_ca_3, h_i_f_hi_1, f_c_m_ca_2, f_i_m_af_3, h_c_f_as_3, h_i_f_hi_2, f_c_m_af_3, h_i_f_as_1, f_c_f_as_3, h_c_f_as_4, f_c_m_as_4];
+        break;
+    default:
+        alert("ERROR: Could not determine sequence! Please pick a sequence between 1-8 and try again.");
 }
 
 //Adds a fixation in between trials for number of millisecond
@@ -80,6 +207,7 @@ let test = {
         //do work
     },
     on_finish: function (data) {
+        jsPsych.data.addProperties({sequence: SEQUENCE_NUMBER});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
     }
@@ -89,9 +217,8 @@ let test = {
 //Order of tests are randomized and repeated n number of times
 let test_procedure = {
     timeline: [fixation, test],
-    timeline_variables: [s0, h0, h1, s1],
-    randomize_order: randomizedTrials,
-    repetitions: numberOfTrials
+    timeline_variables: sequence,
+    repetitions: NUMBER_OF_TRIALS
 };
 //add this to the timeline
 timeline.push(test_procedure);
