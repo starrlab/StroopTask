@@ -8,139 +8,8 @@ const KEYBOARD_PRESS_HAPPY = 'h';
 const KEYBOARD_PRESS_FEAR = 'f';
 const FIXATION_KEY = '+';
 let timeline = [];
-
-//Images
-const f_c_f_af_1 = "img/f_c_f_af_1.png";
-const f_c_f_af_2 = "img/f_c_f_af_2.png";
-const f_c_f_af_3 = "img/f_c_f_af_3.png";
-const f_c_f_af_4 = "img/f_c_f_af_4.png";
-const f_i_f_af_1 = "img/f_i_f_af_1.png";
-const f_i_f_af_2 = "img/f_i_f_af_2.png";
-const f_i_f_af_3 = "img/f_i_f_af_3.png";
-const f_i_f_af_4 = "img/f_i_f_af_4.png";
-const h_c_f_af_1 = "img/h_c_f_af_1.png";
-const h_c_f_af_2 = "img/h_c_f_af_2.png";
-const h_c_f_af_3 = "img/h_c_f_af_3.png";
-const h_c_f_af_4 = "img/h_c_f_af_4.png";
-const h_i_f_af_1 = "img/h_i_f_af_1.png";
-const h_i_f_af_2 = "img/h_i_f_af_2.png";
-const h_i_f_af_3 = "img/h_i_f_af_3.png";
-const h_i_f_af_4 = "img/h_i_f_af_4.png";
-const f_c_f_as_1 = "img/f_c_f_as_1.png";
-const f_c_f_as_2 = "img/f_c_f_as_2.png";
-const f_c_f_as_3 = "img/f_c_f_as_3.png";
-const f_c_f_as_4 = "img/f_c_f_as_4.png";
-const f_i_f_as_1 = "img/f_i_f_as_1.png";
-const f_i_f_as_2 = "img/f_i_f_as_2.png";
-const f_i_f_as_3 = "img/f_i_f_as_3.png";
-const f_i_f_as_4 = "img/f_i_f_as_4.png";
-const h_c_f_as_1 = "img/h_c_f_as_1.png";
-const h_c_f_as_2 = "img/h_c_f_as_2.png";
-const h_c_f_as_3 = "img/h_c_f_as_3.png";
-const h_c_f_as_4 = "img/h_c_f_as_4.png";
-const h_i_f_as_1 = "img/h_i_f_as_1.png";
-const h_i_f_as_2 = "img/h_i_f_as_2.png";
-const h_i_f_as_3 = "img/h_i_f_as_3.png";
-const h_i_f_as_4 = "img/h_i_f_as_4.png";
-const f_c_f_ca_1 = "img/f_c_f_ca_1.png";
-const f_c_f_ca_2 = "img/f_c_f_ca_2.png";
-const f_c_f_ca_3 = "img/f_c_f_ca_3.png";
-const f_c_f_ca_4 = "img/f_c_f_ca_4.png";
-const f_i_f_ca_1 = "img/f_i_f_ca_1.png";
-const f_i_f_ca_2 = "img/f_i_f_ca_2.png";
-const f_i_f_ca_3 = "img/f_i_f_ca_3.png";
-const f_i_f_ca_4 = "img/f_i_f_ca_4.png";
-const h_c_f_ca_1 = "img/h_c_f_ca_1.png";
-const h_c_f_ca_2 = "img/h_c_f_ca_2.png";
-const h_c_f_ca_3 = "img/h_c_f_ca_3.png";
-const h_c_f_ca_4 = "img/h_c_f_ca_4.png";
-const h_i_f_ca_1 = "img/h_i_f_ca_1.png";
-const h_i_f_ca_2 = "img/h_i_f_ca_2.png";
-const h_i_f_ca_3 = "img/h_i_f_ca_3.png";
-const h_i_f_ca_4 = "img/h_i_f_ca_4.png";
-const f_c_f_hi_1 = "img/f_c_f_hi_1.png";
-const f_c_f_hi_2 = "img/f_c_f_hi_2.png";
-const f_c_f_hi_3 = "img/f_c_f_hi_3.png";
-const f_c_f_hi_4 = "img/f_c_f_hi_4.png";
-const f_i_f_hi_1 = "img/f_i_f_hi_1.png";
-const f_i_f_hi_2 = "img/f_i_f_hi_2.png";
-const f_i_f_hi_3 = "img/f_i_f_hi_3.png";
-const f_i_f_hi_4 = "img/f_i_f_hi_4.png";
-const h_c_f_hi_1 = "img/h_c_f_hi_1.png";
-const h_c_f_hi_2 = "img/h_c_f_hi_2.png";
-const h_c_f_hi_3 = "img/h_c_f_hi_3.png";
-const h_c_f_hi_4 = "img/h_c_f_hi_4.png";
-const h_i_f_hi_1 = "img/h_i_f_hi_1.png";
-const h_i_f_hi_2 = "img/h_i_f_hi_2.png";
-const h_i_f_hi_3 = "img/h_i_f_hi_3.png";
-const h_i_f_hi_4 = "img/h_i_f_hi_4.png";
-const f_c_m_af_1 = "img/f_c_m_af_1.png";
-const f_c_m_af_2 = "img/f_c_m_af_2.png";
-const f_c_m_af_3 = "img/f_c_m_af_3.png";
-const f_c_m_af_4 = "img/f_c_m_af_4.png";
-const f_i_m_af_1 = "img/f_i_m_af_1.png";
-const f_i_m_af_2 = "img/f_i_m_af_2.png";
-const f_i_m_af_3 = "img/f_i_m_af_3.png";
-const f_i_m_af_4 = "img/f_i_m_af_4.png";
-const h_c_m_af_1 = "img/h_c_m_af_1.png";
-const h_c_m_af_2 = "img/h_c_m_af_2.png";
-const h_c_m_af_3 = "img/h_c_m_af_3.png";
-const h_c_m_af_4 = "img/h_c_m_af_4.png";
-const h_i_m_af_1 = "img/h_i_m_af_1.png";
-const h_i_m_af_2 = "img/h_i_m_af_2.png";
-const h_i_m_af_3 = "img/h_i_m_af_3.png";
-const h_i_m_af_4 = "img/h_i_m_af_4.png";
-const f_c_m_as_1 = "img/f_c_m_as_1.png";
-const f_c_m_as_2 = "img/f_c_m_as_2.png";
-const f_c_m_as_3 = "img/f_c_m_as_3.png";
-const f_c_m_as_4 = "img/f_c_m_as_4.png";
-const f_i_m_as_1 = "img/f_i_m_as_1.png";
-const f_i_m_as_2 = "img/f_i_m_as_2.png";
-const f_i_m_as_3 = "img/f_i_m_as_3.png";
-const f_i_m_as_4 = "img/f_i_m_as_4.png";
-const h_c_m_as_1 = "img/h_c_m_as_1.png";
-const h_c_m_as_2 = "img/h_c_m_as_2.png";
-const h_c_m_as_3 = "img/h_c_m_as_3.png";
-const h_c_m_as_4 = "img/h_c_m_as_4.png";
-const h_i_m_as_1 = "img/h_i_m_as_1.png";
-const h_i_m_as_2 = "img/h_i_m_as_2.png";
-const h_i_m_as_3 = "img/h_i_m_as_3.png";
-const h_i_m_as_4 = "img/h_i_m_as_4.png";
-const f_c_m_ca_1 = "img/f_c_m_ca_1.png";
-const f_c_m_ca_2 = "img/f_c_m_ca_2.png";
-const f_c_m_ca_3 = "img/f_c_m_ca_3.png";
-const f_c_m_ca_4 = "img/f_c_m_ca_4.png";
-const f_i_m_ca_1 = "img/f_i_m_ca_1.png";
-const f_i_m_ca_2 = "img/f_i_m_ca_2.png";
-const f_i_m_ca_3 = "img/f_i_m_ca_3.png";
-const f_i_m_ca_4 = "img/f_i_m_ca_4.png";
-const h_c_m_ca_1 = "img/h_c_m_ca_1.png";
-const h_c_m_ca_2 = "img/h_c_m_ca_2.png";
-const h_c_m_ca_3 = "img/h_c_m_ca_3.png";
-const h_c_m_ca_4 = "img/h_c_m_ca_4.png";
-const h_i_m_ca_1 = "img/h_i_m_ca_1.png";
-const h_i_m_ca_2 = "img/h_i_m_ca_2.png";
-const h_i_m_ca_3 = "img/h_i_m_ca_3.png";
-const h_i_m_ca_4 = "img/h_i_m_ca_4.png";
-const f_c_m_hi_1 = "img/f_c_m_hi_1.png";
-const f_c_m_hi_2 = "img/f_c_m_hi_2.png";
-const f_c_m_hi_3 = "img/f_c_m_hi_3.png";
-const f_c_m_hi_4 = "img/f_c_m_hi_4.png";
-const f_i_m_hi_1 = "img/f_i_m_hi_1.png";
-const f_i_m_hi_2 = "img/f_i_m_hi_2.png";
-const f_i_m_hi_3 = "img/f_i_m_hi_3.png";
-const f_i_m_hi_4 = "img/f_i_m_hi_4.png";
-const h_c_m_hi_1 = "img/h_c_m_hi_1.png";
-const h_c_m_hi_2 = "img/h_c_m_hi_2.png";
-const h_c_m_hi_3 = "img/h_c_m_hi_3.png";
-const h_c_m_hi_4 = "img/h_c_m_hi_4.png";
-const h_i_m_hi_1 = "img/h_i_m_hi_1.png";
-const h_i_m_hi_2 = "img/h_i_m_hi_2.png";
-const h_i_m_hi_3 = "img/h_i_m_hi_3.png";
-const h_i_m_hi_4 = "img/h_i_m_hi_4.png";
-
-
-/***********Instructions Screen*************/
+let sequence = [];
+/***********Instructions Screen************
     //instructions for the experiment
 let instructions = {
         type: "html-keyboard-response",
@@ -158,29 +27,58 @@ let instructions = {
     };
 //add instructions to the timeline
 timeline.push(instructions);
+ */
 
 /***********Test trials*************/
     //test trials. Chooses where the images are located.
     //Adds data fields to show if what the correct key is supposed to be
-let h0 = {
-        stimulus: h_i_m_ca_4,
-        data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
-    }
+let f_c_f_af_1 = {
+        stimulus: "img/f_c_f_af_1.png",
+        data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
+}
 
-
-let h1 = {
-    stimulus: h_i_m_ca_1,
+let f_c_f_af_2 = {
+    stimulus: "img/f_c_f_af_2.png",
     data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
 }
 
-let s0 = {
-    stimulus: imageLocationFearCongruent,
+let f_c_f_af_3 = {
+    stimulus: "img/f_c_f_af_3.png",
     data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
 }
 
-let s1 = {
-    stimulus: imageLocationFearIncongruent,
+let f_c_f_af_4 = {
+    stimulus: "img/f_c_f_af_4.png",
     data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }
+}
+
+switch(SEQUENCE_NUMBER) {
+    case 1:
+        sequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4, f_i_m_ca_1, f_c_m_af_4, h_c_m_af_2, f_c_f_ca_2, f_i_f_hi_1, h_i_f_as_2, f_i_f_af_4, f_c_f_af_3, h_c_f_hi_1, h_i_f_ca_1, h_c_m_hi_1, f_i_f_hi_4, h_i_f_af_4, f_i_m_hi_2, h_c_m_af_4, f_c_f_af_1, h_c_m_ca_3, f_c_f_as_1, h_i_f_as_3, f_i_m_af_4, f_c_f_hi_3, h_i_m_hi_2, f_i_f_hi_3, h_c_m_ca_4, h_i_m_af_2, h_c_f_as_4, h_i_m_af_1, h_c_f_af_2, h_i_f_as_4, f_i_f_ca_3, h_i_f_hi_3, f_c_f_ca_1, f_i_m_hi_4, f_c_f_af_2, f_i_f_as_3, f_c_m_as_3, h_i_m_af_3, f_c_m_as_4, f_i_m_hi_3, h_c_f_as_1, h_i_m_as_2, f_c_m_ca_3, f_i_f_as_2, f_c_f_hi_2, h_i_f_as_1, f_c_m_af_2, f_i_f_af_3, h_i_f_ca_4, h_c_f_hi_2, f_i_f_ca_2, h_c_f_af_3, f_i_f_ca_1, f_c_m_as_1, h_i_f_ca_2, h_c_f_ca_1, f_c_m_ca_4, h_c_m_as_2, f_i_f_ca_4, h_i_m_af_4, h_c_m_ca_2, h_i_f_hi_4, f_c_f_hi_1, h_i_f_af_1, f_c_m_hi_3, f_i_m_ca_2, h_i_m_as_4, f_i_m_ca_4, h_c_m_hi_4, f_i_f_as_4, h_i_f_hi_2, h_c_m_as_3, f_c_m_ca_1, h_c_f_hi_4, f_c_f_ca_3, h_i_m_ca_2, h_c_f_ca_2, h_i_m_as_1, f_c_m_hi_2, h_c_m_as_1, f_c_f_hi_4, f_i_m_as_4, h_c_f_hi_3, h_i_f_ca_3, f_c_f_ca_4, f_i_m_as_1, h_i_m_ca_1, f_i_f_hi_2, h_c_f_as_3, f_c_m_af_3, h_i_f_af_3, f_c_f_as_3, h_i_m_as_3, f_i_m_af_2, h_c_f_as_2, h_i_m_hi_4, h_c_f_ca_3, h_i_m_hi_1, h_c_m_af_1, f_c_m_as_2, h_i_m_hi_3, f_i_m_ca_3, h_c_m_hi_3, f_c_f_af_4, h_c_f_ca_4, h_i_m_ca_3, h_c_m_hi_2, h_i_f_hi_1, f_c_m_ca_2, f_i_f_af_1, h_c_m_ca_1, f_c_m_hi_1, h_i_f_af_2, h_c_m_af_3, f_i_f_as_1, f_c_m_hi_4, f_i_m_af_3, h_c_f_af_1, f_c_m_af_1, f_i_m_hi_1, f_c_f_as_2, f_i_m_af_1, f_c_f_as_4, f_i_f_af_2];
+        break;
+    case 2:
+        // code block
+        break;
+    case 3:
+        // code block
+        break;
+    case 4:
+        // code block
+        break;
+    case 5:
+        // code block
+        break;
+    case 6:
+        // code block
+        break;
+    case 7:
+        // code block
+        break;
+    case 8:
+        // code block
+        break;
+    default:
+        alert("Could not determine sequence!");
 }
 
 //Adds a fixation in between trials for number of millisecond
@@ -213,8 +111,7 @@ let test = {
 //Order of tests are randomized and repeated n number of times
 let test_procedure = {
     timeline: [fixation, test],
-    timeline_variables: [s0, h0, h1, s1],
-    randomize_order: randomizedTrials,
+    timeline_variables: sequence,
     repetitions: NUMBER_OF_TRIALS
 };
 //add this to the timeline
