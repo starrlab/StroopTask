@@ -10,8 +10,8 @@ const FIXATION_KEY = '+';
 let timeline = [];
 
 //Images
-const imageLocationHappyCongruent = "img/HappyCongruent.PNG";
-const imageLocationHappyIncongruent = "img/HappyIncongruent.PNG";
+const h_i_m_ca_4 = "img/HappyCongruent.PNG";
+const h_i_m_ca_1 = "img/HappyIncongruent.PNG";
 const imageLocationFearCongruent = "img/FearCongruent.PNG";
 const imageLocationFearIncongruent = "img/FearIncongruent.PNG";
 
@@ -26,7 +26,7 @@ let instructions = {
             "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
             "<p>-Press any key to continue-</p>" +
             "<div style='width: 1000px;'>" +
-            "<div style='float: left;'><img src=" + imageLocationHappyCongruent + "></img><img src=" + imageLocationHappyIncongruent + "></img>" +
+            "<div style='float: left;'><img src=" + h_i_m_ca_4 + "></img><img src=" + h_i_m_ca_1 + "></img>" +
             "<p class='small'><strong>Press the " + KEYBOARD_PRESS_HAPPY + " key</strong></p></div>" +
             "<div class='float: right;'><img src=" + imageLocationFearCongruent + "></img><img src=" + imageLocationFearIncongruent + "></img>" +
             "<p class='small'><strong>Press the " + KEYBOARD_PRESS_FEAR + " key</strong></p></div>" +
@@ -39,13 +39,13 @@ timeline.push(instructions);
     //test trials. Chooses where the images are located.
     //Adds data fields to show if what the correct key is supposed to be
 let h0 = {
-        stimulus: imageLocationHappyCongruent,
+        stimulus: h_i_m_ca_4,
         data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
     }
 
 
 let h1 = {
-    stimulus: imageLocationHappyIncongruent,
+    stimulus: h_i_m_ca_1,
     data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }
 }
 
