@@ -1,9 +1,9 @@
 /*************Variables************/
 const VERSION = "1";
+const SEQUENCE_NUMBER = 1; //sequence can be 1-8
 const STIMULUS_DURATION = 1000;
 const FIXATION_DURATION = 2000;
-const numberOfTrials = 1;
-const randomizedTrials = true;
+const NUMBER_OF_TRIALS = 1;
 const KEYBOARD_PRESS_HAPPY = 'h';
 const KEYBOARD_PRESS_FEAR = 'f';
 const FIXATION_KEY = '+';
@@ -215,7 +215,7 @@ let test_procedure = {
     timeline: [fixation, test],
     timeline_variables: [s0, h0, h1, s1],
     randomize_order: randomizedTrials,
-    repetitions: numberOfTrials
+    repetitions: NUMBER_OF_TRIALS
 };
 //add this to the timeline
 timeline.push(test_procedure);
