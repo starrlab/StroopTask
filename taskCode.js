@@ -6,8 +6,8 @@ const STIMULUS_DURATION = 1000;
 const FIXATION_DURATION = 2000;
 
 const NUMBER_OF_TRIALS = 1;
-const KEYBOARD_PRESS_HAPPY = 'h';
-const KEYBOARD_PRESS_FEAR = 'f';
+const KEYBOARD_PRESS_HAPPY = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39);
+const KEYBOARD_PRESS_FEAR = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37);
 const FIXATION_KEY = '+';
 let timeline = [];
 let sequence = [];
