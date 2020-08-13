@@ -2,7 +2,8 @@
 const VERSION = "1";
 
 const SEQUENCE_NUMBER = 2; //Choose 1-8
-const STIMULUS_DURATION = 1000;
+const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
+const TRIAL_DURATION = 3000; //This is the total time before the curent trial moves on to next trial
 const FIXATION_DURATION = 2000;
 
 const NUMBER_OF_TRIALS = 1;
@@ -202,6 +203,7 @@ let test = {
     stimulus: jsPsych.timelineVariable('stimulus'),
     choices: [KEYBOARD_PRESS_HAPPY, KEYBOARD_PRESS_FEAR],
     stimulus_duration: STIMULUS_DURATION,
+    trial_duration: TRIAL_DURATION,
     data: jsPsych.timelineVariable('data'),
     on_load: function (data) {
         //do work
