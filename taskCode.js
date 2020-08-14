@@ -205,7 +205,9 @@ let test = {
     choices: [KEYBOARD_PRESS_HAPPY, KEYBOARD_PRESS_FEAR],
     stimulus_duration: STIMULUS_DURATION,
     trial_duration: TRIAL_DURATION,
-    post_trial_gap: POST_TRIAL_GAP,
+    post_trial_gap: function(){
+        return jsPsych.randomization.sampleWithoutReplacement([1000, 1250, 1500, 1000, 1750, 2000], 1)[0];
+    },
     data: jsPsych.timelineVariable('data'),
     on_load: function (data) {
         //do work
