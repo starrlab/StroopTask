@@ -15,7 +15,7 @@ const MAINTAIN_IMG_ASPECT_RATIO = true; //must be true or false. Set only the wi
 //Fixation settings
 const FIXATION_DURATION = 2000;
 const FIXATION_KEY = '+';
-const FIXATION_SIZE = 100;
+const FIXATION_SIZE = 60;
 
 //MISC settings
 const NUMBER_OF_TRIALS = 1; //This will run through the entire sequence n number of times as specified.
