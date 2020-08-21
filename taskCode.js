@@ -8,7 +8,7 @@ const TRIAL_DURATION = 3000; //This is the total time before the curent trial mo
 const POST_TRIAL_GAP = [1000, 1250, 1500, 1000, 1750, 2000]; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time). Can add as many values as you want or subtract values from array.
 
 //Image settings
-const STIMULUS_HEIGHT = 800; //Changes the height of the images. Set to null for no changes
+const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
 const STIMULUS_WIDTH = null; //Changes the width of the images.  Set to null for no changes
 const MAINTAIN_IMG_ASPECT_RATIO = true; //must be true or false. Set only the width or height and set to true will keep the aspect ration of the image. Set to false if want to change height/width together.
 
