@@ -78,17 +78,26 @@ let test = {
     on_finish: function (data) {
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
-        if(jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) != data.key_press){
-            console.log('wrong key');
-            skipNextTrialFunc();
-        }
     }
 };
+
+let feedback = {
+    type: 'html-keyboard-response',
+    trial_duration: TRIAL_DURATION,
+    stimulus: function(){
+        let last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+        if(last_trial_correct){
+            return "<h1>Correct!</h1>";
+        } else {
+            return "<h1>Wrong.</h1>"
+        }
+    }
+}
 
 //create a test object with images and keyboard inputs.
 //Order of tests are randomized and repeated n number of times
 let test_procedure = {
-    timeline: [fixation, test],
+    timeline: [fixation, test, feedback],
     timeline_variables: sequence
 };
 //add this to the timeline
@@ -124,12 +133,3 @@ timeline.push(debrief_block);
 jsPsych.init({
     timeline: timeline
 });
-
-const skipNextTrialFunc = () => {
-    //document.getElementById("error-header").innerHTML = ERROR_DISPLAY_MESSAGE;
-    jsPsych.pauseExperiment();
-    setTimeout(function(){
-        //document.getElementById("error-header").innerHTML = '';
-        jsPsych.resumeExperiment();
-    }, ERROR_DISPLAY_LENGTH);
-}
