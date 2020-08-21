@@ -84,13 +84,20 @@ let test = {
 let feedback = {
     type: 'html-keyboard-response',
     trial_duration: TRIAL_DURATION,
+    choices: jsPsych.NO_KEYS,
     stimulus: function(){
         let last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+
         if(last_trial_correct){
             return "<h1>Correct!</h1>";
         } else {
-            return "<h1>Wrong.</h1>"
+            let userResponse = jsPsych.data.get().last(1).values()[0].user_response;
+            let correctResponse = jsPsych.data.get().last(1).values()[0].correct_response;
+            return "<h1>Wrong. The correct response was " + correctResponse + " and your response was " + userResponse + ".</h1>"
         }
+    },
+    on_load: function (data) {
+        console.log(jsPsych.data.get().last(1).values()[0]);
     }
 }
 
