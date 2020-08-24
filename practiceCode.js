@@ -14,7 +14,6 @@ const FIXATION_KEY = '+';
 const FIXATION_SIZE = 60;
 
 const ERROR_DISPLAY_LENGTH = 5000;
-const ERROR_DISPLAY_MESSAGE = "You messed up A-A-Ron!";
 
 const KEYBOARD_PRESS_HAPPY = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
 const KEYBOARD_PRESS_FEAR = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
@@ -83,7 +82,7 @@ let test = {
 
 let feedback = {
     type: 'html-keyboard-response',
-    trial_duration: TRIAL_DURATION,
+    trial_duration: ERROR_DISPLAY_LENGTH,
     choices: jsPsych.NO_KEYS,
     stimulus: function(){
         let last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
