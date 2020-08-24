@@ -91,9 +91,15 @@ let feedback = {
         if(last_trial_correct){
             return "<h1>Correct!</h1>";
         } else {
-            let userResponse = jsPsych.data.get().last(1).values()[0].user_response;
             let correctResponse = jsPsych.data.get().last(1).values()[0].correct_response;
-            return "<h1>Wrong. The correct response was " + correctResponse + " and your response was " + userResponse + ".</h1>"
+            let expression = "";
+            if(correctResponse === "leftarrow"){
+                expression = "fear";
+            }
+            else{
+                expression = "happy";
+            }
+            return "<h1>Wrong. This is " + expression + " expression and the correct answer is " + correctResponse + ".</h1>"
         }
     },
     on_load: function (data) {
