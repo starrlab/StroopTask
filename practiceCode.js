@@ -88,17 +88,26 @@ let feedback = {
         let last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
         let correctResponse = jsPsych.data.get().last(1).values()[0].correct_response;
         let expression = "";
+        let incorrectExpression = "";
+        let correctResponseDirection = "";
+        let inCorrectResponseDirection = "";
         if(correctResponse === "leftarrow"){
             expression = "fear";
+            incorrectExpression = "happy";
+            correctResponseDirection = "left arrow";
+            inCorrectResponseDirection = "right arrow";
         }
         else{
             expression = "happy";
+            incorrectExpression = "fear";
+            correctResponseDirection = "right arrow";
+            inCorrectResponseDirection = "left arrow";
         }
 
         if(last_trial_correct){
-            return "<h1>Correct - you entered " + correctResponse + " for " + expression + " and the facial expression was " + expression + "</h1>";
+            return "<h1>Correct - you entered " + correctResponseDirection + " for " + expression + " and the facial expression was " + expression + "</h1>";
         } else {
-            return "<h1>Wrong. This is " + expression + " expression and the correct answer is " + correctResponse + ".</h1>"
+            return "<h1>Incorrect - you entered " + inCorrectResponseDirection + " for " + incorrectExpression + ", and the facial expression was " + expression + "</h1>"
         }
     },
     on_load: function (data) {
