@@ -86,18 +86,18 @@ let feedback = {
     choices: jsPsych.NO_KEYS,
     stimulus: function(){
         let last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+        let correctResponse = jsPsych.data.get().last(1).values()[0].correct_response;
+        let expression = "";
+        if(correctResponse === "leftarrow"){
+            expression = "fear";
+        }
+        else{
+            expression = "happy";
+        }
 
         if(last_trial_correct){
-            return "<h1>Correct!</h1>";
+            return "<h1>Correct - you entered " + correctResponse + " for " + expression + " and the facial expression was " + expression + "</h1>";
         } else {
-            let correctResponse = jsPsych.data.get().last(1).values()[0].correct_response;
-            let expression = "";
-            if(correctResponse === "leftarrow"){
-                expression = "fear";
-            }
-            else{
-                expression = "happy";
-            }
             return "<h1>Wrong. This is " + expression + " expression and the correct answer is " + correctResponse + ".</h1>"
         }
     },
