@@ -6,6 +6,7 @@ const SEQUENCE_NUMBER = 2; //Choose 1-8
 const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
 const TRIAL_DURATION = 3000; //This is the total time before the curent trial moves on to next trial
 const POST_TRIAL_GAP = 1000; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
+const FEEDBACK_DURATION = 250; //Sets how long the green dot stays on screen if user inputs a response
 
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
@@ -233,23 +234,24 @@ let test = {
 };
 
 let feedback = {
-    type: 'html_keyboard_response',
-    stimulus: '<span class="red fixation-dimensions"></span>',
-    choices: jsPsych.NO_KEYS,
-    trial_duration: fixationTime,
-    data: { block_type: 'GreenCircle' },
-    on_finish: function (data) {
-        data.linux_time_onfinish = Date.now().toString();
+    type: 'html-keyboard-response',
+    stimulus: function(){
+        if(jsPsych.data.get().last(1).values()[0].rt !== null){
+            return '<span class="green fixation-dimensions"></span>'
+        }
+        else{
+            return '<span></span>'
+        }
     },
-    on_load: function (data) {
-        //data.linux_time_onfinish = Date.now().toString();
-    }
+    choices: jsPsych.NO_KEYS,
+    trial_duration: FEEDBACK_DURATION,
+    data: { block_type: 'GreenCircle' }
 }
 
 //create a test object with images and keyboard inputs.
 //Order of tests are randomized and repeated n number of times
 let test_procedure = {
-    timeline: [fixation, test],
+    timeline: [fixation, test, feedback],
     timeline_variables: sequence,
     repetitions: NUMBER_OF_TRIALS
 };
