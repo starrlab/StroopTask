@@ -232,6 +232,20 @@ let test = {
     }
 };
 
+let feedback = {
+    type: 'html_keyboard_response',
+    stimulus: '<span class="red fixation-dimensions"></span>',
+    choices: jsPsych.NO_KEYS,
+    trial_duration: fixationTime,
+    data: { block_type: 'GreenCircle' },
+    on_finish: function (data) {
+        data.linux_time_onfinish = Date.now().toString();
+    },
+    on_load: function (data) {
+        //data.linux_time_onfinish = Date.now().toString();
+    }
+}
+
 //create a test object with images and keyboard inputs.
 //Order of tests are randomized and repeated n number of times
 let test_procedure = {
