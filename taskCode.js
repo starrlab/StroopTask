@@ -1,6 +1,7 @@
 /*************Variables************/
 const VERSION = "1";
 const SEQUENCE_NUMBER = 2; //Choose 1-8
+const ControlGoesFirst = true;
 
 //Trial time settings
 const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
@@ -361,6 +362,7 @@ let test = {
         jsPsych.data.addProperties({sequence: SEQUENCE_NUMBER});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+        data.trial = "ES";
     }
 };
 
@@ -383,6 +385,7 @@ let control = {
         jsPsych.data.addProperties({sequence: SEQUENCE_NUMBER});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+        data.trial = "Control";
     }
 };
 
