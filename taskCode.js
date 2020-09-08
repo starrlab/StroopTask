@@ -366,9 +366,19 @@ timeline.push(instructions);
 instructions = {
     type: "html-keyboard-response",
     stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter → for happy</p>" +
-        "<p>Press any key to begin</p><br>" +
-        "<div><img src='img/ES/h_c_m_ca_1.png'/>" +
+        "<p>Press any key to continue</p><br>" +
+        "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
         "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+timeline.push(instructions);
+
+instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter ← for fear</p>" +
+        "<p>Press any key to continue</p><br>" +
+        "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
+        "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
         "</div>",
 };
 timeline.push(instructions);
