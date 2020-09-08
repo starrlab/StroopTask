@@ -29,20 +29,6 @@ const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); 
 let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
-let finalSequence = [];
-
-/***********Instructions Screen*************/
-    //instructions for the experiment
-let instructions = {
-        type: "html-keyboard-response",
-        stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
-            " and you will also see red text written over these faces.</p>" +
-            "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-            "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
-            "<p><strong>-Press any key to continue-</strong></p>"
-    };
-//add instructions to the timeline
-timeline.push(instructions);
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
@@ -365,6 +351,27 @@ switch(SEQUENCE_NUMBER_CONTROL){
 }
 ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4];
 controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2, f_c_fe_ca_4];
+
+/***********Instructions Screen*************/
+let instructions = {
+        type: "html-keyboard-response",
+        stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
+            " and you will also see red text written over these faces.</p>" +
+            "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
+            "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
+            "<p><strong>-Press any key to continue-</strong></p>"
+};
+timeline.push(instructions);
+
+instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter → for happy</p>" +
+        "<p>Press any key to begin</p><br>" +
+        "<div><img src='img/ES/h_c_m_ca_1.png'/>" +
+        "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+timeline.push(instructions);
 
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
