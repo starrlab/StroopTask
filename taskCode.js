@@ -1,7 +1,8 @@
 /*************Variables************/
 const VERSION = "1";
-const SEQUENCE_NUMBER = 2; //Choose 1-8
-const CONTROL_GOES_FIRST = true;
+const SEQUENCE_NUMBER_TRIAL = 2; //Choose 1-8
+const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
+const CONTROL_GOES_FIRST = false;
 
 //Trial time settings
 const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
@@ -28,20 +29,6 @@ const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); 
 let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
-let finalSequence = [];
-
-/***********Instructions Screen*************/
-    //instructions for the experiment
-let instructions = {
-        type: "html-keyboard-response",
-        stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
-            " and you will also see red text written over these faces.</p>" +
-            "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-            "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
-            "<p><strong>-Press any key to continue-</strong></p>"
-    };
-//add instructions to the timeline
-timeline.push(instructions);
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
@@ -304,7 +291,7 @@ let h_i_ma_hi_3 = {control: "img/Control/h_i_ma_hi_3.png",data: { test_part: 'te
 let h_i_ma_hi_4 = {control: "img/Control/h_i_ma_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
 
 /***********Test trials ESSequences*************/
-switch(SEQUENCE_NUMBER) {
+switch(SEQUENCE_NUMBER_TRIAL) {
     case 1:
         ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4, f_i_m_ca_1, f_c_m_af_4, h_c_m_af_2, f_c_f_ca_2, f_i_f_hi_1, h_i_f_as_2, f_i_f_af_4, f_c_f_af_3, h_c_f_hi_1, h_i_f_ca_1, h_c_m_hi_1, f_i_f_hi_4, h_i_f_af_4, f_i_m_hi_2, h_c_m_af_4, f_c_f_af_1, h_c_m_ca_3, f_c_f_as_1, h_i_f_as_3, f_i_m_af_4, f_c_f_hi_3, h_i_m_hi_2, f_i_f_hi_3, h_c_m_ca_4, h_i_m_af_2, h_c_f_as_4, h_i_m_af_1, h_c_f_af_2, h_i_f_as_4, f_i_f_ca_3, h_i_f_hi_3, f_c_f_ca_1, f_i_m_hi_4, f_c_f_af_2, f_i_f_as_3, f_c_m_as_3, h_i_m_af_3, f_c_m_as_4, f_i_m_hi_3, h_c_f_as_1, h_i_m_as_2, f_c_m_ca_3, f_i_f_as_2, f_c_f_hi_2, h_i_f_as_1, f_c_m_af_2, f_i_f_af_3, h_i_f_ca_4, h_c_f_hi_2, f_i_f_ca_2, h_c_f_af_3, f_i_f_ca_1, f_c_m_as_1, h_i_f_ca_2, h_c_f_ca_1, f_c_m_ca_4, h_c_m_as_2, f_i_f_ca_4, h_i_m_af_4, h_c_m_ca_2, h_i_f_hi_4, f_c_f_hi_1, h_i_f_af_1, f_c_m_hi_3, f_i_m_ca_2, h_i_m_as_4, f_i_m_ca_4, h_c_m_hi_4, f_i_f_as_4, h_i_f_hi_2, h_c_m_as_3, f_c_m_ca_1, h_c_f_hi_4, f_c_f_ca_3, h_i_m_ca_2, h_c_f_ca_2, h_i_m_as_1, f_c_m_hi_2, h_c_m_as_1, f_c_f_hi_4, f_i_m_as_4, h_c_f_hi_3, h_i_f_ca_3, f_c_f_ca_4, f_i_m_as_1, h_i_m_ca_1, f_i_f_hi_2, h_c_f_as_3, f_c_m_af_3, h_i_f_af_3, f_c_f_as_3, h_i_m_as_3, f_i_m_af_2, h_c_f_as_2, h_i_m_hi_4, h_c_f_ca_3, h_i_m_hi_1, h_c_m_af_1, f_c_m_as_2, h_i_m_hi_3, f_i_m_ca_3, h_c_m_hi_3, f_c_f_af_4, h_c_f_ca_4, h_i_m_ca_3, h_c_m_hi_2, h_i_f_hi_1, f_c_m_ca_2, f_i_f_af_1, h_c_m_ca_1, f_c_m_hi_1, h_i_f_af_2, h_c_m_af_3, f_i_f_as_1, f_c_m_hi_4, f_i_m_af_3, h_c_f_af_1, f_c_m_af_1, f_i_m_hi_1, f_c_f_as_2, f_i_m_af_1, f_c_f_as_4, f_i_f_af_2];
         break;
@@ -333,18 +320,68 @@ switch(SEQUENCE_NUMBER) {
         alert("ERROR: Could not determine ESSequence! Please pick a ESSequence between 1-8 and try again.");
 }
 
-if(CONTROL_GOES_FIRST){
-    //add first half control array to finalSequence array
-    //add first half ES array to finalSequence array
-    //add second half control array to finalSequence array
-    //add second half ES array to finalSequence array
+
+switch(SEQUENCE_NUMBER_CONTROL){
+    case 1:
+        controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2,f_c_fe_ca_4,h_i_fe_as_1,f_c_fe_af_2,f_i_fe_hi_2,h_i_fe_hi_3,h_c_fe_af_2,f_c_ma_af_1,h_i_ma_ca_2,f_c_ma_af_2,h_c_fe_hi_2,f_i_ma_ca_4,h_i_fe_ca_1,h_c_fe_hi_4,f_i_fe_ca_3,h_c_fe_af_1,f_c_ma_hi_1,h_c_ma_af_3,h_i_fe_hi_4,f_i_fe_af_4,f_c_fe_af_1,h_i_ma_hi_2,h_c_fe_as_2,f_i_fe_as_3,h_i_ma_ca_1,h_c_ma_af_2,h_i_fe_hi_1,h_c_ma_ca_4,f_i_ma_hi_1,f_c_fe_hi_2,h_c_ma_hi_3,h_i_fe_as_4,f_c_ma_ca_3,h_c_fe_as_4,f_c_fe_as_2,h_i_ma_hi_3,f_i_ma_hi_4,h_c_ma_ca_1,f_i_ma_hi_3,h_c_ma_as_2,h_i_ma_af_2,f_i_fe_ca_2,f_c_ma_hi_4,f_i_ma_af_1,h_c_ma_as_1,h_i_fe_as_3,f_i_ma_as_4,f_c_ma_as_3,f_i_fe_af_1,h_c_ma_hi_4,f_c_fe_as_1,f_i_ma_af_3,h_c_fe_af_3,f_c_ma_as_2,h_c_ma_as_3,f_c_fe_as_4,h_i_fe_hi_2,f_i_ma_hi_2,h_c_fe_ca_4,f_i_fe_af_3,f_c_ma_as_1,h_c_ma_hi_1,f_c_ma_as_4,f_i_ma_ca_1,f_c_fe_af_3,h_i_fe_as_2,f_c_ma_ca_4,f_i_fe_as_2,h_i_ma_af_4,f_c_fe_hi_3,f_i_ma_ca_3,h_c_ma_af_4,h_i_ma_hi_1,f_i_ma_af_2,h_c_fe_hi_1,h_i_ma_ca_3,f_c_ma_ca_1,h_i_fe_af_2,h_c_fe_af_4,h_i_fe_af_3,f_i_fe_hi_1,h_c_fe_ca_1,f_c_fe_af_4,h_c_fe_ca_2,f_i_fe_as_1,f_c_fe_as_3,f_i_fe_hi_4,f_c_ma_af_4,h_c_ma_ca_3,h_i_ma_as_4,f_c_fe_ca_1,h_c_fe_ca_3,f_i_fe_ca_1,f_c_ma_ca_2,h_i_ma_af_1,f_i_ma_as_2,h_c_ma_hi_2,h_i_fe_af_4,h_c_fe_as_1,f_c_fe_hi_4,h_c_ma_af_1,f_i_fe_hi_3,h_i_ma_as_3,f_i_fe_af_2,f_c_fe_ca_2,h_i_ma_ca_4,f_i_ma_as_1,h_i_ma_as_2,h_c_fe_hi_3,f_c_fe_ca_3,h_i_ma_af_3,f_i_fe_ca_4,f_c_ma_hi_3,f_i_ma_as_3,h_i_fe_af_1,h_c_ma_as_4,f_i_fe_as_4,h_i_fe_ca_3,f_c_ma_hi_2,h_i_fe_ca_2,h_c_fe_as_3,f_i_ma_af_4,h_i_ma_as_1,f_c_fe_hi_1,h_c_ma_ca_2];
+        break;
+    case 2:
+        controlSequence = [h_c_ma_ca_4,f_c_ma_as_2,h_c_fe_hi_1,f_i_ma_as_1,h_c_fe_as_2,h_i_ma_as_1,f_c_fe_af_2,h_c_ma_as_4,h_i_fe_af_4,f_i_fe_as_4,f_c_ma_as_4,h_c_ma_af_1,h_i_ma_as_3,f_i_fe_af_2,h_i_ma_ca_4,h_c_ma_as_3,f_c_fe_hi_1,h_c_fe_hi_2,f_i_fe_as_2,h_i_fe_af_1,h_c_ma_af_2,f_c_fe_as_2,h_i_fe_ca_4,f_i_ma_ca_4,f_c_fe_as_1,h_i_fe_hi_3,h_c_fe_ca_2,f_i_fe_ca_1,h_i_fe_as_3,f_i_ma_as_2,f_c_ma_hi_3,f_i_fe_hi_4,f_c_fe_af_1,f_i_ma_ca_3,f_c_ma_af_2,h_i_ma_ca_1,h_c_fe_hi_3,h_i_fe_hi_2,h_c_fe_af_3,f_i_ma_ca_2,h_c_ma_ca_1,f_c_ma_as_3,h_i_fe_as_1,h_c_ma_hi_3,h_i_fe_ca_2,f_c_ma_as_1,f_i_ma_hi_3,h_i_fe_af_2,f_c_fe_ca_3,f_i_fe_ca_2,h_c_fe_af_4,h_i_ma_af_1,f_c_ma_hi_4,f_i_fe_af_4,f_c_ma_af_4,h_c_ma_as_2,f_i_fe_af_1,h_i_fe_af_3,h_c_fe_af_2,h_i_ma_as_4,f_i_ma_as_3,f_c_fe_as_3,f_i_fe_hi_1,f_c_ma_ca_2,f_i_ma_hi_1,h_c_fe_ca_3,h_i_ma_hi_3,f_i_ma_hi_2,h_c_ma_hi_4,f_c_fe_af_3,h_i_ma_ca_3,h_c_ma_af_3,f_i_ma_hi_4,h_i_ma_hi_1,f_c_fe_hi_3,h_c_fe_as_1,h_i_ma_as_2,h_c_fe_hi_4,f_i_fe_as_3,h_i_ma_af_4,f_i_fe_hi_2,f_c_fe_as_4,f_i_ma_af_4,h_i_fe_ca_3,f_c_ma_hi_1,f_i_ma_af_2,h_i_fe_as_4,h_c_ma_ca_3,f_c_fe_ca_2,f_i_fe_hi_3,h_c_fe_ca_4,f_i_ma_ca_1,f_c_fe_ca_1,h_i_ma_af_2,f_c_fe_ca_4,h_i_fe_hi_1,h_c_ma_hi_2,h_i_ma_ca_2,f_c_fe_hi_2,f_i_ma_as_4,h_i_fe_as_2,h_c_fe_af_1,h_i_fe_ca_1,f_c_ma_hi_2,f_i_ma_af_3,h_c_ma_ca_2,h_i_fe_hi_4,f_c_ma_af_1,h_c_ma_af_4,f_i_ma_af_1,f_c_ma_af_3,f_i_fe_as_1,h_c_fe_ca_1,h_i_ma_af_3,f_c_ma_ca_4,f_i_fe_af_3,h_c_fe_as_4,f_c_fe_af_4,f_i_fe_ca_4,f_c_fe_hi_4,h_c_ma_hi_1,f_c_ma_ca_1,f_i_fe_ca_3,h_i_ma_hi_2,f_c_ma_ca_3,h_c_ma_as_1,h_i_ma_hi_4,h_c_fe_as_3];
+        break;
+    case 3:
+        controlSequence = [h_c_ma_hi_2,f_c_ma_hi_1,h_c_ma_hi_3,h_i_fe_hi_2,h_c_fe_hi_1,h_i_ma_ca_2,f_i_ma_ca_3,h_i_fe_as_3,h_c_ma_ca_4,h_i_ma_af_1,f_i_fe_as_2,h_i_ma_hi_2,h_c_ma_af_4,f_i_ma_af_1,h_c_ma_as_4,f_c_ma_as_2,h_i_fe_hi_4,h_c_fe_as_1,h_i_fe_af_3,h_c_ma_hi_4,f_c_fe_ca_4,h_i_ma_ca_4,f_i_fe_ca_1,h_c_ma_af_2,f_i_ma_hi_1,f_c_ma_hi_4,h_c_fe_af_4,f_c_fe_af_3,h_i_fe_as_4,h_c_fe_ca_2,f_c_ma_hi_2,h_c_fe_hi_4,f_i_ma_as_4,h_i_fe_hi_1,f_i_ma_af_2,h_c_ma_af_3,h_i_ma_ca_3,f_c_fe_ca_1,h_i_ma_ca_1,h_c_ma_hi_1,f_i_ma_as_1,h_i_fe_ca_3,f_i_ma_ca_2,h_i_ma_hi_4,f_c_fe_af_2,h_i_ma_af_3,h_c_ma_as_2,f_c_fe_as_3,f_i_fe_ca_2,f_c_fe_ca_3,h_c_ma_af_1,f_i_fe_hi_2,h_i_fe_as_1,h_c_ma_ca_2,f_c_fe_hi_2,h_i_ma_as_3,f_c_ma_af_4,f_i_fe_hi_1,f_c_ma_hi_3,f_i_fe_af_3,h_i_fe_hi_3,h_c_fe_as_3,f_i_fe_as_4,f_c_ma_af_2,h_i_ma_af_4,f_i_ma_as_3,h_i_fe_ca_2,f_c_ma_af_1,h_c_fe_af_3,f_c_fe_as_2,h_c_fe_hi_3,f_i_ma_ca_4,f_c_fe_as_1,f_i_ma_hi_3,h_i_fe_ca_4,f_c_ma_ca_4,h_c_fe_as_2,h_i_ma_hi_3,f_i_fe_ca_4,h_c_ma_ca_1,f_c_ma_ca_2,f_i_fe_af_4,h_i_ma_as_2,h_c_fe_as_4,f_i_fe_af_2,f_c_ma_as_4,h_i_fe_as_2,h_c_fe_ca_4,h_i_fe_af_2,f_i_fe_hi_4,h_c_fe_af_2,f_i_ma_af_3,h_i_ma_hi_1,f_c_fe_hi_1,f_i_ma_hi_2,f_c_ma_af_3,f_i_fe_as_3,f_c_fe_af_1,h_c_fe_ca_1,h_i_ma_af_2,f_c_fe_hi_4,h_i_ma_as_1,f_c_fe_ca_2,h_i_fe_ca_1,f_i_ma_ca_1,h_c_fe_ca_3,f_i_fe_hi_3,h_c_ma_ca_3,f_i_fe_af_1,h_i_fe_af_4,f_i_fe_as_1,f_c_fe_af_4,f_i_ma_af_4,f_c_ma_as_1,h_i_fe_af_1,f_c_ma_ca_1,f_i_ma_as_2,h_c_fe_hi_2,f_c_ma_as_3,f_i_fe_ca_3,f_c_ma_ca_3,f_i_ma_hi_4,f_c_fe_as_4,h_c_ma_as_1,f_c_fe_hi_3,h_c_ma_as_3,h_i_ma_as_4,h_c_fe_af_1];
+        break;
+    case 4:
+        controlSequence = [h_i_fe_ca_2,f_i_fe_af_1,f_c_ma_hi_1,f_i_fe_as_1,f_c_fe_as_4,f_i_ma_ca_3,h_c_fe_af_1,h_i_fe_hi_4,f_i_fe_ca_1,h_c_ma_as_2,h_i_ma_ca_4,f_i_ma_as_3,h_i_ma_hi_1,f_c_ma_hi_4,h_c_fe_ca_3,f_i_ma_as_4,h_i_fe_as_4,f_c_fe_af_4,h_c_ma_hi_3,f_i_ma_ca_1,h_c_fe_ca_1,f_c_fe_hi_2,h_i_ma_as_4,f_i_ma_ca_2,h_c_fe_as_3,f_c_fe_af_1,h_c_fe_af_4,h_i_ma_as_3,f_i_ma_hi_1,f_c_fe_ca_4,h_c_fe_ca_2,f_c_ma_as_3,h_c_ma_ca_4,f_i_fe_hi_1,f_c_ma_as_1,f_i_ma_af_3,f_c_fe_hi_3,f_i_ma_hi_4,f_c_fe_ca_1,f_i_ma_af_4,h_i_fe_as_1,f_c_fe_ca_3,h_c_fe_as_1,h_i_ma_ca_1,h_c_fe_hi_4,f_c_fe_hi_1,f_i_fe_af_2,h_c_fe_hi_2,f_i_fe_as_4,h_c_fe_ca_4,f_i_ma_ca_4,h_c_fe_as_4,h_i_ma_af_3,f_c_ma_ca_4,h_i_fe_hi_3,h_c_ma_af_2,h_i_ma_af_4,f_i_fe_ca_3,f_c_ma_ca_1,h_c_ma_ca_2,f_c_fe_ca_2,h_c_ma_as_3,f_c_fe_af_3,h_c_ma_ca_3,f_i_fe_as_2,f_c_ma_as_2,f_i_ma_as_1,h_i_fe_af_2,f_i_fe_hi_2,h_i_ma_af_2,f_i_ma_as_2,h_i_fe_af_3,f_c_ma_ca_3,h_c_fe_hi_3,f_i_ma_af_1,h_c_ma_hi_2,h_i_fe_af_1,f_c_fe_as_3,f_i_fe_ca_2,f_c_ma_hi_3,h_i_ma_as_2,f_i_fe_af_3,h_c_ma_af_1,h_i_ma_ca_2,h_c_ma_as_4,f_i_ma_af_2,h_i_fe_ca_1,h_c_fe_af_2,h_i_fe_as_3,f_i_fe_hi_3,h_i_ma_hi_4,f_c_ma_af_4,h_c_fe_af_3,f_c_ma_hi_2,h_i_fe_af_4,f_c_fe_as_1,h_i_ma_ca_3,h_c_ma_hi_1,f_i_fe_af_4,h_i_fe_as_2,h_c_ma_af_3,h_i_ma_hi_3,f_c_fe_hi_4,h_i_fe_ca_4,f_c_ma_ca_2,h_i_ma_af_1,f_i_ma_hi_3,f_c_ma_as_4,h_i_fe_hi_2,f_c_fe_af_2,h_c_fe_hi_1,f_c_ma_af_1,h_c_ma_hi_4,h_i_fe_hi_1,f_i_fe_hi_4,h_i_fe_ca_3,h_c_ma_as_1,h_i_ma_hi_2,f_c_ma_af_2,f_i_fe_ca_4,h_c_ma_af_4,h_i_ma_as_1,h_c_ma_ca_1,f_c_ma_af_3,f_i_ma_hi_2,f_c_fe_as_2,f_i_fe_as_3,h_c_fe_as_2];
+        break;
+    case 5:
+        controlSequence = [h_c_fe_ca_3,f_c_ma_ca_4,h_c_ma_as_3,f_c_ma_ca_1,h_i_fe_hi_1,f_i_ma_hi_3,h_c_ma_af_1,h_i_ma_as_1,f_c_fe_af_4,h_i_fe_as_3,f_i_ma_ca_3,h_i_fe_ca_1,f_i_fe_as_2,f_c_ma_hi_2,h_i_ma_af_2,h_c_ma_as_2,f_c_fe_af_2,f_i_fe_af_4,h_c_ma_hi_2,f_i_fe_hi_4,h_i_ma_af_4,f_c_ma_as_2,f_i_ma_af_3,f_c_fe_as_2,h_c_fe_as_4,h_i_fe_af_3,h_c_ma_hi_4,h_i_ma_af_1,f_c_fe_as_4,f_i_fe_as_3,f_c_fe_af_3,f_i_fe_hi_1,f_c_ma_hi_4,h_c_ma_ca_3,f_i_ma_hi_4,h_i_fe_ca_2,h_c_fe_af_3,f_c_fe_hi_2,h_c_fe_ca_1,f_i_fe_ca_3,h_c_ma_as_1,h_i_ma_ca_1,f_i_ma_as_2,f_c_ma_af_3,f_i_fe_as_1,f_c_fe_hi_3,f_i_ma_hi_1,h_i_fe_hi_4,h_c_fe_hi_3,f_c_ma_hi_3,h_c_fe_hi_4,h_i_fe_hi_3,h_c_ma_ca_1,h_i_ma_hi_2,f_i_fe_af_3,h_c_fe_as_3,h_i_fe_ca_3,h_c_ma_hi_3,h_i_ma_ca_4,f_c_fe_ca_3,f_i_ma_hi_2,h_i_fe_af_1,h_c_fe_hi_2,f_i_fe_ca_1,f_c_fe_ca_4,h_i_ma_hi_4,f_i_ma_af_2,h_c_fe_af_4,f_c_ma_ca_3,h_i_ma_hi_3,f_c_ma_af_4,h_i_ma_as_2,h_c_ma_af_3,h_i_ma_ca_2,f_c_ma_af_1,h_i_fe_af_2,f_c_fe_as_3,h_c_ma_af_2,h_i_fe_as_4,f_i_ma_ca_4,f_c_ma_as_3,h_i_ma_af_3,f_i_fe_hi_3,f_c_fe_hi_1,h_i_ma_hi_1,f_i_fe_af_1,f_c_fe_ca_2,h_i_fe_as_1,f_i_ma_af_4,f_c_fe_ca_1,h_c_ma_as_4,h_i_fe_af_4,f_c_ma_ca_2,f_i_ma_as_3,h_c_fe_ca_4,f_c_ma_af_2,f_i_fe_hi_2,f_c_fe_af_1,h_c_ma_ca_4,f_i_fe_ca_4,f_c_fe_hi_4,h_i_ma_as_4,h_c_fe_as_2,f_i_ma_ca_2,h_i_ma_as_3,f_c_ma_as_4,h_i_fe_as_2,h_c_ma_af_4,f_i_ma_as_4,f_c_ma_hi_1,h_i_fe_ca_4,h_c_fe_ca_2,f_i_ma_ca_1,f_c_fe_as_1,h_c_ma_ca_2,h_i_ma_ca_3,h_c_fe_af_2,f_i_ma_af_1,f_c_ma_as_1,h_c_fe_as_1,f_i_fe_af_2,h_c_fe_af_1,f_i_fe_as_4,h_c_fe_hi_1,f_i_ma_as_1,h_c_ma_hi_1,f_i_fe_ca_2,h_i_fe_hi_2];
+        break;
+    case 6:
+        controlSequence = [f_c_fe_ca_1,f_i_fe_af_3,h_c_fe_as_3,h_i_ma_hi_2,f_i_fe_ca_4,h_c_ma_af_2,f_i_ma_ca_4,h_c_fe_hi_3,f_i_fe_ca_3,h_i_ma_ca_1,h_c_fe_ca_3,f_c_fe_ca_4,h_i_ma_ca_4,f_c_fe_hi_1,h_i_ma_af_1,f_i_ma_af_3,h_c_ma_as_2,f_i_fe_as_3,h_i_ma_ca_3,h_c_fe_ca_1,f_c_ma_hi_1,h_i_ma_as_1,f_c_fe_as_1,h_c_ma_as_1,h_i_fe_af_2,h_c_fe_hi_4,h_i_fe_af_3,f_i_ma_ca_1,f_c_ma_ca_2,f_i_fe_as_4,f_c_fe_as_3,h_c_ma_hi_2,f_c_fe_af_1,h_i_fe_ca_3,h_c_ma_ca_4,h_i_ma_af_2,f_c_fe_af_2,h_i_ma_hi_3,f_i_ma_as_2,h_c_ma_af_1,h_i_fe_af_4,f_i_fe_hi_1,h_i_fe_hi_3,f_c_ma_hi_2,h_c_ma_as_3,f_c_ma_af_1,h_c_ma_hi_3,f_i_ma_af_1,f_c_fe_ca_2,h_i_fe_ca_4,f_c_fe_hi_2,f_i_fe_as_2,h_i_ma_as_3,f_i_ma_as_4,h_c_fe_as_4,f_c_fe_hi_4,h_c_fe_af_4,h_i_fe_as_4,f_i_fe_ca_2,f_c_ma_af_4,h_c_ma_as_4,f_i_fe_as_1,f_c_fe_as_2,h_c_fe_af_2,f_i_fe_hi_3,h_c_ma_ca_1,f_i_fe_hi_4,h_i_ma_as_2,h_c_ma_af_4,h_i_fe_af_1,h_c_fe_hi_2,f_i_ma_hi_2,h_c_ma_af_3,f_i_fe_af_4,f_c_fe_af_3,h_c_ma_ca_3,f_c_fe_hi_3,f_i_ma_hi_1,h_i_fe_ca_1,f_c_fe_af_4,h_c_fe_ca_2,f_c_fe_as_4,h_c_fe_af_3,f_i_ma_ca_3,h_i_fe_hi_1,h_c_ma_hi_1,f_i_fe_hi_2,f_c_ma_ca_1,f_i_ma_as_1,h_i_fe_as_2,f_c_fe_ca_3,f_i_ma_af_4,h_c_fe_ca_4,h_i_ma_af_4,f_i_ma_ca_2,f_c_ma_as_3,h_i_ma_as_4,f_c_ma_ca_4,h_c_fe_hi_1,f_i_fe_af_2,h_c_fe_af_1,f_c_ma_hi_4,h_c_fe_as_1,f_c_ma_ca_3,f_i_ma_as_3,f_c_ma_af_3,f_i_ma_hi_3,h_i_fe_as_1,h_c_fe_as_2,f_i_fe_ca_1,f_c_ma_as_1,h_c_ma_ca_2,f_c_ma_hi_3,h_i_ma_hi_4,f_c_ma_af_2,h_i_ma_ca_2,f_i_ma_af_2,h_i_fe_ca_2,f_c_ma_as_2,h_i_fe_as_3,f_c_ma_as_4,h_i_ma_af_3,f_i_fe_af_1,h_i_fe_hi_2,h_c_ma_hi_4,h_i_ma_hi_1,f_i_ma_hi_4,h_i_fe_hi_4];
+        break;
+    case 7:
+        controlSequence = [h_c_ma_af_3,h_i_fe_af_2,f_c_fe_ca_2,h_i_fe_ca_1,f_c_ma_ca_3,h_i_ma_as_4,h_c_ma_hi_2,f_c_fe_hi_2,f_i_ma_af_3,f_c_fe_as_1,h_c_fe_as_3,h_i_fe_hi_4,f_c_fe_af_3,h_i_ma_as_3,h_c_fe_ca_2,f_c_fe_ca_4,f_i_fe_as_2,h_i_fe_as_3,h_c_ma_as_3,f_c_ma_hi_1,h_c_ma_as_4,f_c_ma_as_2,f_i_fe_af_4,h_i_ma_as_2,f_i_fe_hi_1,h_i_ma_hi_3,f_c_fe_hi_4,h_c_ma_hi_1,f_i_ma_ca_2,f_c_ma_hi_4,h_i_fe_hi_1,h_c_fe_hi_3,f_i_ma_ca_4,h_i_fe_af_3,f_c_fe_as_4,f_i_fe_af_2,h_c_ma_as_1,f_i_ma_as_4,h_i_fe_hi_2,f_i_fe_ca_4,h_i_ma_ca_1,h_c_fe_af_2,h_i_ma_af_3,f_c_ma_as_4,h_c_fe_hi_2,f_i_ma_af_1,h_i_ma_as_1,f_i_ma_hi_4,h_c_fe_ca_4,f_i_fe_ca_2,h_i_fe_as_4,h_c_fe_as_1,f_c_ma_af_4,f_i_ma_ca_3,h_i_fe_af_4,h_c_ma_ca_4,h_i_fe_ca_2,h_c_ma_ca_1,f_c_ma_as_3,f_i_ma_hi_1,f_c_fe_hi_1,f_i_ma_as_3,h_i_ma_hi_2,f_i_fe_ca_3,f_c_fe_as_3,h_i_fe_hi_3,f_c_fe_ca_3,f_i_fe_af_1,f_c_ma_ca_2,h_c_fe_as_2,f_c_fe_ca_1,f_i_ma_as_2,h_c_fe_ca_3,f_i_fe_hi_4,f_c_ma_ca_4,h_c_fe_af_4,f_i_fe_as_3,h_c_ma_hi_4,f_i_fe_ca_1,h_c_fe_hi_4,f_i_fe_as_4,h_i_ma_af_2,f_i_ma_ca_1,h_c_fe_af_1,f_c_ma_hi_2,h_c_fe_as_4,f_c_fe_af_1,h_i_ma_af_4,h_c_ma_hi_3,f_i_ma_as_1,f_c_ma_af_1,h_c_ma_ca_2,h_i_ma_af_1,f_c_fe_af_4,h_i_ma_hi_4,f_i_ma_hi_2,h_i_ma_ca_2,h_c_ma_af_2,f_c_fe_as_2,h_i_ma_ca_4,h_c_fe_af_3,f_c_ma_af_2,h_c_ma_as_2,f_i_fe_hi_2,f_c_ma_as_1,h_i_fe_af_1,f_c_ma_ca_1,h_i_ma_hi_1,f_i_ma_hi_3,f_c_fe_hi_3,h_i_ma_ca_3,h_c_ma_af_4,f_c_ma_hi_3,h_c_ma_af_1,f_c_fe_af_2,h_i_fe_ca_4,f_c_ma_af_3,f_i_ma_af_2,h_i_fe_as_1,h_c_ma_ca_3,f_i_ma_af_4,h_i_fe_as_2,f_i_fe_af_3,h_c_fe_ca_1,f_i_fe_hi_3,h_c_fe_hi_1,f_i_fe_as_1,h_i_fe_ca_3];
+        break;
+    case 8:
+        controlSequence = [h_i_ma_af_2,h_c_fe_hi_2,f_i_fe_af_2,h_i_fe_as_3,f_i_fe_af_1,f_c_ma_as_1,f_i_ma_af_3,f_c_fe_as_2,h_c_fe_af_2,f_c_fe_af_4,f_i_fe_hi_4,h_c_ma_ca_2,f_i_fe_ca_3,f_c_fe_as_3,h_i_fe_hi_2,f_c_ma_hi_4,h_i_ma_af_4,f_i_fe_af_4,f_c_ma_af_1,h_i_ma_hi_1,h_c_ma_af_2,h_i_ma_as_2,f_i_fe_ca_4,h_i_ma_as_1,f_c_ma_ca_3,h_c_ma_as_1,h_i_ma_hi_3,f_i_fe_as_1,h_i_ma_as_3,f_i_ma_ca_4,f_c_fe_hi_4,f_i_ma_ca_2,f_c_fe_af_1,h_i_fe_af_2,h_c_fe_as_4,f_i_ma_ca_1,h_c_ma_hi_1,h_i_fe_as_4,h_c_fe_hi_4,f_i_fe_hi_2,f_c_ma_ca_4,h_c_ma_ca_3,f_c_fe_hi_2,h_c_ma_hi_2,f_i_ma_hi_4,h_c_fe_ca_2,f_c_fe_ca_1,f_i_ma_af_2,h_c_fe_as_2,f_i_ma_af_4,h_c_ma_as_4,f_c_ma_hi_3,h_i_ma_as_4,f_i_fe_as_2,h_c_ma_af_4,f_i_ma_hi_3,h_i_fe_hi_1,f_i_ma_as_1,f_c_fe_ca_2,h_i_fe_hi_4,f_c_ma_as_4,h_i_ma_ca_3,h_c_fe_ca_4,h_i_fe_ca_1,h_c_fe_af_1,f_c_ma_hi_1,h_c_ma_hi_4,h_i_fe_af_4,h_c_ma_ca_1,f_c_fe_af_3,h_c_fe_ca_1,f_i_ma_as_3,h_c_ma_af_3,f_c_ma_af_2,h_i_fe_as_1,f_i_fe_as_4,h_i_fe_as_2,f_c_ma_af_4,f_i_fe_ca_1,f_c_fe_as_4,h_i_ma_af_1,h_c_fe_hi_3,h_i_ma_ca_1,f_c_fe_hi_1,h_i_fe_ca_3,f_c_ma_af_3,f_i_fe_hi_3,f_c_ma_as_2,h_c_ma_as_3,f_i_fe_ca_2,h_c_fe_as_3,h_i_fe_ca_4,f_c_ma_ca_2,f_i_ma_as_4,h_c_ma_af_1,f_c_fe_af_2,h_c_fe_hi_1,f_i_ma_ca_3,f_c_fe_ca_3,h_i_fe_ca_2,h_c_fe_ca_3,h_i_fe_af_3,h_c_ma_ca_4,f_c_ma_ca_1,h_c_fe_af_3,f_i_fe_as_3,f_c_fe_hi_3,f_i_ma_hi_1,f_c_ma_as_3,h_i_ma_ca_2,h_c_fe_af_4,f_i_ma_as_2,f_c_ma_hi_2,h_i_fe_hi_3,h_c_ma_hi_3,f_i_fe_hi_1,h_i_fe_af_1,h_c_ma_as_2,h_i_ma_hi_4,f_i_fe_af_3,h_i_ma_hi_2,f_c_fe_as_1,h_i_ma_ca_4,f_i_ma_af_1,h_c_fe_as_1,h_i_ma_af_3,f_i_ma_hi_2,f_c_fe_ca_4];
+        break;
+    default:
+        alert("ERROR: Could not determine Control Sequence! Please pick a Control Sequence between 1-8 and try again.");
 }
-else{
-    //add first half ES array to finalSequence array
-    //add first half control array to finalSequence array
-    //add second half ES array to finalSequence array
-    //add second half control array to finalSequence array
-}
+ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4];
+controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2, f_c_fe_ca_4];
+
+/***********Instructions Screen*************/
+let instructions = {
+        type: "html-keyboard-response",
+        stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
+            " and you will also see red text written over these faces.</p>" +
+            "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
+            "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
+            "<p><strong>-Press any key to continue-</strong></p>"
+};
+timeline.push(instructions);
+
+instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter → for happy</p>" +
+        "<p>Press any key to continue</p><br>" +
+        "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
+        "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+timeline.push(instructions);
+
+instructions = {
+    type: "html-keyboard-response",
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter ← for fear</p>" +
+        "<p>Press any key to continue</p><br>" +
+        "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
+        "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+timeline.push(instructions);
 
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
@@ -374,7 +411,8 @@ let test = {
         //do work
     },
     on_finish: function (data) {
-        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER});
+        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_TRIAL});
+        jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
@@ -397,7 +435,8 @@ let control = {
         //do work
     },
     on_finish: function (data) {
-        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER});
+        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_TRIAL});
+        jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
@@ -419,15 +458,73 @@ let feedback = {
     data: { block_type: 'GreenCircle' }
 }
 
-//create a test object with images and keyboard inputs.
-//Order of tests are randomized and repeated n number of times
-let test_procedure = {
-    timeline: [fixation, test, feedback],
-    timeline_variables: ESSequence,
-    repetitions: NUMBER_OF_TRIALS
-};
-//add this to the timeline
-timeline.push(test_procedure);
+let halfwayThrough = Math.floor(controlSequence.length / 2);
+let controlFirstHalf = controlSequence.slice(0, halfwayThrough);
+let controlSecondHalf = controlSequence.slice(halfwayThrough, controlSequence.length);
+halfwayThrough = Math.floor(ESSequence.length / 2);
+let ESFirstHalf = ESSequence.slice(0, halfwayThrough);
+let ESSecondHalf = ESSequence.slice(halfwayThrough, ESSequence.length);
+
+if(CONTROL_GOES_FIRST){
+    //add first half control array to finalSequence array
+    //add first half ES array to finalSequence array
+    //add second half control array to finalSequence array
+    //add second half ES array to finalSequence array
+    let test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+}
+else{
+    //add first half ES array to finalSequence array
+    //add first half control array to finalSequence array
+    //add second half ES array to finalSequence array
+    //add second half control array to finalSequence array
+    let test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+}
 
 /***********Debrief Screen************/
     //allows you to show user statistics of trials
