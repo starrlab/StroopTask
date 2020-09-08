@@ -127,14 +127,65 @@ let feedback = {
     }
 }
 
-//create a test object with images and keyboard inputs.
-//Order of tests are randomized and repeated n number of times
-let test_procedure = {
-    timeline: [fixation, test, feedback],
-    timeline_variables: sequence
-};
-//add this to the timeline
-timeline.push(test_procedure);
+let halfwayThrough = Math.floor(controlSequence.length / 2);
+let controlFirstHalf = controlSequence.slice(0, halfwayThrough);
+let controlSecondHalf = controlSequence.slice(halfwayThrough, controlSequence.length);
+halfwayThrough = Math.floor(sequence.length / 2);
+let ESFirstHalf = sequence.slice(0, halfwayThrough);
+let ESSecondHalf = sequence.slice(halfwayThrough, sequence.length);
+
+if(CONTROL_GOES_FIRST) {
+    let test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+
+} else{
+    let test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+}
 
 /***********Debrief Screen************/
     //allows you to show user statistics of trials
