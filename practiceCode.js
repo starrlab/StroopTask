@@ -1,3 +1,4 @@
+const CONTROL_GOES_FIRST = false;
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
 const STIMULUS_WIDTH = null; //Changes the width of the images.  Set to null for no changes
