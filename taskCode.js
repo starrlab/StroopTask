@@ -334,6 +334,7 @@ switch(SEQUENCE_NUMBER_TRIAL) {
         alert("ERROR: Could not determine ESSequence! Please pick a ESSequence between 1-8 and try again.");
 }
 
+
 switch(SEQUENCE_NUMBER_CONTROL){
     case 1:
         controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2,f_c_fe_ca_4,h_i_fe_as_1,f_c_fe_af_2,f_i_fe_hi_2,h_i_fe_hi_3,h_c_fe_af_2,f_c_ma_af_1,h_i_ma_ca_2,f_c_ma_af_2,h_c_fe_hi_2,f_i_ma_ca_4,h_i_fe_ca_1,h_c_fe_hi_4,f_i_fe_ca_3,h_c_fe_af_1,f_c_ma_hi_1,h_c_ma_af_3,h_i_fe_hi_4,f_i_fe_af_4,f_c_fe_af_1,h_i_ma_hi_2,h_c_fe_as_2,f_i_fe_as_3,h_i_ma_ca_1,h_c_ma_af_2,h_i_fe_hi_1,h_c_ma_ca_4,f_i_ma_hi_1,f_c_fe_hi_2,h_c_ma_hi_3,h_i_fe_as_4,f_c_ma_ca_3,h_c_fe_as_4,f_c_fe_as_2,h_i_ma_hi_3,f_i_ma_hi_4,h_c_ma_ca_1,f_i_ma_hi_3,h_c_ma_as_2,h_i_ma_af_2,f_i_fe_ca_2,f_c_ma_hi_4,f_i_ma_af_1,h_c_ma_as_1,h_i_fe_as_3,f_i_ma_as_4,f_c_ma_as_3,f_i_fe_af_1,h_c_ma_hi_4,f_c_fe_as_1,f_i_ma_af_3,h_c_fe_af_3,f_c_ma_as_2,h_c_ma_as_3,f_c_fe_as_4,h_i_fe_hi_2,f_i_ma_hi_2,h_c_fe_ca_4,f_i_fe_af_3,f_c_ma_as_1,h_c_ma_hi_1,f_c_ma_as_4,f_i_ma_ca_1,f_c_fe_af_3,h_i_fe_as_2,f_c_ma_ca_4,f_i_fe_as_2,h_i_ma_af_4,f_c_fe_hi_3,f_i_ma_ca_3,h_c_ma_af_4,h_i_ma_hi_1,f_i_ma_af_2,h_c_fe_hi_1,h_i_ma_ca_3,f_c_ma_ca_1,h_i_fe_af_2,h_c_fe_af_4,h_i_fe_af_3,f_i_fe_hi_1,h_c_fe_ca_1,f_c_fe_af_4,h_c_fe_ca_2,f_i_fe_as_1,f_c_fe_as_3,f_i_fe_hi_4,f_c_ma_af_4,h_c_ma_ca_3,h_i_ma_as_4,f_c_fe_ca_1,h_c_fe_ca_3,f_i_fe_ca_1,f_c_ma_ca_2,h_i_ma_af_1,f_i_ma_as_2,h_c_ma_hi_2,h_i_fe_af_4,h_c_fe_as_1,f_c_fe_hi_4,h_c_ma_af_1,f_i_fe_hi_3,h_i_ma_as_3,f_i_fe_af_2,f_c_fe_ca_2,h_i_ma_ca_4,f_i_ma_as_1,h_i_ma_as_2,h_c_fe_hi_3,f_c_fe_ca_3,h_i_ma_af_3,f_i_fe_ca_4,f_c_ma_hi_3,f_i_ma_as_3,h_i_fe_af_1,h_c_ma_as_4,f_i_fe_as_4,h_i_fe_ca_3,f_c_ma_hi_2,h_i_fe_ca_2,h_c_fe_as_3,f_i_ma_af_4,h_i_ma_as_1,f_c_fe_hi_1,h_c_ma_ca_2];
@@ -362,19 +363,8 @@ switch(SEQUENCE_NUMBER_CONTROL){
     default:
         alert("ERROR: Could not determine Control Sequence! Please pick a Control Sequence between 1-8 and try again.");
 }
-
-if(CONTROL_GOES_FIRST){
-    //add first half control array to finalSequence array
-    //add first half ES array to finalSequence array
-    //add second half control array to finalSequence array
-    //add second half ES array to finalSequence array
-}
-else{
-    //add first half ES array to finalSequence array
-    //add first half control array to finalSequence array
-    //add second half ES array to finalSequence array
-    //add second half control array to finalSequence array
-}
+ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3];
+controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2];
 
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
@@ -451,15 +441,73 @@ let feedback = {
     data: { block_type: 'GreenCircle' }
 }
 
-//create a test object with images and keyboard inputs.
-//Order of tests are randomized and repeated n number of times
-let test_procedure = {
-    timeline: [fixation, test, feedback],
-    timeline_variables: ESSequence,
-    repetitions: NUMBER_OF_TRIALS
-};
-//add this to the timeline
-timeline.push(test_procedure);
+let halfwayThrough = Math.floor(controlSequence.length / 2);
+let controlFirstHalf = controlSequence.slice(0, halfwayThrough);
+let controlSecondHalf = controlSequence.slice(halfwayThrough, controlSequence.length);
+halfwayThrough = Math.floor(ESSequence.length / 2);
+let ESFirstHalf = ESSequence.slice(0, halfwayThrough);
+let ESSecondHalf = ESSequence.slice(halfwayThrough, ESSequence.length);
+
+if(CONTROL_GOES_FIRST){
+    //add first half control array to finalSequence array
+    //add first half ES array to finalSequence array
+    //add second half control array to finalSequence array
+    //add second half ES array to finalSequence array
+    let test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+}
+else{
+    //add first half ES array to finalSequence array
+    //add first half control array to finalSequence array
+    //add second half ES array to finalSequence array
+    //add second half control array to finalSequence array
+    let test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlFirstHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, test, feedback],
+        timeline_variables: ESSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+    test_procedure = {
+        timeline: [fixation, control, feedback],
+        timeline_variables: controlSecondHalf,
+        repetitions: NUMBER_OF_TRIALS
+    };
+    timeline.push(test_procedure);
+}
 
 /***********Debrief Screen************/
     //allows you to show user statistics of trials
