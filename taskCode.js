@@ -2,7 +2,7 @@
 const VERSION = "1";
 const SEQUENCE_NUMBER_TRIAL = 2; //Choose 1-8
 const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
-const CONTROL_GOES_FIRST = true;
+const CONTROL_GOES_FIRST = false;
 
 //Trial time settings
 const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
@@ -363,8 +363,8 @@ switch(SEQUENCE_NUMBER_CONTROL){
     default:
         alert("ERROR: Could not determine Control Sequence! Please pick a Control Sequence between 1-8 and try again.");
 }
-ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3];
-controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2];
+ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4];
+controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2, f_c_fe_ca_4];
 
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
