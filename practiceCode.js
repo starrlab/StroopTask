@@ -194,53 +194,45 @@ let ESSecondHalf = sequence.slice(halfwayThrough, sequence.length);
 
 if(CONTROL_GOES_FIRST) {
     let test_procedure = {
-        timeline: [fixation, control, feedback],
-        timeline_variables: controlFirstHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline: [fixation, control, controlFeedback],
+        timeline_variables: controlFirstHalf
     };
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
-        timeline_variables: ESFirstHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline_variables: ESFirstHalf
     };
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
-        timeline_variables: controlSecondHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline: [fixation, control, controlFeedback],
+        timeline_variables: controlSecondHalf
     };
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
-        timeline_variables: ESSecondHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline_variables: ESSecondHalf
     };
     timeline.push(test_procedure);
 
 } else{
     let test_procedure = {
         timeline: [fixation, test, feedback],
-        timeline_variables: ESFirstHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline_variables: ESFirstHalf
     };
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
-        timeline_variables: controlFirstHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline: [fixation, control, controlFeedback],
+        timeline_variables: controlFirstHalf
     };
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
-        timeline_variables: ESSecondHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline_variables: ESSecondHalf
     };
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
-        timeline_variables: controlSecondHalf,
-        repetitions: NUMBER_OF_TRIALS
+        timeline: [fixation, control, controlFeedback],
+        timeline_variables: controlSecondHalf
     };
     timeline.push(test_procedure);
 }
