@@ -1,4 +1,4 @@
-const CONTROL_GOES_FIRST = false;
+const CONTROL_GOES_FIRST = true;
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
 const STIMULUS_WIDTH = null; //Changes the width of the images.  Set to null for no changes
@@ -20,8 +20,8 @@ const FIXATION_SIZE = 60;
 const KEYBOARD_PRESS_TUTORIAL = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(13); //This is the tutorial key code
 const KEYBOARD_PRESS_HAPPY = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
 const KEYBOARD_PRESS_FEAR = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
-const KEYBOARD_PRESS_FEMALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
-const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
+const KEYBOARD_PRESS_FEMALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
+const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
 let timeline = [];
 let sequence = [];
 
@@ -58,7 +58,7 @@ let EStutorial1 = {
     stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-        "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
+        "→ for <strong>happy</strong> and ← for <strong>fear</strong>.</p>" +
         "<p>Press Enter key to continue</p>"
 };
 
@@ -216,17 +216,17 @@ let controlFeedback = {
         let incorrectExpression = "";
         let correctResponseDirection = "";
         let inCorrectResponseDirection = "";
-        if(correctResponse === "leftarrow"){
+        if(correctResponse === "rightarrow"){
             gender = "male";
             incorrectExpression = "female";
-            correctResponseDirection = "left arrow";
-            inCorrectResponseDirection = "right arrow";
+            correctResponseDirection = "right arrow";
+            inCorrectResponseDirection = "left arrow";
         }
         else{
             gender = "female";
             incorrectExpression = "male";
-            correctResponseDirection = "right arrow";
-            inCorrectResponseDirection = "left arrow";
+            correctResponseDirection = "left arrow";
+            inCorrectResponseDirection = "right arrow";
         }
 
         if(last_trial_correct){

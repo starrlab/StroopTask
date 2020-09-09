@@ -26,8 +26,8 @@ const NUMBER_OF_TRIALS = 1; //This will run through the entire ESSequence n numb
 const KEYBOARD_PRESS_TUTORIAL = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(13); //This is the tutorial key code
 const KEYBOARD_PRESS_HAPPY = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
 const KEYBOARD_PRESS_FEAR = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
-const KEYBOARD_PRESS_FEMALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
-const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
+const KEYBOARD_PRESS_FEMALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
+const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
 let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
@@ -361,7 +361,7 @@ let EStutorial1 = {
     stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-        "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
+        "→ for <strong>happy</strong> and ← for <strong>fear</strong>.</p>" +
         "<p>Press Enter key to continue</p>"
 };
 
