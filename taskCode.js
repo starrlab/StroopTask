@@ -351,10 +351,10 @@ switch(SEQUENCE_NUMBER_CONTROL){
     default:
         alert("ERROR: Could not determine Control Sequence! Please pick a Control Sequence between 1-8 and try again.");
 }
-ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4];
-controlSequence = [h_i_fe_ca_4,f_c_ma_af_3,h_i_ma_hi_4,f_i_ma_ca_2, f_c_fe_ca_4];
+ESSequence = [f_c_m_hi_4, f_i_f_as_4, h_c_f_hi_4, f_c_m_af_4, h_i_m_ca_4, f_i_f_hi_1, f_c_f_af_1, h_i_m_ca_3, f_i_m_hi_3, h_c_m_as_1];
+controlSequence = [h_c_fe_af_4, h_i_fe_as_1, f_i_ma_ca_3, f_c_fe_af_3, f_i_ma_hi_1, f_c_fe_hi_4, h_c_fe_as_2, f_c_ma_hi_4, h_i_fe_as_2, f_i_fe_hi_2];
 
-/***********Instructions Screen*************/
+/***********Tutorial Screens*************/
 let EStutorial1 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
@@ -362,14 +362,14 @@ let EStutorial1 = {
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
         "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
-        "<p><strong>-Press ENTER key to continue-</strong></p>"
+        "<p>Press Enter key to continue</p>"
 };
 
 let EStutorial2 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter → for happy</p>" +
-        "<p>Press ENTER key to continue</p><br>" +
+        "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
         "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
         "</div>",
@@ -379,9 +379,38 @@ let EStutorial3 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter ← for fear</p>" +
-        "<p>Press ENTER key to continue</p><br>" +
+        "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
         "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+
+let controltutorial1 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>In this task you will see male and female faces and you will also see red text" +
+        " written over these faces.  Please ignore the red text and indicate the gender of the </p>" +
+        "<p>face: male or female by entering on your keyboard → for <strong>male</strong> and ← for <strong>female</strong>. " +
+        "<p>Press Enter key to continue</p>"
+};
+
+let controltutorial2 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>male</strong>; so you would enter → for male</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/Control/h_c_ma_hi_1.png'/>" +
+        "<p><strong>Gender - Male</strong><br>Word Meaning - Male</p>" +
+        "</div>",
+};
+
+let controltutorial3 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>female</strong>; so you would enter ← for female</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/Control/f_i_fe_as_1.png'/>" +
+        "<p><strong>Gender - Female</strong><br>Word Meaning - Male</p>" +
         "</div>",
 };
 
@@ -480,6 +509,9 @@ if(CONTROL_GOES_FIRST){
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
@@ -495,6 +527,9 @@ if(CONTROL_GOES_FIRST){
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
@@ -525,6 +560,9 @@ else{
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
@@ -540,6 +578,9 @@ else{
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
 }
 
