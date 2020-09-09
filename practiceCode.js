@@ -16,6 +16,7 @@ const FIXATION_SIZE = 60;
 
 const ERROR_DISPLAY_LENGTH = 5000;
 
+const KEYBOARD_PRESS_TUTORIAL = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(13); //This is the tutorial key code
 const KEYBOARD_PRESS_HAPPY = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
 const KEYBOARD_PRESS_FEAR = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
 const KEYBOARD_PRESS_FEMALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
@@ -52,17 +53,19 @@ controlSequence = [h_c_fe_af_4, h_i_fe_as_1, f_i_ma_ca_3, f_c_fe_af_3, f_i_ma_hi
 /***********Instructions Screen*************/
 let EStutorial1 = {
     type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
         "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
-        "<p><strong>-Press any key to continue-</strong></p>"
+        "<p><strong>-Press ENTER key to continue-</strong></p>"
 };
 
 let EStutorial2 = {
     type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter → for happy</p>" +
-        "<p>Press any key to continue</p><br>" +
+        "<p>Press ENTER key to continue</p><br>" +
         "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
         "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
         "</div>",
@@ -70,8 +73,9 @@ let EStutorial2 = {
 
 let EStutorial3 = {
     type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter ← for fear</p>" +
-        "<p>Press any key to continue</p><br>" +
+        "<p>Press ENTER key to continue</p><br>" +
         "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
         "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
         "</div>",
