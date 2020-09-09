@@ -82,6 +82,35 @@ let EStutorial3 = {
         "</div>",
 };
 
+let controltutorial1 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>In this task you will see male and female faces and you will also see red text" +
+        " written over these faces.  Please ignore the red text and indicate the gender of the </p>" +
+        "<p>face: male or female by entering on your keyboard → for <strong>male</strong> and ← for <strong>female</strong>. " +
+        "<p>Press Enter key to continue</p>"
+};
+
+let controltutorial2 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>male</strong>; so you would enter → for male</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/Control/h_c_ma_hi_1.png'/>" +
+        "<p><strong>Gender - Male</strong><br>Word Meaning - Male</p>" +
+        "</div>",
+};
+
+let controltutorial3 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>female</strong>; so you would enter ← for female</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/Control/f_i_fe_as_1.png'/>" +
+        "<p><strong>Gender - Female</strong><br>Word Meaning - Male</p>" +
+        "</div>",
+};
+
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
 let fixation = {
@@ -223,55 +252,68 @@ if(CONTROL_GOES_FIRST) {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlFirstHalf
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf
     };
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlSecondHalf
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
+
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf
     };
-    timeline.push(test_procedure);
-
-} else{
     timeline.push(EStutorial1);
     timeline.push(EStutorial2);
     timeline.push(EStutorial3);
+    timeline.push(test_procedure);
+
+} else{
     let test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf
     };
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlFirstHalf
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf
     };
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlSecondHalf
     };
+    timeline.push(controltutorial1);
+    timeline.push(controltutorial2);
+    timeline.push(controltutorial3);
     timeline.push(test_procedure);
 }
 
