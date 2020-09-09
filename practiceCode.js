@@ -157,27 +157,27 @@ let controlFeedback = {
     stimulus: function(){
         let last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
         let correctResponse = jsPsych.data.get().last(1).values()[0].correct_response;
-        let expression = "";
+        let gender = "";
         let incorrectExpression = "";
         let correctResponseDirection = "";
         let inCorrectResponseDirection = "";
         if(correctResponse === "leftarrow"){
-            expression = "male";
+            gender = "male";
             incorrectExpression = "female";
             correctResponseDirection = "left arrow";
             inCorrectResponseDirection = "right arrow";
         }
         else{
-            expression = "female";
+            gender = "female";
             incorrectExpression = "male";
             correctResponseDirection = "right arrow";
             inCorrectResponseDirection = "left arrow";
         }
 
         if(last_trial_correct){
-            return "<h1>Correct - you entered " + correctResponseDirection + " for " + expression + " and the facial expression was " + expression + "</h1>";
+            return "<h1>Correct - you entered " + correctResponseDirection + " for " + gender + " and the gender was " + gender + "</h1>";
         } else {
-            return "<h1>Incorrect - you entered " + inCorrectResponseDirection + " for " + incorrectExpression + ", and the facial expression was " + expression + "</h1>"
+            return "<h1>Incorrect - you entered " + inCorrectResponseDirection + " for " + incorrectExpression + ", and the gender was " + gender + "</h1>"
         }
     },
     on_load: function (data) {
