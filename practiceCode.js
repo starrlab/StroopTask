@@ -58,7 +58,6 @@ let EStutorial1 = {
         "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
         "<p><strong>-Press any key to continue-</strong></p>"
 };
-timeline.push(EStutorial1);
 
 let EStutorial2 = {
     type: "html-keyboard-response",
@@ -68,7 +67,6 @@ let EStutorial2 = {
         "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
         "</div>",
 };
-timeline.push(EStutorial2);
 
 let EStutorial3 = {
     type: "html-keyboard-response",
@@ -78,7 +76,6 @@ let EStutorial3 = {
         "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
         "</div>",
 };
-timeline.push(EStutorial3);
 
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
@@ -239,6 +236,9 @@ if(CONTROL_GOES_FIRST) {
     timeline.push(test_procedure);
 
 } else{
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     let test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf
