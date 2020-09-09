@@ -150,6 +150,41 @@ let control = {
     }
 };
 
+let controlFeedback = {
+    type: 'html-keyboard-response',
+    trial_duration: ERROR_DISPLAY_LENGTH,
+    choices: jsPsych.NO_KEYS,
+    stimulus: function(){
+        let last_trial_correct = jsPsych.data.get().last(1).values()[0].correct;
+        let correctResponse = jsPsych.data.get().last(1).values()[0].correct_response;
+        let expression = "";
+        let incorrectExpression = "";
+        let correctResponseDirection = "";
+        let inCorrectResponseDirection = "";
+        if(correctResponse === "leftarrow"){
+            expression = "male";
+            incorrectExpression = "female";
+            correctResponseDirection = "left arrow";
+            inCorrectResponseDirection = "right arrow";
+        }
+        else{
+            expression = "female";
+            incorrectExpression = "male";
+            correctResponseDirection = "right arrow";
+            inCorrectResponseDirection = "left arrow";
+        }
+
+        if(last_trial_correct){
+            return "<h1>Correct - you entered " + correctResponseDirection + " for " + expression + " and the facial expression was " + expression + "</h1>";
+        } else {
+            return "<h1>Incorrect - you entered " + inCorrectResponseDirection + " for " + incorrectExpression + ", and the facial expression was " + expression + "</h1>"
+        }
+    },
+    on_load: function (data) {
+        console.log(jsPsych.data.get().last(1).values()[0]);
+    }
+}
+
 let halfwayThrough = Math.floor(controlSequence.length / 2);
 let controlFirstHalf = controlSequence.slice(0, halfwayThrough);
 let controlSecondHalf = controlSequence.slice(halfwayThrough, controlSequence.length);
