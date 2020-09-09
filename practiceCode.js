@@ -216,6 +216,9 @@ if(CONTROL_GOES_FIRST) {
         timeline_variables: controlFirstHalf
     };
     timeline.push(test_procedure);
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf
@@ -226,6 +229,9 @@ if(CONTROL_GOES_FIRST) {
         timeline_variables: controlSecondHalf
     };
     timeline.push(test_procedure);
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf
@@ -243,6 +249,9 @@ if(CONTROL_GOES_FIRST) {
         timeline_variables: controlFirstHalf
     };
     timeline.push(test_procedure);
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf
