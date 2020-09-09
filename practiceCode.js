@@ -5,12 +5,12 @@ const STIMULUS_WIDTH = null; //Changes the width of the images.  Set to null for
 const MAINTAIN_IMG_ASPECT_RATIO = true; //must be true or false. Set only the width or height and set to true will keep the aspect ration of the image. Set to false if want to change height/width together.
 
 //Trial time settings
-const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
+const STIMULUS_DURATION = 2000; //This is the total time the image will be displayed before disapearing.
 const TRIAL_DURATION = 3000; //This is the total time before the curent trial moves on to next trial
 const POST_TRIAL_GAP = 1000; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
 
 //Fixation settings
-const FIXATION_DURATION = [2000, 2250, 2500, 2750, 3000]; //Sets the fixation duration. Can add as many values as you want or subtract values from array.
+const FIXATION_DURATION = [1000]; //Sets the fixation duration. Can add as many values as you want or subtract values from array.
 const FIXATION_KEY = '+';
 const FIXATION_SIZE = 60;
 

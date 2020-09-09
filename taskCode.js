@@ -5,10 +5,11 @@ const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
 const CONTROL_GOES_FIRST = true;
 
 //Trial time settings
-const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
+const STIMULUS_DURATION = 2000; //This is the total time the image will be displayed before disapearing.
 const TRIAL_DURATION = 3000; //This is the total time before the curent trial moves on to next trial
 const POST_TRIAL_GAP = 0; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
 const FEEDBACK_DURATION = 250; //Sets how long the green dot stays on screen if user inputs a response
+const FEEDBACK_POST_TRIAL_GAP = [1000, 1250, 1500, 1750, 2000]; //Sets how long the after the green dot finishes a blank screen will be displayed before fixation
 
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
@@ -16,7 +17,7 @@ const STIMULUS_WIDTH = null; //Changes the width of the images.  Set to null for
 const MAINTAIN_IMG_ASPECT_RATIO = true; //must be true or false. Set only the width or height and set to true will keep the aspect ration of the image. Set to false if want to change height/width together.
 
 //Fixation settings
-const FIXATION_DURATION = [2000, 2250, 2500, 2750, 3000]; //Sets the fixation duration. Can add as many values as you want or subtract values from array.
+const FIXATION_DURATION = [1000]; //Sets the fixation duration. Can add as many values as you want or subtract values from array.
 const FIXATION_KEY = '+';
 const FIXATION_SIZE = 60;
 
@@ -456,6 +457,9 @@ let feedback = {
     },
     choices: jsPsych.NO_KEYS,
     trial_duration: FEEDBACK_DURATION,
+    post_trial_gap: function(){
+        return jsPsych.randomization.sampleWithoutReplacement(FEEDBACK_POST_TRIAL_GAP, 1)[0];
+    },
     data: { block_type: 'GreenCircle' }
 }
 
