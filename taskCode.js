@@ -1,13 +1,13 @@
 /*************Variables************/
 const VERSION = "1";
-const SEQUENCE_NUMBER_TRIAL = 2; //Choose 1-8
+const SEQUENCE_NUMBER_ES = 2; //Choose 1-8
 const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
-const CONTROL_GOES_FIRST = false;
+const CONTROL_GOES_FIRST = true;
 
 //Trial time settings
 const STIMULUS_DURATION = 1000; //This is the total time the image will be displayed before disapearing.
 const TRIAL_DURATION = 3000; //This is the total time before the curent trial moves on to next trial
-const POST_TRIAL_GAP = 1000; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
+const POST_TRIAL_GAP = 0; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
 const FEEDBACK_DURATION = 250; //Sets how long the green dot stays on screen if user inputs a response
 
 //Image settings
@@ -291,7 +291,7 @@ let h_i_ma_hi_3 = {control: "img/Control/h_i_ma_hi_3.png",data: { test_part: 'te
 let h_i_ma_hi_4 = {control: "img/Control/h_i_ma_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
 
 /***********Test trials ESSequences*************/
-switch(SEQUENCE_NUMBER_TRIAL) {
+switch(SEQUENCE_NUMBER_ES) {
     case 1:
         ESSequence = [h_i_m_ca_4, f_i_m_as_2, h_c_m_as_4, f_i_m_as_3, h_c_f_af_4, f_i_m_ca_1, f_c_m_af_4, h_c_m_af_2, f_c_f_ca_2, f_i_f_hi_1, h_i_f_as_2, f_i_f_af_4, f_c_f_af_3, h_c_f_hi_1, h_i_f_ca_1, h_c_m_hi_1, f_i_f_hi_4, h_i_f_af_4, f_i_m_hi_2, h_c_m_af_4, f_c_f_af_1, h_c_m_ca_3, f_c_f_as_1, h_i_f_as_3, f_i_m_af_4, f_c_f_hi_3, h_i_m_hi_2, f_i_f_hi_3, h_c_m_ca_4, h_i_m_af_2, h_c_f_as_4, h_i_m_af_1, h_c_f_af_2, h_i_f_as_4, f_i_f_ca_3, h_i_f_hi_3, f_c_f_ca_1, f_i_m_hi_4, f_c_f_af_2, f_i_f_as_3, f_c_m_as_3, h_i_m_af_3, f_c_m_as_4, f_i_m_hi_3, h_c_f_as_1, h_i_m_as_2, f_c_m_ca_3, f_i_f_as_2, f_c_f_hi_2, h_i_f_as_1, f_c_m_af_2, f_i_f_af_3, h_i_f_ca_4, h_c_f_hi_2, f_i_f_ca_2, h_c_f_af_3, f_i_f_ca_1, f_c_m_as_1, h_i_f_ca_2, h_c_f_ca_1, f_c_m_ca_4, h_c_m_as_2, f_i_f_ca_4, h_i_m_af_4, h_c_m_ca_2, h_i_f_hi_4, f_c_f_hi_1, h_i_f_af_1, f_c_m_hi_3, f_i_m_ca_2, h_i_m_as_4, f_i_m_ca_4, h_c_m_hi_4, f_i_f_as_4, h_i_f_hi_2, h_c_m_as_3, f_c_m_ca_1, h_c_f_hi_4, f_c_f_ca_3, h_i_m_ca_2, h_c_f_ca_2, h_i_m_as_1, f_c_m_hi_2, h_c_m_as_1, f_c_f_hi_4, f_i_m_as_4, h_c_f_hi_3, h_i_f_ca_3, f_c_f_ca_4, f_i_m_as_1, h_i_m_ca_1, f_i_f_hi_2, h_c_f_as_3, f_c_m_af_3, h_i_f_af_3, f_c_f_as_3, h_i_m_as_3, f_i_m_af_2, h_c_f_as_2, h_i_m_hi_4, h_c_f_ca_3, h_i_m_hi_1, h_c_m_af_1, f_c_m_as_2, h_i_m_hi_3, f_i_m_ca_3, h_c_m_hi_3, f_c_f_af_4, h_c_f_ca_4, h_i_m_ca_3, h_c_m_hi_2, h_i_f_hi_1, f_c_m_ca_2, f_i_f_af_1, h_c_m_ca_1, f_c_m_hi_1, h_i_f_af_2, h_c_m_af_3, f_i_f_as_1, f_c_m_hi_4, f_i_m_af_3, h_c_f_af_1, f_c_m_af_1, f_i_m_hi_1, f_c_f_as_2, f_i_m_af_1, f_c_f_as_4, f_i_f_af_2];
         break;
@@ -408,7 +408,7 @@ let test = {
         //do work
     },
     on_finish: function (data) {
-        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_TRIAL});
+        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
@@ -432,7 +432,7 @@ let control = {
         //do work
     },
     on_finish: function (data) {
-        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_TRIAL});
+        jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
@@ -473,29 +473,29 @@ if(CONTROL_GOES_FIRST){
         repetitions: NUMBER_OF_TRIALS
     };
     timeline.push(test_procedure);
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, feedback],
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     timeline.push(test_procedure);
 }
 else{
@@ -503,14 +503,14 @@ else{
     //add first half control array to finalSequence array
     //add second half ES array to finalSequence array
     //add second half control array to finalSequence array
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
     let test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, feedback],
@@ -518,14 +518,14 @@ else{
         repetitions: NUMBER_OF_TRIALS
     };
     timeline.push(test_procedure);
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
+    timeline.push(EStutorial1);
+    timeline.push(EStutorial2);
+    timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, feedback],
