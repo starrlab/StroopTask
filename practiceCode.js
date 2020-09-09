@@ -23,19 +23,6 @@ const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); 
 let timeline = [];
 let sequence = [];
 
-/***********Instructions Screen*************/
-    //instructions for the experiment
-let instructions = {
-        type: "html-keyboard-response",
-        stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
-            " and you will also see red text written over these faces.</p>" +
-            "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-            "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
-            "<p><strong>-Press any key to continue-</strong></p>"
-    };
-//add instructions to the timeline
-timeline.push(instructions);
-
 /***********Image variables (pre-loaded)*************/
 let f_c_m_hi_4 = {stimulus: "img/ES/f_c_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
 let f_i_f_as_4 = {stimulus: "img/ES/f_i_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
@@ -61,6 +48,37 @@ let f_i_fe_hi_2 = {control: "img/Control/f_i_fe_hi_2.png",data: { test_part: 'te
 
 sequence = [f_c_m_hi_4, f_i_f_as_4, h_c_f_hi_4, f_c_m_af_4, h_i_m_ca_4, f_i_f_hi_1, f_c_f_af_1, h_i_m_ca_3, f_i_m_hi_3, h_c_m_as_1];
 controlSequence = [h_c_fe_af_4, h_i_fe_as_1, f_i_ma_ca_3, f_c_fe_af_3, f_i_ma_hi_1, f_c_fe_hi_4, h_c_fe_as_2, f_c_ma_hi_4, h_i_fe_as_2, f_i_fe_hi_2];
+
+/***********Instructions Screen*************/
+let EStutorial1 = {
+    type: "html-keyboard-response",
+    stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
+        " and you will also see red text written over these faces.</p>" +
+        "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
+        "<strong>" + KEYBOARD_PRESS_HAPPY + "</strong> for happy and <strong>" + KEYBOARD_PRESS_FEAR + "</strong> for fear.</p>" +
+        "<p><strong>-Press any key to continue-</strong></p>"
+};
+timeline.push(EStutorial1);
+
+let EStutorial2 = {
+    type: "html-keyboard-response",
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter → for happy</p>" +
+        "<p>Press any key to continue</p><br>" +
+        "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
+        "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+timeline.push(EStutorial2);
+
+let EStutorial3 = {
+    type: "html-keyboard-response",
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter ← for fear</p>" +
+        "<p>Press any key to continue</p><br>" +
+        "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
+        "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+timeline.push(EStutorial3);
 
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
