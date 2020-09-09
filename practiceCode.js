@@ -128,6 +128,26 @@ let feedback = {
     }
 }
 
+let control = {
+    type: "image-keyboard-response",
+    stimulus: jsPsych.timelineVariable('control'),
+    choices: [KEYBOARD_PRESS_FEMALE, KEYBOARD_PRESS_MALE],
+    stimulus_duration: STIMULUS_DURATION,
+    trial_duration: TRIAL_DURATION,
+    maintain_aspect_ration: MAINTAIN_IMG_ASPECT_RATIO,
+    stimulus_height: STIMULUS_HEIGHT,
+    stimulus_width: STIMULUS_WIDTH,
+    post_trial_gap: POST_TRIAL_GAP,
+    data: jsPsych.timelineVariable('data'),
+    on_load: function (data) {
+        //do work
+    },
+    on_finish: function (data) {
+        data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+    }
+};
+
 let halfwayThrough = Math.floor(controlSequence.length / 2);
 let controlFirstHalf = controlSequence.slice(0, halfwayThrough);
 let controlSecondHalf = controlSequence.slice(halfwayThrough, controlSequence.length);
