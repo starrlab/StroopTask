@@ -207,6 +207,18 @@ let test = {
     },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
+        if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        else if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
     }
@@ -266,6 +278,18 @@ let control = {
     },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
+        if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        else if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
     }
