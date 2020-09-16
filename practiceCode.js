@@ -184,14 +184,17 @@ let fixation = {
     trial_duration: function(){
         return jsPsych.randomization.sampleWithoutReplacement(FIXATION_DURATION, 1)[0];
     },
-    data: { test_part: 'fixation' }
+    data: { test_part: 'fixation' },
+    on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
+    }
 };
 
 //Chooses what keyboard inputs are allowed for user to move forward
 let test = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: [KEYBOARD_PRESS_HAPPY, KEYBOARD_PRESS_FEAR],
+    choices: [KEYBOARD_PRESS_LEFT, KEYBOARD_PRESS_RIGHT],
     stimulus_duration: STIMULUS_DURATION,
     trial_duration: TRIAL_DURATION,
     maintain_aspect_ration: MAINTAIN_IMG_ASPECT_RATIO,
@@ -203,6 +206,7 @@ let test = {
         //do work
     },
     on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
     }
@@ -249,7 +253,7 @@ let feedback = {
 let control = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('control'),
-    choices: [KEYBOARD_PRESS_FEMALE, KEYBOARD_PRESS_MALE],
+    choices: [KEYBOARD_PRESS_LEFT, KEYBOARD_PRESS_RIGHT],
     stimulus_duration: STIMULUS_DURATION,
     trial_duration: TRIAL_DURATION,
     maintain_aspect_ration: MAINTAIN_IMG_ASPECT_RATIO,
@@ -261,6 +265,7 @@ let control = {
         //do work
     },
     on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
     }
