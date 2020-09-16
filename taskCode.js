@@ -567,18 +567,18 @@ if(CONTROL_GOES_FIRST){
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(controltutorial1);
-    timeline.push(controltutorial2);
-    timeline.push(controltutorial3);
+    timeline.push(controltutorial4);
+    timeline.push(controltutorial5);
+    timeline.push(controltutorial6);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test],
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
+    timeline.push(EStutorial4);
+    timeline.push(EStutorial5);
+    timeline.push(EStutorial6);
     timeline.push(test_procedure);
 }
 else{
@@ -609,18 +609,18 @@ else{
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
+    timeline.push(EStutorial4);
+    timeline.push(EStutorial5);
+    timeline.push(EStutorial6);
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control],
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(controltutorial1);
-    timeline.push(controltutorial2);
-    timeline.push(controltutorial3);
+    timeline.push(controltutorial4);
+    timeline.push(controltutorial5);
+    timeline.push(controltutorial6);
     timeline.push(test_procedure);
 }
 
