@@ -1,4 +1,4 @@
-const CONTROL_GOES_FIRST = true;
+const CONTROL_GOES_FIRST = false;
 let leftArrowIsFearFemale = true;
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
@@ -239,17 +239,34 @@ let feedback = {
         let correctResponseDirection = "";
         let inCorrectResponseDirection = "";
         if(correctResponse === "leftarrow"){
-            expression = "fear";
-            incorrectExpression = "happy";
-            correctResponseDirection = "left arrow";
-            inCorrectResponseDirection = "right arrow";
+            if(leftArrowIsFearFemale){
+                expression = "fear";
+                incorrectExpression = "happy";
+                correctResponseDirection = "left arrow";
+                inCorrectResponseDirection = "right arrow";
+            }
+            else{
+                expression = "happy";
+                incorrectExpression = "fear";
+                correctResponseDirection = "left arrow";
+                inCorrectResponseDirection = "right arrow";
+            }
         }
         else{
-            expression = "happy";
-            incorrectExpression = "fear";
-            correctResponseDirection = "right arrow";
-            inCorrectResponseDirection = "left arrow";
+            if(leftArrowIsFearFemale){
+                expression = "happy";
+                incorrectExpression = "fear";
+                correctResponseDirection = "right arrow";
+                inCorrectResponseDirection = "left arrow";
+            }
+            else{
+                expression = "fear";
+                incorrectExpression = "happy";
+                correctResponseDirection = "right arrow";
+                inCorrectResponseDirection = "left arrow";
+            }
         }
+
 
         if(last_trial_correct){
             return "<h1>Correct - you entered " + correctResponseDirection + " for " + expression + " and the facial expression was " + expression + "</h1>";
@@ -309,17 +326,33 @@ let controlFeedback = {
         let incorrectExpression = "";
         let correctResponseDirection = "";
         let inCorrectResponseDirection = "";
-        if(correctResponse === "rightarrow"){
-            gender = "male";
-            incorrectExpression = "female";
-            correctResponseDirection = "right arrow";
-            inCorrectResponseDirection = "left arrow";
+        if(correctResponse === "leftarrow"){
+            if(leftArrowIsFearFemale){
+                gender = "female";
+                incorrectExpression = "male";
+                correctResponseDirection = "left arrow";
+                inCorrectResponseDirection = "right arrow";
+            }
+            else{
+                gender = "male";
+                incorrectExpression = "female";
+                correctResponseDirection = "left arrow";
+                inCorrectResponseDirection = "right arrow";
+            }
         }
         else{
-            gender = "female";
-            incorrectExpression = "male";
-            correctResponseDirection = "left arrow";
-            inCorrectResponseDirection = "right arrow";
+            if(leftArrowIsFearFemale){
+                gender = "male";
+                incorrectExpression = "female";
+                correctResponseDirection = "right arrow";
+                inCorrectResponseDirection = "left arrow";
+            }
+            else{
+                gender = "female";
+                incorrectExpression = "male";
+                correctResponseDirection = "right arrow";
+                inCorrectResponseDirection = "left arrow";
+            }
         }
 
         if(last_trial_correct){
