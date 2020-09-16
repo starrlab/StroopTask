@@ -7,9 +7,7 @@ const CONTROL_GOES_FIRST = true;
 //Trial time settings
 const STIMULUS_DURATION = 2000; //This is the total time the image will be displayed before disapearing.
 const TRIAL_DURATION = 3000; //This is the total time before the curent trial moves on to next trial
-const POST_TRIAL_GAP = 0; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
-const FEEDBACK_DURATION = 250; //Sets how long the green dot stays on screen if user inputs a response
-const FEEDBACK_POST_TRIAL_GAP = [1000, 1250, 1500, 1750, 2000]; //Sets how long the after the green dot finishes a blank screen will be displayed before fixation
+const POST_TRIAL_GAP = [1000, 1250, 1500, 1750, 2000]; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
 
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
@@ -442,7 +440,9 @@ let test = {
     maintain_aspect_ration: MAINTAIN_IMG_ASPECT_RATIO,
     stimulus_height: STIMULUS_HEIGHT,
     stimulus_width: STIMULUS_WIDTH,
-    post_trial_gap: POST_TRIAL_GAP,
+    post_trial_gap: function(){
+        return jsPsych.randomization.sampleWithoutReplacement(POST_TRIAL_GAP, 1)[0];
+    },
     data: jsPsych.timelineVariable('data'),
     on_load: function (data) {
         data.linux_time_on_load =  Date.now().toString();
@@ -467,7 +467,9 @@ let control = {
     maintain_aspect_ration: MAINTAIN_IMG_ASPECT_RATIO,
     stimulus_height: STIMULUS_HEIGHT,
     stimulus_width: STIMULUS_WIDTH,
-    post_trial_gap: POST_TRIAL_GAP,
+    post_trial_gap: function(){
+        return jsPsych.randomization.sampleWithoutReplacement(POST_TRIAL_GAP, 1)[0];
+    },
     data: jsPsych.timelineVariable('data'),
     on_load: function (data) {
         data.linux_time_on_load =  Date.now().toString();
@@ -481,30 +483,6 @@ let control = {
         data.trial = "Control";
     }
 };
-
-let feedback = {
-    type: 'html-keyboard-response',
-    stimulus: function(){
-        if(jsPsych.data.get().last(1).values()[0].rt !== null){
-            return '<span class="green fixation-dimensions"></span>'
-        }
-        else{
-            return '<span></span>'
-        }
-    },
-    choices: jsPsych.NO_KEYS,
-    trial_duration: FEEDBACK_DURATION,
-    post_trial_gap: function(){
-        return jsPsych.randomization.sampleWithoutReplacement(FEEDBACK_POST_TRIAL_GAP, 1)[0];
-    },
-    data: { block_type: 'GreenCircle' },
-    on_load: function (data) {
-        data.linux_time_on_load =  Date.now().toString();
-    },
-    on_finish: function (data) {
-        data.linux_time_on_finish =  Date.now().toString();
-    }
-}
 
 let halfwayThrough = Math.floor(controlSequence.length / 2);
 let controlFirstHalf = controlSequence.slice(0, halfwayThrough);
