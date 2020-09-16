@@ -3,13 +3,12 @@ const VERSION = "1";
 const SEQUENCE_NUMBER_ES = 2; //Choose 1-8
 const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
 const CONTROL_GOES_FIRST = true;
+let leftArrowIsFearFemale = true;
 
 //Trial time settings
 const STIMULUS_DURATION = 2000; //This is the total time the image will be displayed before disapearing.
 const TRIAL_DURATION = 3000; //This is the total time before the curent trial moves on to next trial
-const POST_TRIAL_GAP = 0; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
-const FEEDBACK_DURATION = 250; //Sets how long the green dot stays on screen if user inputs a response
-const FEEDBACK_POST_TRIAL_GAP = [1000, 1250, 1500, 1750, 2000]; //Sets how long the after the green dot finishes a blank screen will be displayed before fixation
+const POST_TRIAL_GAP = [1000, 1250, 1500, 1750, 2000]; //Sets the time after the trial finishes to wait until the fixation starts (trial hang time).
 
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
@@ -24,273 +23,271 @@ const FIXATION_SIZE = 60;
 //MISC settings
 const NUMBER_OF_TRIALS = 1; //This will run through the entire ESSequence n number of times as specified.
 const KEYBOARD_PRESS_TUTORIAL = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(13); //This is the tutorial key code
-const KEYBOARD_PRESS_HAPPY = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
-const KEYBOARD_PRESS_FEAR = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
-const KEYBOARD_PRESS_FEMALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
-const KEYBOARD_PRESS_MALE = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
+const KEYBOARD_PRESS_RIGHT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
+const KEYBOARD_PRESS_LEFT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
 let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
 
 /***********Image variables (pre-loaded)*************/
-let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_af_2 = {stimulus: "img/ES/f_c_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_af_3 = {stimulus: "img/ES/f_c_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_af_4 = {stimulus: "img/ES/f_c_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_af_1 = {stimulus: "img/ES/f_i_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_af_2 = {stimulus: "img/ES/f_i_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_af_3 = {stimulus: "img/ES/f_i_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_af_4 = {stimulus: "img/ES/f_i_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_f_af_1 = {stimulus: "img/ES/h_c_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_af_2 = {stimulus: "img/ES/h_c_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_af_3 = {stimulus: "img/ES/h_c_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_af_4 = {stimulus: "img/ES/h_c_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_af_1 = {stimulus: "img/ES/h_i_f_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_af_2 = {stimulus: "img/ES/h_i_f_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_af_3 = {stimulus: "img/ES/h_i_f_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_af_4 = {stimulus: "img/ES/h_i_f_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let f_c_f_as_1 = {stimulus: "img/ES/f_c_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_as_2 = {stimulus: "img/ES/f_c_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_as_3 = {stimulus: "img/ES/f_c_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_as_4 = {stimulus: "img/ES/f_c_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_as_1 = {stimulus: "img/ES/f_i_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_as_2 = {stimulus: "img/ES/f_i_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_as_3 = {stimulus: "img/ES/f_i_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_as_4 = {stimulus: "img/ES/f_i_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_f_as_1 = {stimulus: "img/ES/h_c_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_as_2 = {stimulus: "img/ES/h_c_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_as_3 = {stimulus: "img/ES/h_c_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_as_4 = {stimulus: "img/ES/h_c_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_as_1 = {stimulus: "img/ES/h_i_f_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_as_2 = {stimulus: "img/ES/h_i_f_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_as_3 = {stimulus: "img/ES/h_i_f_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_as_4 = {stimulus: "img/ES/h_i_f_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let f_c_f_ca_1 = {stimulus: "img/ES/f_c_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_ca_2 = {stimulus: "img/ES/f_c_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_ca_3 = {stimulus: "img/ES/f_c_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_ca_4 = {stimulus: "img/ES/f_c_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_ca_1 = {stimulus: "img/ES/f_i_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_ca_2 = {stimulus: "img/ES/f_i_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_ca_3 = {stimulus: "img/ES/f_i_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_ca_4 = {stimulus: "img/ES/f_i_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_f_ca_1 = {stimulus: "img/ES/h_c_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_ca_2 = {stimulus: "img/ES/h_c_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_ca_3 = {stimulus: "img/ES/h_c_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_ca_4 = {stimulus: "img/ES/h_c_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_ca_1 = {stimulus: "img/ES/h_i_f_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_ca_2 = {stimulus: "img/ES/h_i_f_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_ca_3 = {stimulus: "img/ES/h_i_f_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_ca_4 = {stimulus: "img/ES/h_i_f_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let f_c_f_hi_1 = {stimulus: "img/ES/f_c_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_hi_2 = {stimulus: "img/ES/f_c_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_hi_3 = {stimulus: "img/ES/f_c_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_f_hi_4 = {stimulus: "img/ES/f_c_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_hi_1 = {stimulus: "img/ES/f_i_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_hi_2 = {stimulus: "img/ES/f_i_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_hi_3 = {stimulus: "img/ES/f_i_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_f_hi_4 = {stimulus: "img/ES/f_i_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_f_hi_1 = {stimulus: "img/ES/h_c_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_hi_2 = {stimulus: "img/ES/h_c_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_hi_3 = {stimulus: "img/ES/h_c_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_f_hi_4 = {stimulus: "img/ES/h_c_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_hi_1 = {stimulus: "img/ES/h_i_f_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_hi_2 = {stimulus: "img/ES/h_i_f_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_hi_3 = {stimulus: "img/ES/h_i_f_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_f_hi_4 = {stimulus: "img/ES/h_i_f_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let f_c_m_af_1 = {stimulus: "img/ES/f_c_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_af_2 = {stimulus: "img/ES/f_c_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_af_3 = {stimulus: "img/ES/f_c_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_af_4 = {stimulus: "img/ES/f_c_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_af_1 = {stimulus: "img/ES/f_i_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_af_2 = {stimulus: "img/ES/f_i_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_af_3 = {stimulus: "img/ES/f_i_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_af_4 = {stimulus: "img/ES/f_i_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_m_af_1 = {stimulus: "img/ES/h_c_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_af_2 = {stimulus: "img/ES/h_c_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_af_3 = {stimulus: "img/ES/h_c_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_af_4 = {stimulus: "img/ES/h_c_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_af_1 = {stimulus: "img/ES/h_i_m_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_af_2 = {stimulus: "img/ES/h_i_m_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_af_3 = {stimulus: "img/ES/h_i_m_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_af_4 = {stimulus: "img/ES/h_i_m_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let f_c_m_as_1 = {stimulus: "img/ES/f_c_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_as_2 = {stimulus: "img/ES/f_c_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_as_3 = {stimulus: "img/ES/f_c_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_as_4 = {stimulus: "img/ES/f_c_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_as_1 = {stimulus: "img/ES/f_i_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_as_2 = {stimulus: "img/ES/f_i_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_as_3 = {stimulus: "img/ES/f_i_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_as_4 = {stimulus: "img/ES/f_i_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_m_as_1 = {stimulus: "img/ES/h_c_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_as_2 = {stimulus: "img/ES/h_c_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_as_3 = {stimulus: "img/ES/h_c_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_as_4 = {stimulus: "img/ES/h_c_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_as_1 = {stimulus: "img/ES/h_i_m_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_as_2 = {stimulus: "img/ES/h_i_m_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_as_3 = {stimulus: "img/ES/h_i_m_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_as_4 = {stimulus: "img/ES/h_i_m_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let f_c_m_ca_1 = {stimulus: "img/ES/f_c_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_ca_2 = {stimulus: "img/ES/f_c_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_ca_3 = {stimulus: "img/ES/f_c_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_ca_4 = {stimulus: "img/ES/f_c_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_ca_1 = {stimulus: "img/ES/f_i_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_ca_2 = {stimulus: "img/ES/f_i_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_ca_3 = {stimulus: "img/ES/f_i_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_ca_4 = {stimulus: "img/ES/f_i_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_m_ca_1 = {stimulus: "img/ES/h_c_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_ca_2 = {stimulus: "img/ES/h_c_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_ca_3 = {stimulus: "img/ES/h_c_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_ca_4 = {stimulus: "img/ES/h_c_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_ca_1 = {stimulus: "img/ES/h_i_m_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_ca_2 = {stimulus: "img/ES/h_i_m_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_ca_3 = {stimulus: "img/ES/h_i_m_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_ca_4 = {stimulus: "img/ES/h_i_m_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let f_c_m_hi_1 = {stimulus: "img/ES/f_c_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_hi_2 = {stimulus: "img/ES/f_c_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_hi_3 = {stimulus: "img/ES/f_c_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_c_m_hi_4 = {stimulus: "img/ES/f_c_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_hi_1 = {stimulus: "img/ES/f_i_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_hi_2 = {stimulus: "img/ES/f_i_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_hi_3 = {stimulus: "img/ES/f_i_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let f_i_m_hi_4 = {stimulus: "img/ES/f_i_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEAR }}
-let h_c_m_hi_1 = {stimulus: "img/ES/h_c_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_hi_2 = {stimulus: "img/ES/h_c_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_hi_3 = {stimulus: "img/ES/h_c_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_c_m_hi_4 = {stimulus: "img/ES/h_c_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_hi_1 = {stimulus: "img/ES/h_i_m_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_hi_2 = {stimulus: "img/ES/h_i_m_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_hi_3 = {stimulus: "img/ES/h_i_m_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
-let h_i_m_hi_4 = {stimulus: "img/ES/h_i_m_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_HAPPY }}
+let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test' }}
+let f_c_f_af_2 = {stimulus: "img/ES/f_c_f_af_2.png",data: { test_part: 'test' }}
+let f_c_f_af_3 = {stimulus: "img/ES/f_c_f_af_3.png",data: { test_part: 'test' }}
+let f_c_f_af_4 = {stimulus: "img/ES/f_c_f_af_4.png",data: { test_part: 'test' }}
+let f_i_f_af_1 = {stimulus: "img/ES/f_i_f_af_1.png",data: { test_part: 'test' }}
+let f_i_f_af_2 = {stimulus: "img/ES/f_i_f_af_2.png",data: { test_part: 'test' }}
+let f_i_f_af_3 = {stimulus: "img/ES/f_i_f_af_3.png",data: { test_part: 'test' }}
+let f_i_f_af_4 = {stimulus: "img/ES/f_i_f_af_4.png",data: { test_part: 'test' }}
+let h_c_f_af_1 = {stimulus: "img/ES/h_c_f_af_1.png",data: { test_part: 'test' }}
+let h_c_f_af_2 = {stimulus: "img/ES/h_c_f_af_2.png",data: { test_part: 'test' }}
+let h_c_f_af_3 = {stimulus: "img/ES/h_c_f_af_3.png",data: { test_part: 'test' }}
+let h_c_f_af_4 = {stimulus: "img/ES/h_c_f_af_4.png",data: { test_part: 'test' }}
+let h_i_f_af_1 = {stimulus: "img/ES/h_i_f_af_1.png",data: { test_part: 'test' }}
+let h_i_f_af_2 = {stimulus: "img/ES/h_i_f_af_2.png",data: { test_part: 'test' }}
+let h_i_f_af_3 = {stimulus: "img/ES/h_i_f_af_3.png",data: { test_part: 'test' }}
+let h_i_f_af_4 = {stimulus: "img/ES/h_i_f_af_4.png",data: { test_part: 'test' }}
+let f_c_f_as_1 = {stimulus: "img/ES/f_c_f_as_1.png",data: { test_part: 'test' }}
+let f_c_f_as_2 = {stimulus: "img/ES/f_c_f_as_2.png",data: { test_part: 'test' }}
+let f_c_f_as_3 = {stimulus: "img/ES/f_c_f_as_3.png",data: { test_part: 'test' }}
+let f_c_f_as_4 = {stimulus: "img/ES/f_c_f_as_4.png",data: { test_part: 'test' }}
+let f_i_f_as_1 = {stimulus: "img/ES/f_i_f_as_1.png",data: { test_part: 'test' }}
+let f_i_f_as_2 = {stimulus: "img/ES/f_i_f_as_2.png",data: { test_part: 'test' }}
+let f_i_f_as_3 = {stimulus: "img/ES/f_i_f_as_3.png",data: { test_part: 'test' }}
+let f_i_f_as_4 = {stimulus: "img/ES/f_i_f_as_4.png",data: { test_part: 'test' }}
+let h_c_f_as_1 = {stimulus: "img/ES/h_c_f_as_1.png",data: { test_part: 'test' }}
+let h_c_f_as_2 = {stimulus: "img/ES/h_c_f_as_2.png",data: { test_part: 'test' }}
+let h_c_f_as_3 = {stimulus: "img/ES/h_c_f_as_3.png",data: { test_part: 'test' }}
+let h_c_f_as_4 = {stimulus: "img/ES/h_c_f_as_4.png",data: { test_part: 'test' }}
+let h_i_f_as_1 = {stimulus: "img/ES/h_i_f_as_1.png",data: { test_part: 'test' }}
+let h_i_f_as_2 = {stimulus: "img/ES/h_i_f_as_2.png",data: { test_part: 'test' }}
+let h_i_f_as_3 = {stimulus: "img/ES/h_i_f_as_3.png",data: { test_part: 'test' }}
+let h_i_f_as_4 = {stimulus: "img/ES/h_i_f_as_4.png",data: { test_part: 'test' }}
+let f_c_f_ca_1 = {stimulus: "img/ES/f_c_f_ca_1.png",data: { test_part: 'test' }}
+let f_c_f_ca_2 = {stimulus: "img/ES/f_c_f_ca_2.png",data: { test_part: 'test' }}
+let f_c_f_ca_3 = {stimulus: "img/ES/f_c_f_ca_3.png",data: { test_part: 'test' }}
+let f_c_f_ca_4 = {stimulus: "img/ES/f_c_f_ca_4.png",data: { test_part: 'test' }}
+let f_i_f_ca_1 = {stimulus: "img/ES/f_i_f_ca_1.png",data: { test_part: 'test' }}
+let f_i_f_ca_2 = {stimulus: "img/ES/f_i_f_ca_2.png",data: { test_part: 'test' }}
+let f_i_f_ca_3 = {stimulus: "img/ES/f_i_f_ca_3.png",data: { test_part: 'test' }}
+let f_i_f_ca_4 = {stimulus: "img/ES/f_i_f_ca_4.png",data: { test_part: 'test' }}
+let h_c_f_ca_1 = {stimulus: "img/ES/h_c_f_ca_1.png",data: { test_part: 'test' }}
+let h_c_f_ca_2 = {stimulus: "img/ES/h_c_f_ca_2.png",data: { test_part: 'test' }}
+let h_c_f_ca_3 = {stimulus: "img/ES/h_c_f_ca_3.png",data: { test_part: 'test' }}
+let h_c_f_ca_4 = {stimulus: "img/ES/h_c_f_ca_4.png",data: { test_part: 'test' }}
+let h_i_f_ca_1 = {stimulus: "img/ES/h_i_f_ca_1.png",data: { test_part: 'test' }}
+let h_i_f_ca_2 = {stimulus: "img/ES/h_i_f_ca_2.png",data: { test_part: 'test' }}
+let h_i_f_ca_3 = {stimulus: "img/ES/h_i_f_ca_3.png",data: { test_part: 'test' }}
+let h_i_f_ca_4 = {stimulus: "img/ES/h_i_f_ca_4.png",data: { test_part: 'test' }}
+let f_c_f_hi_1 = {stimulus: "img/ES/f_c_f_hi_1.png",data: { test_part: 'test' }}
+let f_c_f_hi_2 = {stimulus: "img/ES/f_c_f_hi_2.png",data: { test_part: 'test' }}
+let f_c_f_hi_3 = {stimulus: "img/ES/f_c_f_hi_3.png",data: { test_part: 'test' }}
+let f_c_f_hi_4 = {stimulus: "img/ES/f_c_f_hi_4.png",data: { test_part: 'test' }}
+let f_i_f_hi_1 = {stimulus: "img/ES/f_i_f_hi_1.png",data: { test_part: 'test' }}
+let f_i_f_hi_2 = {stimulus: "img/ES/f_i_f_hi_2.png",data: { test_part: 'test' }}
+let f_i_f_hi_3 = {stimulus: "img/ES/f_i_f_hi_3.png",data: { test_part: 'test' }}
+let f_i_f_hi_4 = {stimulus: "img/ES/f_i_f_hi_4.png",data: { test_part: 'test' }}
+let h_c_f_hi_1 = {stimulus: "img/ES/h_c_f_hi_1.png",data: { test_part: 'test' }}
+let h_c_f_hi_2 = {stimulus: "img/ES/h_c_f_hi_2.png",data: { test_part: 'test' }}
+let h_c_f_hi_3 = {stimulus: "img/ES/h_c_f_hi_3.png",data: { test_part: 'test' }}
+let h_c_f_hi_4 = {stimulus: "img/ES/h_c_f_hi_4.png",data: { test_part: 'test' }}
+let h_i_f_hi_1 = {stimulus: "img/ES/h_i_f_hi_1.png",data: { test_part: 'test' }}
+let h_i_f_hi_2 = {stimulus: "img/ES/h_i_f_hi_2.png",data: { test_part: 'test' }}
+let h_i_f_hi_3 = {stimulus: "img/ES/h_i_f_hi_3.png",data: { test_part: 'test' }}
+let h_i_f_hi_4 = {stimulus: "img/ES/h_i_f_hi_4.png",data: { test_part: 'test' }}
+let f_c_m_af_1 = {stimulus: "img/ES/f_c_m_af_1.png",data: { test_part: 'test' }}
+let f_c_m_af_2 = {stimulus: "img/ES/f_c_m_af_2.png",data: { test_part: 'test' }}
+let f_c_m_af_3 = {stimulus: "img/ES/f_c_m_af_3.png",data: { test_part: 'test' }}
+let f_c_m_af_4 = {stimulus: "img/ES/f_c_m_af_4.png",data: { test_part: 'test' }}
+let f_i_m_af_1 = {stimulus: "img/ES/f_i_m_af_1.png",data: { test_part: 'test' }}
+let f_i_m_af_2 = {stimulus: "img/ES/f_i_m_af_2.png",data: { test_part: 'test' }}
+let f_i_m_af_3 = {stimulus: "img/ES/f_i_m_af_3.png",data: { test_part: 'test' }}
+let f_i_m_af_4 = {stimulus: "img/ES/f_i_m_af_4.png",data: { test_part: 'test' }}
+let h_c_m_af_1 = {stimulus: "img/ES/h_c_m_af_1.png",data: { test_part: 'test' }}
+let h_c_m_af_2 = {stimulus: "img/ES/h_c_m_af_2.png",data: { test_part: 'test' }}
+let h_c_m_af_3 = {stimulus: "img/ES/h_c_m_af_3.png",data: { test_part: 'test' }}
+let h_c_m_af_4 = {stimulus: "img/ES/h_c_m_af_4.png",data: { test_part: 'test' }}
+let h_i_m_af_1 = {stimulus: "img/ES/h_i_m_af_1.png",data: { test_part: 'test' }}
+let h_i_m_af_2 = {stimulus: "img/ES/h_i_m_af_2.png",data: { test_part: 'test' }}
+let h_i_m_af_3 = {stimulus: "img/ES/h_i_m_af_3.png",data: { test_part: 'test' }}
+let h_i_m_af_4 = {stimulus: "img/ES/h_i_m_af_4.png",data: { test_part: 'test' }}
+let f_c_m_as_1 = {stimulus: "img/ES/f_c_m_as_1.png",data: { test_part: 'test' }}
+let f_c_m_as_2 = {stimulus: "img/ES/f_c_m_as_2.png",data: { test_part: 'test' }}
+let f_c_m_as_3 = {stimulus: "img/ES/f_c_m_as_3.png",data: { test_part: 'test' }}
+let f_c_m_as_4 = {stimulus: "img/ES/f_c_m_as_4.png",data: { test_part: 'test' }}
+let f_i_m_as_1 = {stimulus: "img/ES/f_i_m_as_1.png",data: { test_part: 'test' }}
+let f_i_m_as_2 = {stimulus: "img/ES/f_i_m_as_2.png",data: { test_part: 'test' }}
+let f_i_m_as_3 = {stimulus: "img/ES/f_i_m_as_3.png",data: { test_part: 'test' }}
+let f_i_m_as_4 = {stimulus: "img/ES/f_i_m_as_4.png",data: { test_part: 'test' }}
+let h_c_m_as_1 = {stimulus: "img/ES/h_c_m_as_1.png",data: { test_part: 'test' }}
+let h_c_m_as_2 = {stimulus: "img/ES/h_c_m_as_2.png",data: { test_part: 'test' }}
+let h_c_m_as_3 = {stimulus: "img/ES/h_c_m_as_3.png",data: { test_part: 'test' }}
+let h_c_m_as_4 = {stimulus: "img/ES/h_c_m_as_4.png",data: { test_part: 'test' }}
+let h_i_m_as_1 = {stimulus: "img/ES/h_i_m_as_1.png",data: { test_part: 'test' }}
+let h_i_m_as_2 = {stimulus: "img/ES/h_i_m_as_2.png",data: { test_part: 'test' }}
+let h_i_m_as_3 = {stimulus: "img/ES/h_i_m_as_3.png",data: { test_part: 'test' }}
+let h_i_m_as_4 = {stimulus: "img/ES/h_i_m_as_4.png",data: { test_part: 'test' }}
+let f_c_m_ca_1 = {stimulus: "img/ES/f_c_m_ca_1.png",data: { test_part: 'test' }}
+let f_c_m_ca_2 = {stimulus: "img/ES/f_c_m_ca_2.png",data: { test_part: 'test' }}
+let f_c_m_ca_3 = {stimulus: "img/ES/f_c_m_ca_3.png",data: { test_part: 'test' }}
+let f_c_m_ca_4 = {stimulus: "img/ES/f_c_m_ca_4.png",data: { test_part: 'test' }}
+let f_i_m_ca_1 = {stimulus: "img/ES/f_i_m_ca_1.png",data: { test_part: 'test' }}
+let f_i_m_ca_2 = {stimulus: "img/ES/f_i_m_ca_2.png",data: { test_part: 'test' }}
+let f_i_m_ca_3 = {stimulus: "img/ES/f_i_m_ca_3.png",data: { test_part: 'test' }}
+let f_i_m_ca_4 = {stimulus: "img/ES/f_i_m_ca_4.png",data: { test_part: 'test' }}
+let h_c_m_ca_1 = {stimulus: "img/ES/h_c_m_ca_1.png",data: { test_part: 'test' }}
+let h_c_m_ca_2 = {stimulus: "img/ES/h_c_m_ca_2.png",data: { test_part: 'test' }}
+let h_c_m_ca_3 = {stimulus: "img/ES/h_c_m_ca_3.png",data: { test_part: 'test' }}
+let h_c_m_ca_4 = {stimulus: "img/ES/h_c_m_ca_4.png",data: { test_part: 'test' }}
+let h_i_m_ca_1 = {stimulus: "img/ES/h_i_m_ca_1.png",data: { test_part: 'test' }}
+let h_i_m_ca_2 = {stimulus: "img/ES/h_i_m_ca_2.png",data: { test_part: 'test' }}
+let h_i_m_ca_3 = {stimulus: "img/ES/h_i_m_ca_3.png",data: { test_part: 'test' }}
+let h_i_m_ca_4 = {stimulus: "img/ES/h_i_m_ca_4.png",data: { test_part: 'test' }}
+let f_c_m_hi_1 = {stimulus: "img/ES/f_c_m_hi_1.png",data: { test_part: 'test' }}
+let f_c_m_hi_2 = {stimulus: "img/ES/f_c_m_hi_2.png",data: { test_part: 'test' }}
+let f_c_m_hi_3 = {stimulus: "img/ES/f_c_m_hi_3.png",data: { test_part: 'test' }}
+let f_c_m_hi_4 = {stimulus: "img/ES/f_c_m_hi_4.png",data: { test_part: 'test' }}
+let f_i_m_hi_1 = {stimulus: "img/ES/f_i_m_hi_1.png",data: { test_part: 'test' }}
+let f_i_m_hi_2 = {stimulus: "img/ES/f_i_m_hi_2.png",data: { test_part: 'test' }}
+let f_i_m_hi_3 = {stimulus: "img/ES/f_i_m_hi_3.png",data: { test_part: 'test' }}
+let f_i_m_hi_4 = {stimulus: "img/ES/f_i_m_hi_4.png",data: { test_part: 'test' }}
+let h_c_m_hi_1 = {stimulus: "img/ES/h_c_m_hi_1.png",data: { test_part: 'test' }}
+let h_c_m_hi_2 = {stimulus: "img/ES/h_c_m_hi_2.png",data: { test_part: 'test' }}
+let h_c_m_hi_3 = {stimulus: "img/ES/h_c_m_hi_3.png",data: { test_part: 'test' }}
+let h_c_m_hi_4 = {stimulus: "img/ES/h_c_m_hi_4.png",data: { test_part: 'test' }}
+let h_i_m_hi_1 = {stimulus: "img/ES/h_i_m_hi_1.png",data: { test_part: 'test' }}
+let h_i_m_hi_2 = {stimulus: "img/ES/h_i_m_hi_2.png",data: { test_part: 'test' }}
+let h_i_m_hi_3 = {stimulus: "img/ES/h_i_m_hi_3.png",data: { test_part: 'test' }}
+let h_i_m_hi_4 = {stimulus: "img/ES/h_i_m_hi_4.png",data: { test_part: 'test' }}
 
 /***********Control Image variables (pre-loaded)*************/
-let f_c_fe_af_1 = {control: "img/Control/f_c_fe_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_af_2 = {control: "img/Control/f_c_fe_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_af_3 = {control: "img/Control/f_c_fe_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_af_4 = {control: "img/Control/f_c_fe_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_af_1 = {control: "img/Control/f_i_fe_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_af_2 = {control: "img/Control/f_i_fe_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_af_3 = {control: "img/Control/f_i_fe_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_af_4 = {control: "img/Control/f_i_fe_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_af_1 = {control: "img/Control/h_c_fe_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_af_2 = {control: "img/Control/h_c_fe_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_af_3 = {control: "img/Control/h_c_fe_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_af_4 = {control: "img/Control/h_c_fe_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_af_1 = {control: "img/Control/h_i_fe_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_af_2 = {control: "img/Control/h_i_fe_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_af_3 = {control: "img/Control/h_i_fe_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_af_4 = {control: "img/Control/h_i_fe_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_as_1 = {control: "img/Control/f_c_fe_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_as_2 = {control: "img/Control/f_c_fe_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_as_3 = {control: "img/Control/f_c_fe_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_as_4 = {control: "img/Control/f_c_fe_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_as_1 = {control: "img/Control/f_i_fe_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_as_2 = {control: "img/Control/f_i_fe_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_as_3 = {control: "img/Control/f_i_fe_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_as_4 = {control: "img/Control/f_i_fe_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_as_1 = {control: "img/Control/h_c_fe_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_as_2 = {control: "img/Control/h_c_fe_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_as_3 = {control: "img/Control/h_c_fe_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_as_4 = {control: "img/Control/h_c_fe_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_as_1 = {control: "img/Control/h_i_fe_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_as_2 = {control: "img/Control/h_i_fe_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_as_3 = {control: "img/Control/h_i_fe_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_as_4 = {control: "img/Control/h_i_fe_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_ca_1 = {control: "img/Control/f_c_fe_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_ca_2 = {control: "img/Control/f_c_fe_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_ca_3 = {control: "img/Control/f_c_fe_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_ca_4 = {control: "img/Control/f_c_fe_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_ca_1 = {control: "img/Control/f_i_fe_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_ca_2 = {control: "img/Control/f_i_fe_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_ca_3 = {control: "img/Control/f_i_fe_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_ca_4 = {control: "img/Control/f_i_fe_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_ca_1 = {control: "img/Control/h_c_fe_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_ca_2 = {control: "img/Control/h_c_fe_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_ca_3 = {control: "img/Control/h_c_fe_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_ca_4 = {control: "img/Control/h_c_fe_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_ca_1 = {control: "img/Control/h_i_fe_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_ca_2 = {control: "img/Control/h_i_fe_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_ca_3 = {control: "img/Control/h_i_fe_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_ca_4 = {control: "img/Control/h_i_fe_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_hi_1 = {control: "img/Control/f_c_fe_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_hi_2 = {control: "img/Control/f_c_fe_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_hi_3 = {control: "img/Control/f_c_fe_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_fe_hi_4 = {control: "img/Control/f_c_fe_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_hi_1 = {control: "img/Control/f_i_fe_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_hi_2 = {control: "img/Control/f_i_fe_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_hi_3 = {control: "img/Control/f_i_fe_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_i_fe_hi_4 = {control: "img/Control/f_i_fe_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_hi_1 = {control: "img/Control/h_c_fe_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_hi_2 = {control: "img/Control/h_c_fe_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_hi_3 = {control: "img/Control/h_c_fe_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_c_fe_hi_4 = {control: "img/Control/h_c_fe_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_hi_1 = {control: "img/Control/h_i_fe_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_hi_2 = {control: "img/Control/h_i_fe_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_hi_3 = {control: "img/Control/h_i_fe_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let h_i_fe_hi_4 = {control: "img/Control/h_i_fe_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_FEMALE }}
-let f_c_ma_af_1 = {control: "img/Control/f_c_ma_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_af_2 = {control: "img/Control/f_c_ma_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_af_3 = {control: "img/Control/f_c_ma_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_af_4 = {control: "img/Control/f_c_ma_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_af_1 = {control: "img/Control/f_i_ma_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_af_2 = {control: "img/Control/f_i_ma_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_af_3 = {control: "img/Control/f_i_ma_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_af_4 = {control: "img/Control/f_i_ma_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_af_1 = {control: "img/Control/h_c_ma_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_af_2 = {control: "img/Control/h_c_ma_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_af_3 = {control: "img/Control/h_c_ma_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_af_4 = {control: "img/Control/h_c_ma_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_af_1 = {control: "img/Control/h_i_ma_af_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_af_2 = {control: "img/Control/h_i_ma_af_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_af_3 = {control: "img/Control/h_i_ma_af_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_af_4 = {control: "img/Control/h_i_ma_af_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_as_1 = {control: "img/Control/f_c_ma_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_as_2 = {control: "img/Control/f_c_ma_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_as_3 = {control: "img/Control/f_c_ma_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_as_4 = {control: "img/Control/f_c_ma_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_as_1 = {control: "img/Control/f_i_ma_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_as_2 = {control: "img/Control/f_i_ma_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_as_3 = {control: "img/Control/f_i_ma_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_as_4 = {control: "img/Control/f_i_ma_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_as_1 = {control: "img/Control/h_c_ma_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_as_2 = {control: "img/Control/h_c_ma_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_as_3 = {control: "img/Control/h_c_ma_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_as_4 = {control: "img/Control/h_c_ma_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_as_1 = {control: "img/Control/h_i_ma_as_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_as_2 = {control: "img/Control/h_i_ma_as_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_as_3 = {control: "img/Control/h_i_ma_as_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_as_4 = {control: "img/Control/h_i_ma_as_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_ca_1 = {control: "img/Control/f_c_ma_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_ca_2 = {control: "img/Control/f_c_ma_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_ca_3 = {control: "img/Control/f_c_ma_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_ca_4 = {control: "img/Control/f_c_ma_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_ca_1 = {control: "img/Control/f_i_ma_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_ca_2 = {control: "img/Control/f_i_ma_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_ca_3 = {control: "img/Control/f_i_ma_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_ca_4 = {control: "img/Control/f_i_ma_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_ca_1 = {control: "img/Control/h_c_ma_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_ca_2 = {control: "img/Control/h_c_ma_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_ca_3 = {control: "img/Control/h_c_ma_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_ca_4 = {control: "img/Control/h_c_ma_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_ca_1 = {control: "img/Control/h_i_ma_ca_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_ca_2 = {control: "img/Control/h_i_ma_ca_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_ca_3 = {control: "img/Control/h_i_ma_ca_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_ca_4 = {control: "img/Control/h_i_ma_ca_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_hi_1 = {control: "img/Control/f_c_ma_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_hi_2 = {control: "img/Control/f_c_ma_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_hi_3 = {control: "img/Control/f_c_ma_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_c_ma_hi_4 = {control: "img/Control/f_c_ma_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_hi_1 = {control: "img/Control/f_i_ma_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_hi_2 = {control: "img/Control/f_i_ma_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_hi_3 = {control: "img/Control/f_i_ma_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let f_i_ma_hi_4 = {control: "img/Control/f_i_ma_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_hi_1 = {control: "img/Control/h_c_ma_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_hi_2 = {control: "img/Control/h_c_ma_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_hi_3 = {control: "img/Control/h_c_ma_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_c_ma_hi_4 = {control: "img/Control/h_c_ma_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_hi_1 = {control: "img/Control/h_i_ma_hi_1.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_hi_2 = {control: "img/Control/h_i_ma_hi_2.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_hi_3 = {control: "img/Control/h_i_ma_hi_3.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
-let h_i_ma_hi_4 = {control: "img/Control/h_i_ma_hi_4.png",data: { test_part: 'test', correct_response: KEYBOARD_PRESS_MALE }}
+let f_c_fe_af_1 = {control: "img/Control/f_c_fe_af_1.png",data: { test_part: 'test'}}
+let f_c_fe_af_2 = {control: "img/Control/f_c_fe_af_2.png",data: { test_part: 'test'}}
+let f_c_fe_af_3 = {control: "img/Control/f_c_fe_af_3.png",data: { test_part: 'test'}}
+let f_c_fe_af_4 = {control: "img/Control/f_c_fe_af_4.png",data: { test_part: 'test'}}
+let f_i_fe_af_1 = {control: "img/Control/f_i_fe_af_1.png",data: { test_part: 'test'}}
+let f_i_fe_af_2 = {control: "img/Control/f_i_fe_af_2.png",data: { test_part: 'test'}}
+let f_i_fe_af_3 = {control: "img/Control/f_i_fe_af_3.png",data: { test_part: 'test'}}
+let f_i_fe_af_4 = {control: "img/Control/f_i_fe_af_4.png",data: { test_part: 'test'}}
+let h_c_fe_af_1 = {control: "img/Control/h_c_fe_af_1.png",data: { test_part: 'test'}}
+let h_c_fe_af_2 = {control: "img/Control/h_c_fe_af_2.png",data: { test_part: 'test'}}
+let h_c_fe_af_3 = {control: "img/Control/h_c_fe_af_3.png",data: { test_part: 'test'}}
+let h_c_fe_af_4 = {control: "img/Control/h_c_fe_af_4.png",data: { test_part: 'test'}}
+let h_i_fe_af_1 = {control: "img/Control/h_i_fe_af_1.png",data: { test_part: 'test'}}
+let h_i_fe_af_2 = {control: "img/Control/h_i_fe_af_2.png",data: { test_part: 'test'}}
+let h_i_fe_af_3 = {control: "img/Control/h_i_fe_af_3.png",data: { test_part: 'test'}}
+let h_i_fe_af_4 = {control: "img/Control/h_i_fe_af_4.png",data: { test_part: 'test'}}
+let f_c_fe_as_1 = {control: "img/Control/f_c_fe_as_1.png",data: { test_part: 'test'}}
+let f_c_fe_as_2 = {control: "img/Control/f_c_fe_as_2.png",data: { test_part: 'test'}}
+let f_c_fe_as_3 = {control: "img/Control/f_c_fe_as_3.png",data: { test_part: 'test'}}
+let f_c_fe_as_4 = {control: "img/Control/f_c_fe_as_4.png",data: { test_part: 'test'}}
+let f_i_fe_as_1 = {control: "img/Control/f_i_fe_as_1.png",data: { test_part: 'test'}}
+let f_i_fe_as_2 = {control: "img/Control/f_i_fe_as_2.png",data: { test_part: 'test'}}
+let f_i_fe_as_3 = {control: "img/Control/f_i_fe_as_3.png",data: { test_part: 'test'}}
+let f_i_fe_as_4 = {control: "img/Control/f_i_fe_as_4.png",data: { test_part: 'test'}}
+let h_c_fe_as_1 = {control: "img/Control/h_c_fe_as_1.png",data: { test_part: 'test'}}
+let h_c_fe_as_2 = {control: "img/Control/h_c_fe_as_2.png",data: { test_part: 'test'}}
+let h_c_fe_as_3 = {control: "img/Control/h_c_fe_as_3.png",data: { test_part: 'test'}}
+let h_c_fe_as_4 = {control: "img/Control/h_c_fe_as_4.png",data: { test_part: 'test'}}
+let h_i_fe_as_1 = {control: "img/Control/h_i_fe_as_1.png",data: { test_part: 'test'}}
+let h_i_fe_as_2 = {control: "img/Control/h_i_fe_as_2.png",data: { test_part: 'test'}}
+let h_i_fe_as_3 = {control: "img/Control/h_i_fe_as_3.png",data: { test_part: 'test'}}
+let h_i_fe_as_4 = {control: "img/Control/h_i_fe_as_4.png",data: { test_part: 'test'}}
+let f_c_fe_ca_1 = {control: "img/Control/f_c_fe_ca_1.png",data: { test_part: 'test'}}
+let f_c_fe_ca_2 = {control: "img/Control/f_c_fe_ca_2.png",data: { test_part: 'test'}}
+let f_c_fe_ca_3 = {control: "img/Control/f_c_fe_ca_3.png",data: { test_part: 'test'}}
+let f_c_fe_ca_4 = {control: "img/Control/f_c_fe_ca_4.png",data: { test_part: 'test'}}
+let f_i_fe_ca_1 = {control: "img/Control/f_i_fe_ca_1.png",data: { test_part: 'test'}}
+let f_i_fe_ca_2 = {control: "img/Control/f_i_fe_ca_2.png",data: { test_part: 'test'}}
+let f_i_fe_ca_3 = {control: "img/Control/f_i_fe_ca_3.png",data: { test_part: 'test'}}
+let f_i_fe_ca_4 = {control: "img/Control/f_i_fe_ca_4.png",data: { test_part: 'test'}}
+let h_c_fe_ca_1 = {control: "img/Control/h_c_fe_ca_1.png",data: { test_part: 'test'}}
+let h_c_fe_ca_2 = {control: "img/Control/h_c_fe_ca_2.png",data: { test_part: 'test'}}
+let h_c_fe_ca_3 = {control: "img/Control/h_c_fe_ca_3.png",data: { test_part: 'test'}}
+let h_c_fe_ca_4 = {control: "img/Control/h_c_fe_ca_4.png",data: { test_part: 'test'}}
+let h_i_fe_ca_1 = {control: "img/Control/h_i_fe_ca_1.png",data: { test_part: 'test'}}
+let h_i_fe_ca_2 = {control: "img/Control/h_i_fe_ca_2.png",data: { test_part: 'test'}}
+let h_i_fe_ca_3 = {control: "img/Control/h_i_fe_ca_3.png",data: { test_part: 'test'}}
+let h_i_fe_ca_4 = {control: "img/Control/h_i_fe_ca_4.png",data: { test_part: 'test'}}
+let f_c_fe_hi_1 = {control: "img/Control/f_c_fe_hi_1.png",data: { test_part: 'test'}}
+let f_c_fe_hi_2 = {control: "img/Control/f_c_fe_hi_2.png",data: { test_part: 'test'}}
+let f_c_fe_hi_3 = {control: "img/Control/f_c_fe_hi_3.png",data: { test_part: 'test'}}
+let f_c_fe_hi_4 = {control: "img/Control/f_c_fe_hi_4.png",data: { test_part: 'test'}}
+let f_i_fe_hi_1 = {control: "img/Control/f_i_fe_hi_1.png",data: { test_part: 'test'}}
+let f_i_fe_hi_2 = {control: "img/Control/f_i_fe_hi_2.png",data: { test_part: 'test'}}
+let f_i_fe_hi_3 = {control: "img/Control/f_i_fe_hi_3.png",data: { test_part: 'test'}}
+let f_i_fe_hi_4 = {control: "img/Control/f_i_fe_hi_4.png",data: { test_part: 'test'}}
+let h_c_fe_hi_1 = {control: "img/Control/h_c_fe_hi_1.png",data: { test_part: 'test'}}
+let h_c_fe_hi_2 = {control: "img/Control/h_c_fe_hi_2.png",data: { test_part: 'test'}}
+let h_c_fe_hi_3 = {control: "img/Control/h_c_fe_hi_3.png",data: { test_part: 'test'}}
+let h_c_fe_hi_4 = {control: "img/Control/h_c_fe_hi_4.png",data: { test_part: 'test'}}
+let h_i_fe_hi_1 = {control: "img/Control/h_i_fe_hi_1.png",data: { test_part: 'test'}}
+let h_i_fe_hi_2 = {control: "img/Control/h_i_fe_hi_2.png",data: { test_part: 'test'}}
+let h_i_fe_hi_3 = {control: "img/Control/h_i_fe_hi_3.png",data: { test_part: 'test'}}
+let h_i_fe_hi_4 = {control: "img/Control/h_i_fe_hi_4.png",data: { test_part: 'test'}}
+let f_c_ma_af_1 = {control: "img/Control/f_c_ma_af_1.png",data: { test_part: 'test'}}
+let f_c_ma_af_2 = {control: "img/Control/f_c_ma_af_2.png",data: { test_part: 'test'}}
+let f_c_ma_af_3 = {control: "img/Control/f_c_ma_af_3.png",data: { test_part: 'test'}}
+let f_c_ma_af_4 = {control: "img/Control/f_c_ma_af_4.png",data: { test_part: 'test'}}
+let f_i_ma_af_1 = {control: "img/Control/f_i_ma_af_1.png",data: { test_part: 'test'}}
+let f_i_ma_af_2 = {control: "img/Control/f_i_ma_af_2.png",data: { test_part: 'test'}}
+let f_i_ma_af_3 = {control: "img/Control/f_i_ma_af_3.png",data: { test_part: 'test'}}
+let f_i_ma_af_4 = {control: "img/Control/f_i_ma_af_4.png",data: { test_part: 'test'}}
+let h_c_ma_af_1 = {control: "img/Control/h_c_ma_af_1.png",data: { test_part: 'test'}}
+let h_c_ma_af_2 = {control: "img/Control/h_c_ma_af_2.png",data: { test_part: 'test'}}
+let h_c_ma_af_3 = {control: "img/Control/h_c_ma_af_3.png",data: { test_part: 'test'}}
+let h_c_ma_af_4 = {control: "img/Control/h_c_ma_af_4.png",data: { test_part: 'test'}}
+let h_i_ma_af_1 = {control: "img/Control/h_i_ma_af_1.png",data: { test_part: 'test'}}
+let h_i_ma_af_2 = {control: "img/Control/h_i_ma_af_2.png",data: { test_part: 'test'}}
+let h_i_ma_af_3 = {control: "img/Control/h_i_ma_af_3.png",data: { test_part: 'test'}}
+let h_i_ma_af_4 = {control: "img/Control/h_i_ma_af_4.png",data: { test_part: 'test'}}
+let f_c_ma_as_1 = {control: "img/Control/f_c_ma_as_1.png",data: { test_part: 'test'}}
+let f_c_ma_as_2 = {control: "img/Control/f_c_ma_as_2.png",data: { test_part: 'test'}}
+let f_c_ma_as_3 = {control: "img/Control/f_c_ma_as_3.png",data: { test_part: 'test'}}
+let f_c_ma_as_4 = {control: "img/Control/f_c_ma_as_4.png",data: { test_part: 'test'}}
+let f_i_ma_as_1 = {control: "img/Control/f_i_ma_as_1.png",data: { test_part: 'test'}}
+let f_i_ma_as_2 = {control: "img/Control/f_i_ma_as_2.png",data: { test_part: 'test'}}
+let f_i_ma_as_3 = {control: "img/Control/f_i_ma_as_3.png",data: { test_part: 'test'}}
+let f_i_ma_as_4 = {control: "img/Control/f_i_ma_as_4.png",data: { test_part: 'test'}}
+let h_c_ma_as_1 = {control: "img/Control/h_c_ma_as_1.png",data: { test_part: 'test'}}
+let h_c_ma_as_2 = {control: "img/Control/h_c_ma_as_2.png",data: { test_part: 'test'}}
+let h_c_ma_as_3 = {control: "img/Control/h_c_ma_as_3.png",data: { test_part: 'test'}}
+let h_c_ma_as_4 = {control: "img/Control/h_c_ma_as_4.png",data: { test_part: 'test'}}
+let h_i_ma_as_1 = {control: "img/Control/h_i_ma_as_1.png",data: { test_part: 'test'}}
+let h_i_ma_as_2 = {control: "img/Control/h_i_ma_as_2.png",data: { test_part: 'test'}}
+let h_i_ma_as_3 = {control: "img/Control/h_i_ma_as_3.png",data: { test_part: 'test'}}
+let h_i_ma_as_4 = {control: "img/Control/h_i_ma_as_4.png",data: { test_part: 'test'}}
+let f_c_ma_ca_1 = {control: "img/Control/f_c_ma_ca_1.png",data: { test_part: 'test'}}
+let f_c_ma_ca_2 = {control: "img/Control/f_c_ma_ca_2.png",data: { test_part: 'test'}}
+let f_c_ma_ca_3 = {control: "img/Control/f_c_ma_ca_3.png",data: { test_part: 'test'}}
+let f_c_ma_ca_4 = {control: "img/Control/f_c_ma_ca_4.png",data: { test_part: 'test'}}
+let f_i_ma_ca_1 = {control: "img/Control/f_i_ma_ca_1.png",data: { test_part: 'test'}}
+let f_i_ma_ca_2 = {control: "img/Control/f_i_ma_ca_2.png",data: { test_part: 'test'}}
+let f_i_ma_ca_3 = {control: "img/Control/f_i_ma_ca_3.png",data: { test_part: 'test'}}
+let f_i_ma_ca_4 = {control: "img/Control/f_i_ma_ca_4.png",data: { test_part: 'test'}}
+let h_c_ma_ca_1 = {control: "img/Control/h_c_ma_ca_1.png",data: { test_part: 'test'}}
+let h_c_ma_ca_2 = {control: "img/Control/h_c_ma_ca_2.png",data: { test_part: 'test'}}
+let h_c_ma_ca_3 = {control: "img/Control/h_c_ma_ca_3.png",data: { test_part: 'test'}}
+let h_c_ma_ca_4 = {control: "img/Control/h_c_ma_ca_4.png",data: { test_part: 'test'}}
+let h_i_ma_ca_1 = {control: "img/Control/h_i_ma_ca_1.png",data: { test_part: 'test'}}
+let h_i_ma_ca_2 = {control: "img/Control/h_i_ma_ca_2.png",data: { test_part: 'test'}}
+let h_i_ma_ca_3 = {control: "img/Control/h_i_ma_ca_3.png",data: { test_part: 'test'}}
+let h_i_ma_ca_4 = {control: "img/Control/h_i_ma_ca_4.png",data: { test_part: 'test'}}
+let f_c_ma_hi_1 = {control: "img/Control/f_c_ma_hi_1.png",data: { test_part: 'test'}}
+let f_c_ma_hi_2 = {control: "img/Control/f_c_ma_hi_2.png",data: { test_part: 'test'}}
+let f_c_ma_hi_3 = {control: "img/Control/f_c_ma_hi_3.png",data: { test_part: 'test'}}
+let f_c_ma_hi_4 = {control: "img/Control/f_c_ma_hi_4.png",data: { test_part: 'test'}}
+let f_i_ma_hi_1 = {control: "img/Control/f_i_ma_hi_1.png",data: { test_part: 'test'}}
+let f_i_ma_hi_2 = {control: "img/Control/f_i_ma_hi_2.png",data: { test_part: 'test'}}
+let f_i_ma_hi_3 = {control: "img/Control/f_i_ma_hi_3.png",data: { test_part: 'test'}}
+let f_i_ma_hi_4 = {control: "img/Control/f_i_ma_hi_4.png",data: { test_part: 'test'}}
+let h_c_ma_hi_1 = {control: "img/Control/h_c_ma_hi_1.png",data: { test_part: 'test'}}
+let h_c_ma_hi_2 = {control: "img/Control/h_c_ma_hi_2.png",data: { test_part: 'test'}}
+let h_c_ma_hi_3 = {control: "img/Control/h_c_ma_hi_3.png",data: { test_part: 'test'}}
+let h_c_ma_hi_4 = {control: "img/Control/h_c_ma_hi_4.png",data: { test_part: 'test'}}
+let h_i_ma_hi_1 = {control: "img/Control/h_i_ma_hi_1.png",data: { test_part: 'test'}}
+let h_i_ma_hi_2 = {control: "img/Control/h_i_ma_hi_2.png",data: { test_part: 'test'}}
+let h_i_ma_hi_3 = {control: "img/Control/h_i_ma_hi_3.png",data: { test_part: 'test'}}
+let h_i_ma_hi_4 = {control: "img/Control/h_i_ma_hi_4.png",data: { test_part: 'test'}}
 
 /***********Test trials ESSequences*************/
 switch(SEQUENCE_NUMBER_ES) {
@@ -385,6 +382,39 @@ let EStutorial3 = {
         "</div>",
 };
 
+let EStutorial4 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
+        " and you will also see red text written over these faces.</p>" +
+        "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
+        "← for <strong>happy</strong> and → for <strong>fear</strong>.</p>" +
+        "<p>Press Enter key to continue</p>",
+    on_finish: function (data) {
+        leftArrowIsFearFemale = false;
+    }
+};
+
+let EStutorial5 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter ← for happy</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
+        "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+
+let EStutorial6 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter → for fear</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
+        "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
+        "</div>",
+};
+
 let controltutorial1 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
@@ -414,6 +444,38 @@ let controltutorial3 = {
         "</div>",
 };
 
+let controltutorial4 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>In this task you will see male and female faces and you will also see red text" +
+        " written over these faces.  Please ignore the red text and indicate the gender of the </p>" +
+        "<p>face: male or female by entering on your keyboard ← for <strong>male</strong> and → for <strong>female</strong>. " +
+        "<p>Press Enter key to continue</p>",
+    on_finish: function (data) {
+        leftArrowIsFearFemale = false;
+    }
+};
+
+let controltutorial5 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>male</strong>; so you would enter ← for male</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/Control/h_c_ma_hi_1.png'/>" +
+        "<p><strong>Gender - Male</strong><br>Word Meaning - Male</p>" +
+        "</div>",
+};
+
+let controltutorial6 = {
+    type: "html-keyboard-response",
+    choices: [KEYBOARD_PRESS_TUTORIAL],
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>female</strong>; so you would enter → for female</p>" +
+        "<p>Press Enter key to continue</p><br>" +
+        "<div><img src='img/Control/f_i_fe_as_1.png'/>" +
+        "<p><strong>Gender - Female</strong><br>Word Meaning - Male</p>" +
+        "</div>",
+};
+
 //Adds a fixation in between trials for number of millisecond
 //User cannot press key to move forward
 let fixation = {
@@ -423,27 +485,42 @@ let fixation = {
     trial_duration: function(){
         return jsPsych.randomization.sampleWithoutReplacement(FIXATION_DURATION, 1)[0];
     },
-    data: { test_part: 'fixation' }
+    data: { test_part: 'fixation' },
+    on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
+    }
 };
 
 //Chooses what keyboard inputs are allowed for user to move forward
 let test = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: [KEYBOARD_PRESS_HAPPY, KEYBOARD_PRESS_FEAR],
+    choices: [KEYBOARD_PRESS_RIGHT, KEYBOARD_PRESS_LEFT],
     stimulus_duration: STIMULUS_DURATION,
     trial_duration: TRIAL_DURATION,
     maintain_aspect_ration: MAINTAIN_IMG_ASPECT_RATIO,
     stimulus_height: STIMULUS_HEIGHT,
     stimulus_width: STIMULUS_WIDTH,
-    post_trial_gap: POST_TRIAL_GAP,
-    data: jsPsych.timelineVariable('data'),
-    on_load: function (data) {
-        //do work
+    post_trial_gap: function(){
+        return jsPsych.randomization.sampleWithoutReplacement(POST_TRIAL_GAP, 1)[0];
     },
+    data: jsPsych.timelineVariable('data'),
     on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
+        if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        else if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
@@ -454,43 +531,37 @@ let test = {
 let control = {
     type: "image-keyboard-response",
     stimulus: jsPsych.timelineVariable('control'),
-    choices: [KEYBOARD_PRESS_FEMALE, KEYBOARD_PRESS_MALE],
+    choices: [KEYBOARD_PRESS_LEFT, KEYBOARD_PRESS_RIGHT],
     stimulus_duration: STIMULUS_DURATION,
     trial_duration: TRIAL_DURATION,
     maintain_aspect_ration: MAINTAIN_IMG_ASPECT_RATIO,
     stimulus_height: STIMULUS_HEIGHT,
     stimulus_width: STIMULUS_WIDTH,
-    post_trial_gap: POST_TRIAL_GAP,
-    data: jsPsych.timelineVariable('data'),
-    on_load: function (data) {
-        //do work
+    post_trial_gap: function(){
+        return jsPsych.randomization.sampleWithoutReplacement(POST_TRIAL_GAP, 1)[0];
     },
+    data: jsPsych.timelineVariable('data'),
     on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
+        if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        else if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
     }
 };
-
-let feedback = {
-    type: 'html-keyboard-response',
-    stimulus: function(){
-        if(jsPsych.data.get().last(1).values()[0].rt !== null){
-            return '<span class="green fixation-dimensions"></span>'
-        }
-        else{
-            return '<span></span>'
-        }
-    },
-    choices: jsPsych.NO_KEYS,
-    trial_duration: FEEDBACK_DURATION,
-    post_trial_gap: function(){
-        return jsPsych.randomization.sampleWithoutReplacement(FEEDBACK_POST_TRIAL_GAP, 1)[0];
-    },
-    data: { block_type: 'GreenCircle' }
-}
 
 let halfwayThrough = Math.floor(controlSequence.length / 2);
 let controlFirstHalf = controlSequence.slice(0, halfwayThrough);
@@ -505,7 +576,7 @@ if(CONTROL_GOES_FIRST){
     //add second half control array to finalSequence array
     //add second half ES array to finalSequence array
     let test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -514,7 +585,7 @@ if(CONTROL_GOES_FIRST){
     timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -523,22 +594,22 @@ if(CONTROL_GOES_FIRST){
     timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(controltutorial1);
-    timeline.push(controltutorial2);
-    timeline.push(controltutorial3);
+    timeline.push(controltutorial4);
+    timeline.push(controltutorial5);
+    timeline.push(controltutorial6);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
+    timeline.push(EStutorial4);
+    timeline.push(EStutorial5);
+    timeline.push(EStutorial6);
     timeline.push(test_procedure);
 }
 else{
@@ -547,7 +618,7 @@ else{
     //add second half ES array to finalSequence array
     //add second half control array to finalSequence array
     let test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -556,7 +627,7 @@ else{
     timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -565,22 +636,22 @@ else{
     timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
+    timeline.push(EStutorial4);
+    timeline.push(EStutorial5);
+    timeline.push(EStutorial6);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    timeline.push(controltutorial1);
-    timeline.push(controltutorial2);
-    timeline.push(controltutorial3);
+    timeline.push(controltutorial4);
+    timeline.push(controltutorial5);
+    timeline.push(controltutorial6);
     timeline.push(test_procedure);
 }
 
