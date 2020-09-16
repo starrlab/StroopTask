@@ -502,7 +502,7 @@ let test = {
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
-        data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        //data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
     }
@@ -526,7 +526,7 @@ let control = {
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
-        data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        //data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
     }
