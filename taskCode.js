@@ -2,7 +2,7 @@
 const VERSION = "1";
 const SEQUENCE_NUMBER_ES = 2; //Choose 1-8
 const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
-const CONTROL_GOES_FIRST = false;
+const CONTROL_GOES_FIRST = true;
 let leftArrowIsFearFemale = true;
 
 //Trial time settings
