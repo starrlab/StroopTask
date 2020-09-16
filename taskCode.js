@@ -519,7 +519,7 @@ if(CONTROL_GOES_FIRST){
     //add second half control array to finalSequence array
     //add second half ES array to finalSequence array
     let test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -528,7 +528,7 @@ if(CONTROL_GOES_FIRST){
     timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -537,7 +537,7 @@ if(CONTROL_GOES_FIRST){
     timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -546,7 +546,7 @@ if(CONTROL_GOES_FIRST){
     timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -561,7 +561,7 @@ else{
     //add second half ES array to finalSequence array
     //add second half control array to finalSequence array
     let test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -570,7 +570,7 @@ else{
     timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -579,7 +579,7 @@ else{
     timeline.push(controltutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, test, feedback],
+        timeline: [fixation, test],
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
@@ -588,7 +588,7 @@ else{
     timeline.push(EStutorial3);
     timeline.push(test_procedure);
     test_procedure = {
-        timeline: [fixation, control, feedback],
+        timeline: [fixation, control],
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
