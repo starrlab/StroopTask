@@ -326,17 +326,33 @@ let controlFeedback = {
         let incorrectExpression = "";
         let correctResponseDirection = "";
         let inCorrectResponseDirection = "";
-        if(correctResponse === "rightarrow"){
-            gender = "male";
-            incorrectExpression = "female";
-            correctResponseDirection = "right arrow";
-            inCorrectResponseDirection = "left arrow";
+        if(correctResponse === "leftarrow"){
+            if(leftArrowIsFearFemale){
+                gender = "female";
+                incorrectExpression = "male";
+                correctResponseDirection = "left arrow";
+                inCorrectResponseDirection = "right arrow";
+            }
+            else{
+                gender = "male";
+                incorrectExpression = "female";
+                correctResponseDirection = "left arrow";
+                inCorrectResponseDirection = "right arrow";
+            }
         }
         else{
-            gender = "female";
-            incorrectExpression = "male";
-            correctResponseDirection = "left arrow";
-            inCorrectResponseDirection = "right arrow";
+            if(leftArrowIsFearFemale){
+                gender = "male";
+                incorrectExpression = "female";
+                correctResponseDirection = "right arrow";
+                inCorrectResponseDirection = "left arrow";
+            }
+            else{
+                gender = "female";
+                incorrectExpression = "male";
+                correctResponseDirection = "right arrow";
+                inCorrectResponseDirection = "left arrow";
+            }
         }
 
         if(last_trial_correct){
