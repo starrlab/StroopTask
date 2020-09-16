@@ -2,7 +2,8 @@
 const VERSION = "1";
 const SEQUENCE_NUMBER_ES = 2; //Choose 1-8
 const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
-const CONTROL_GOES_FIRST = true;
+const CONTROL_GOES_FIRST = false;
+let leftArrowIsFearFemale = true;
 
 //Trial time settings
 const STIMULUS_DURATION = 2000; //This is the total time the image will be displayed before disapearing.
@@ -22,8 +23,8 @@ const FIXATION_SIZE = 60;
 //MISC settings
 const NUMBER_OF_TRIALS = 1; //This will run through the entire ESSequence n number of times as specified.
 const KEYBOARD_PRESS_TUTORIAL = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(13); //This is the tutorial key code
-let KEYBOARD_PRESS_RIGHT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
-let KEYBOARD_PRESS_LEFT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
+const KEYBOARD_PRESS_RIGHT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(39); //This is the arrow key code
+const KEYBOARD_PRESS_LEFT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); //This is the arrow key code
 let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
@@ -388,7 +389,10 @@ let EStutorial4 = {
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
         "← for <strong>happy</strong> and → for <strong>fear</strong>.</p>" +
-        "<p>Press Enter key to continue</p>"
+        "<p>Press Enter key to continue</p>",
+    on_finish: function (data) {
+        leftArrowIsFearFemale = false;
+    }
 };
 
 let EStutorial5 = {
@@ -446,7 +450,10 @@ let controltutorial4 = {
     stimulus: "<p>In this task you will see male and female faces and you will also see red text" +
         " written over these faces.  Please ignore the red text and indicate the gender of the </p>" +
         "<p>face: male or female by entering on your keyboard ← for <strong>male</strong> and → for <strong>female</strong>. " +
-        "<p>Press Enter key to continue</p>"
+        "<p>Press Enter key to continue</p>",
+    on_finish: function (data) {
+        leftArrowIsFearFemale = false;
+    }
 };
 
 let controltutorial5 = {
@@ -502,7 +509,19 @@ let test = {
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
-        //data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        else if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
     }
@@ -526,7 +545,19 @@ let control = {
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
-        //data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        else if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+            data.correct_response = KEYBOARD_PRESS_RIGHT;
+        }
+        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+            data.correct_response = KEYBOARD_PRESS_LEFT;
+        }
+        data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
     }
