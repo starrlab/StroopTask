@@ -423,7 +423,13 @@ let fixation = {
     trial_duration: function(){
         return jsPsych.randomization.sampleWithoutReplacement(FIXATION_DURATION, 1)[0];
     },
-    data: { test_part: 'fixation' }
+    data: { test_part: 'fixation' },
+    on_load: function (data) {
+        data.linux_time_on_load =  Date.now().toString();
+    },
+    on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
+    }
 };
 
 //Chooses what keyboard inputs are allowed for user to move forward
@@ -439,9 +445,10 @@ let test = {
     post_trial_gap: POST_TRIAL_GAP,
     data: jsPsych.timelineVariable('data'),
     on_load: function (data) {
-        //do work
+        data.linux_time_on_load =  Date.now().toString();
     },
     on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
@@ -463,9 +470,10 @@ let control = {
     post_trial_gap: POST_TRIAL_GAP,
     data: jsPsych.timelineVariable('data'),
     on_load: function (data) {
-        //do work
+        data.linux_time_on_load =  Date.now().toString();
     },
     on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
@@ -489,7 +497,13 @@ let feedback = {
     post_trial_gap: function(){
         return jsPsych.randomization.sampleWithoutReplacement(FEEDBACK_POST_TRIAL_GAP, 1)[0];
     },
-    data: { block_type: 'GreenCircle' }
+    data: { block_type: 'GreenCircle' },
+    on_load: function (data) {
+        data.linux_time_on_load =  Date.now().toString();
+    },
+    on_finish: function (data) {
+        data.linux_time_on_finish =  Date.now().toString();
+    }
 }
 
 let halfwayThrough = Math.floor(controlSequence.length / 2);
