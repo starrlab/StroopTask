@@ -76,7 +76,7 @@ let EStutorial3 = {
     choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter ← for fear</p>" +
         "<p>Press Enter key to continue</p><br>" +
-        "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
+        "<div><img src='img/ES/f_i_f_ca_4.png'/>" +
         "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
         "</div>",
 };
@@ -109,7 +109,7 @@ let EStutorial6 = {
     choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter → for fear</p>" +
         "<p>Press Enter key to continue</p><br>" +
-        "<div><img src='img/ES/f_c_f_ca_1.png'/>" +
+        "<div><img src='img/ES/f_i_f_ca_4.png'/>" +
         "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
         "</div>",
 };
