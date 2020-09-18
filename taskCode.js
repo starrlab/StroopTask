@@ -358,14 +358,14 @@ let EStutorial1 = {
     stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-        "→ for <strong>happy</strong> and ← for <strong>fear</strong>.</p>" +
+        "<h2>→</h2> for <strong>happy</strong> and <h2>←</h2> for <strong>fear</strong>.</p>" +
         "<p>Press Enter key to continue</p>"
 };
 
 let EStutorial2 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter → for happy</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter <h2>→</h2> for happy</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
         "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
@@ -375,7 +375,7 @@ let EStutorial2 = {
 let EStutorial3 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter ← for fear</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter <h2>←</h2> for fear</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/ES/f_i_f_ca_4.png'/>" +
         "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
@@ -388,7 +388,7 @@ let EStutorial4 = {
     stimulus: "<p>In this task you will see faces with two different expression types: happy and fear, " +
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
-        "← for <strong>happy</strong> and → for <strong>fear</strong>.</p>" +
+        "<h2>←</h2> for <strong>happy</strong> and <h2>→</h2> for <strong>fear</strong>.</p>" +
         "<p>Press Enter key to continue</p>",
     on_finish: function (data) {
         leftArrowIsFearFemale = false;
@@ -398,7 +398,7 @@ let EStutorial4 = {
 let EStutorial5 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter ← for happy</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>happy</strong>; so you would enter <h2>←</h2> for happy</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/ES/h_c_m_hi_1.png'/>" +
         "<p><strong>Facial Expression - Happy</strong><br>Word Meaning - Happy</p>" +
@@ -408,7 +408,7 @@ let EStutorial5 = {
 let EStutorial6 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter → for fear</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>facial expression</strong> is <strong>fear</strong>; so you would enter <h2>→</h2> for fear</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/ES/f_i_f_ca_4.png'/>" +
         "<p><strong>Facial Expression - Fear</strong><br>Word Meaning - Happy</p>" +
@@ -420,14 +420,14 @@ let controltutorial1 = {
     choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>In this task you will see male and female faces and you will also see red text" +
         " written over these faces.  Please ignore the red text and indicate the gender of the </p>" +
-        "<p>face: male or female by entering on your keyboard → for <strong>male</strong> and ← for <strong>female</strong>. " +
+        "<p>face: male or female by entering on your keyboard <h2>→</h2> for <strong>male</strong> and <h2>←</h2> for <strong>female</strong>. " +
         "<p>Press Enter key to continue</p>"
 };
 
 let controltutorial2 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>male</strong>; so you would enter → for male</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>male</strong>; so you would enter <h2>→</h2> for male</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/Control/h_c_ma_hi_1.png'/>" +
         "<p><strong>Gender - Male</strong><br>Word Meaning - Male</p>" +
@@ -437,7 +437,7 @@ let controltutorial2 = {
 let controltutorial3 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>female</strong>; so you would enter ← for female</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>female</strong>; so you would enter <h2>←</h2> for female</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/Control/f_i_fe_as_1.png'/>" +
         "<p><strong>Gender - Female</strong><br>Word Meaning - Male</p>" +
@@ -449,7 +449,7 @@ let controltutorial4 = {
     choices: [KEYBOARD_PRESS_TUTORIAL],
     stimulus: "<p>In this task you will see male and female faces and you will also see red text" +
         " written over these faces.  Please ignore the red text and indicate the gender of the </p>" +
-        "<p>face: male or female by entering on your keyboard ← for <strong>male</strong> and → for <strong>female</strong>. " +
+        "<p>face: male or female by entering on your keyboard <h2>←</h2> for <strong>male</strong> and <h2>→</h2> for <strong>female</strong>. " +
         "<p>Press Enter key to continue</p>",
     on_finish: function (data) {
         leftArrowIsFearFemale = false;
@@ -459,7 +459,7 @@ let controltutorial4 = {
 let controltutorial5 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>male</strong>; so you would enter ← for male</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>male</strong>; so you would enter <h2>←</h2> for male</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/Control/h_c_ma_hi_1.png'/>" +
         "<p><strong>Gender - Male</strong><br>Word Meaning - Male</p>" +
@@ -469,7 +469,7 @@ let controltutorial5 = {
 let controltutorial6 = {
     type: "html-keyboard-response",
     choices: [KEYBOARD_PRESS_TUTORIAL],
-    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>female</strong>; so you would enter → for female</p>" +
+    stimulus: "<p>Here is an example of one of the stimuli you will see in the task.  For this image, the <strong>gender</strong> is <strong>female</strong>; so you would enter <h2>→</h2> for female</p>" +
         "<p>Press Enter key to continue</p><br>" +
         "<div><img src='img/Control/f_i_fe_as_1.png'/>" +
         "<p><strong>Gender - Female</strong><br>Word Meaning - Male</p>" +
