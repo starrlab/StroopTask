@@ -569,6 +569,12 @@ let control = {
         else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
+        if(data.stimulus.charAt(16) == 'f'){
+            data.gender = "female";
+        }
+        else{
+            data.gender = "male";
+        }
         if(data.stimulus.charAt(14) == 'i'){
             data.congruency = "incongruent";
         }
