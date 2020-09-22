@@ -3,7 +3,7 @@ const VERSION = "1";
 const SEQUENCE_NUMBER_ES = 2; //Choose 1-8
 const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
 const CONTROL_GOES_FIRST = true;
-let leftArrowIsFearFemale = false;
+const LEFT_ARROW_IS_FEAR_FEMALE = false;
 
 //Trial time settings
 const STIMULUS_DURATION = 2000; //This is the total time the image will be displayed before disapearing.
@@ -504,16 +504,16 @@ let test = {
         jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
-        if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+        if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
-        else if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+        else if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
         if(data.stimulus.charAt(7) == 'f'){
@@ -559,16 +559,16 @@ let control = {
         jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
-        if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+        if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'f'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
-        else if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+        else if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'f'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
         if(data.stimulus.charAt(12) == 'f'){
@@ -612,7 +612,7 @@ if(CONTROL_GOES_FIRST){
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(controltutorial1);
         timeline.push(controltutorial2);
         timeline.push(controltutorial3);
@@ -628,7 +628,7 @@ if(CONTROL_GOES_FIRST){
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(EStutorial1);
         timeline.push(EStutorial2);
         timeline.push(EStutorial3);
@@ -644,7 +644,7 @@ if(CONTROL_GOES_FIRST){
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(controltutorial1);
         timeline.push(controltutorial2);
         timeline.push(controltutorial3);
@@ -660,7 +660,7 @@ if(CONTROL_GOES_FIRST){
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(EStutorial1);
         timeline.push(EStutorial2);
         timeline.push(EStutorial3);
@@ -682,7 +682,7 @@ else{
         timeline_variables: ESFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(EStutorial1);
         timeline.push(EStutorial2);
         timeline.push(EStutorial3);
@@ -698,7 +698,7 @@ else{
         timeline_variables: controlFirstHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(controltutorial1);
         timeline.push(controltutorial2);
         timeline.push(controltutorial3);
@@ -714,7 +714,7 @@ else{
         timeline_variables: ESSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(EStutorial1);
         timeline.push(EStutorial2);
         timeline.push(EStutorial3);
@@ -730,7 +730,7 @@ else{
         timeline_variables: controlSecondHalf,
         repetitions: NUMBER_OF_TRIALS
     };
-    if(leftArrowIsFearFemale){
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
         timeline.push(controltutorial1);
         timeline.push(controltutorial2);
         timeline.push(controltutorial3);
