@@ -2,8 +2,8 @@
 const VERSION = "1";
 const SEQUENCE_NUMBER_ES = 2; //Choose 1-8
 const SEQUENCE_NUMBER_CONTROL = 1; //Choose 1-8
-const CONTROL_GOES_FIRST = true;
-const LEFT_ARROW_IS_FEAR_FEMALE = false;
+const CONTROL_GOES_FIRST = false;
+const LEFT_ARROW_IS_FEAR_FEMALE = true;
 
 //Trial time settings
 const STIMULUS_DURATION = 2000; //This is the total time the image will be displayed before disapearing.
