@@ -569,6 +569,12 @@ let control = {
         else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
+        if(data.stimulus.charAt(14) == 'i'){
+            data.congruency = "incongruent";
+        }
+        else{
+            data.congruency = "congruent";
+        }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
