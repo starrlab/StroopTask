@@ -581,6 +581,12 @@ let control = {
         else{
             data.congruency = "congruent";
         }
+        if(data.stimulus.charAt(12) == 'f'){
+            data.facial_expression_type = "fear";
+        }
+        else{
+            data.facial_expression_type = "happy";
+        }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
