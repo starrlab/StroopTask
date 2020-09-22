@@ -507,6 +507,7 @@ let test = {
     data: jsPsych.timelineVariable('data'),
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
+        jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
@@ -561,6 +562,7 @@ let control = {
     data: jsPsych.timelineVariable('data'),
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
+        jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
