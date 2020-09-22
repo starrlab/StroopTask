@@ -1,5 +1,5 @@
 const CONTROL_GOES_FIRST = false;
-let leftArrowIsFearFemale = true;
+const LEFT_ARROW_IS_FEAR_FEMALE = true;
 //Image settings
 const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
 const STIMULUS_WIDTH = null; //Changes the width of the images.  Set to null for no changes
@@ -88,10 +88,7 @@ let EStutorial4 = {
         " and you will also see red text written over these faces.</p>" +
         "<p>Please ignore the red text and indicate the facial expression type: happy or fear by entering on your keyboard " +
         "<h2>←</h2> for <strong>happy</strong> and <h2>→</h2> for <strong>fear</strong>.</p>" +
-        "<p>Press Enter key to continue</p>",
-    on_finish: function (data) {
-        leftArrowIsFearFemale = false;
-    }
+        "<p>Press Enter key to continue</p>"
 };
 
 let EStutorial5 = {
@@ -149,10 +146,7 @@ let controltutorial4 = {
     stimulus: "<p>In this task you will see male and female faces and you will also see red text" +
         " written over these faces.  Please ignore the red text and indicate the gender of the </p>" +
         "<p>face: male or female by entering on your keyboard <h2>←</h2> for <strong>male</strong> and <h2>→</h2> for <strong>female</strong>. " +
-        "<p>Press Enter key to continue</p>",
-    on_finish: function (data) {
-        leftArrowIsFearFemale = false;
-    }
+        "<p>Press Enter key to continue</p>"
 };
 
 let controltutorial5 = {
@@ -207,16 +201,16 @@ let test = {
     },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
-        if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+        if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
-        else if(leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+        else if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'f'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(7) == 'h'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
@@ -239,7 +233,7 @@ let feedback = {
         let correctResponseDirection = "";
         let inCorrectResponseDirection = "";
         if(correctResponse === "leftarrow"){
-            if(leftArrowIsFearFemale){
+            if(LEFT_ARROW_IS_FEAR_FEMALE){
                 expression = "fear";
                 incorrectExpression = "happy";
                 correctResponseDirection = "left arrow";
@@ -253,7 +247,7 @@ let feedback = {
             }
         }
         else{
-            if(leftArrowIsFearFemale){
+            if(LEFT_ARROW_IS_FEAR_FEMALE){
                 expression = "happy";
                 incorrectExpression = "fear";
                 correctResponseDirection = "right arrow";
@@ -295,16 +289,16 @@ let control = {
     },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
-        if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+        if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'f'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
-        else if(leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+        else if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'f'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'f'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
         }
-        else if(!leftArrowIsFearFemale && data.stimulus.charAt(16) == 'm'){
+        else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
         }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
@@ -327,7 +321,7 @@ let controlFeedback = {
         let correctResponseDirection = "";
         let inCorrectResponseDirection = "";
         if(correctResponse === "leftarrow"){
-            if(leftArrowIsFearFemale){
+            if(LEFT_ARROW_IS_FEAR_FEMALE){
                 gender = "female";
                 incorrectExpression = "male";
                 correctResponseDirection = "left arrow";
@@ -341,7 +335,7 @@ let controlFeedback = {
             }
         }
         else{
-            if(leftArrowIsFearFemale){
+            if(LEFT_ARROW_IS_FEAR_FEMALE){
                 gender = "male";
                 incorrectExpression = "female";
                 correctResponseDirection = "right arrow";
@@ -378,34 +372,62 @@ if(CONTROL_GOES_FIRST) {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlFirstHalf
     };
-    timeline.push(controltutorial1);
-    timeline.push(controltutorial2);
-    timeline.push(controltutorial3);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(controltutorial1);
+        timeline.push(controltutorial2);
+        timeline.push(controltutorial3);
+    }
+    else{
+        timeline.push(controltutorial4);
+        timeline.push(controltutorial5);
+        timeline.push(controltutorial6);
+    }
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf
     };
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(EStutorial1);
+        timeline.push(EStutorial2);
+        timeline.push(EStutorial3);
+    }
+    else{
+        timeline.push(EStutorial4);
+        timeline.push(EStutorial5);
+        timeline.push(EStutorial6);
+    }
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlSecondHalf
     };
-    timeline.push(controltutorial4);
-    timeline.push(controltutorial5);
-    timeline.push(controltutorial6);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(controltutorial1);
+        timeline.push(controltutorial2);
+        timeline.push(controltutorial3);
+    }
+    else{
+        timeline.push(controltutorial4);
+        timeline.push(controltutorial5);
+        timeline.push(controltutorial6);
+    }
     timeline.push(test_procedure);
 
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf
     };
-    timeline.push(EStutorial4);
-    timeline.push(EStutorial5);
-    timeline.push(EStutorial6);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(EStutorial1);
+        timeline.push(EStutorial2);
+        timeline.push(EStutorial3);
+    }
+    else{
+        timeline.push(EStutorial4);
+        timeline.push(EStutorial5);
+        timeline.push(EStutorial6);
+    }
     timeline.push(test_procedure);
 
 } else{
@@ -413,33 +435,61 @@ if(CONTROL_GOES_FIRST) {
         timeline: [fixation, test, feedback],
         timeline_variables: ESFirstHalf
     };
-    timeline.push(EStutorial1);
-    timeline.push(EStutorial2);
-    timeline.push(EStutorial3);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(EStutorial1);
+        timeline.push(EStutorial2);
+        timeline.push(EStutorial3);
+    }
+    else{
+        timeline.push(EStutorial4);
+        timeline.push(EStutorial5);
+        timeline.push(EStutorial6);
+    }
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlFirstHalf
     };
-    timeline.push(controltutorial1);
-    timeline.push(controltutorial2);
-    timeline.push(controltutorial3);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(controltutorial1);
+        timeline.push(controltutorial2);
+        timeline.push(controltutorial3);
+    }
+    else{
+        timeline.push(controltutorial4);
+        timeline.push(controltutorial5);
+        timeline.push(controltutorial6);
+    }
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, test, feedback],
         timeline_variables: ESSecondHalf
     };
-    timeline.push(EStutorial4);
-    timeline.push(EStutorial5);
-    timeline.push(EStutorial6);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(EStutorial1);
+        timeline.push(EStutorial2);
+        timeline.push(EStutorial3);
+    }
+    else{
+        timeline.push(EStutorial4);
+        timeline.push(EStutorial5);
+        timeline.push(EStutorial6);
+    }
     timeline.push(test_procedure);
     test_procedure = {
         timeline: [fixation, control, controlFeedback],
         timeline_variables: controlSecondHalf
     };
-    timeline.push(controltutorial4);
-    timeline.push(controltutorial5);
-    timeline.push(controltutorial6);
+    if(LEFT_ARROW_IS_FEAR_FEMALE){
+        timeline.push(controltutorial1);
+        timeline.push(controltutorial2);
+        timeline.push(controltutorial3);
+    }
+    else{
+        timeline.push(controltutorial4);
+        timeline.push(controltutorial5);
+        timeline.push(controltutorial6);
+    }
     timeline.push(test_procedure);
 }
 
