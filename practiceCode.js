@@ -1,7 +1,7 @@
 const CONTROL_GOES_FIRST = false;
 const LEFT_ARROW_IS_FEAR_FEMALE = true;
 //Image settings
-const STIMULUS_HEIGHT = 500; //Changes the height of the images. Set to null for no changes
+const STIMULUS_HEIGHT = 550; //Changes the height of the images. Set to null for no changes
 const STIMULUS_WIDTH = null; //Changes the width of the images.  Set to null for no changes
 const MAINTAIN_IMG_ASPECT_RATIO = true; //must be true or false. Set only the width or height and set to true will keep the aspect ration of the image. Set to false if want to change height/width together.
 
