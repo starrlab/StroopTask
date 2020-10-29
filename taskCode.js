@@ -29,6 +29,7 @@ let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
 let times = "";
+let trialNumber = 0;
 
 times = "Trial, Time, Event, MetaData, Value\n";
 times += "0, 0,'meta-data',"+ "version," + VERSION + "\n";
@@ -496,6 +497,10 @@ let fixation = {
     data: { test_part: 'fixation' },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
+        times += trialNumber + "," + Date.now().toString() + ",FIXATION_END\n";
+    },
+    on_load: function (data) {
+        times += trialNumber + "," + Date.now().toString() + ",FIXATION_START\n";
     }
 };
 
