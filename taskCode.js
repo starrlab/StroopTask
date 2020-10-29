@@ -363,8 +363,8 @@ switch(SEQUENCE_NUMBER_CONTROL){
         alert("ERROR: Could not determine Control Sequence! Please pick a Control Sequence between 1-8 and try again.");
 }
 //Used for debugging to have a smaller set to work with
-//ESSequence = [f_c_m_hi_4, f_i_f_as_4, h_c_f_hi_4, f_c_m_af_4, h_i_m_ca_4, f_i_f_hi_1, f_c_f_af_1, h_i_m_ca_3, f_i_m_hi_3, h_c_m_as_1];
-//controlSequence = [h_c_fe_af_4, h_i_fe_as_1, f_i_ma_ca_3, f_c_fe_af_3, f_i_ma_hi_1, f_c_fe_hi_4, h_c_fe_as_2, f_c_ma_hi_4, h_i_fe_as_2, f_i_fe_hi_2];
+ESSequence = [f_c_m_hi_4, f_i_f_as_4, h_c_f_hi_4, f_c_m_af_4, h_i_m_ca_4, f_i_f_hi_1, f_c_f_af_1, h_i_m_ca_3, f_i_m_hi_3, h_c_m_as_1];
+controlSequence = [h_c_fe_af_4, h_i_fe_as_1, f_i_ma_ca_3, f_c_fe_af_3, f_i_ma_hi_1, f_c_fe_hi_4, h_c_fe_as_2, f_c_ma_hi_4, h_i_fe_as_2, f_i_fe_hi_2];
 
 /***********Tutorial Screens*************/
 let EStutorial1 = {
@@ -497,7 +497,7 @@ let fixation = {
     data: { test_part: 'fixation' },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
-        times += Date.now().toString()  + "," + trialNumber  + "," + "fixation" + "," + "fixation" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "\n";
+        times += Date.now().toString()  + "," + trialNumber  + "," + "fixation" + "," + "fixation" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA\n";
     }
 };
 
@@ -520,6 +520,7 @@ let test = {
         let facialExpressionData;
         let genderData;
         let congruencyData;
+        let isCorrect;
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
@@ -565,11 +566,12 @@ let test = {
             congruencyData = "congruent";
         }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        isCorrect = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
 
         //csv data
-        times += Date.now().toString()  + "," + trialNumber  + "," + "test" + "," + "ES" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
+        times += Date.now().toString()  + "," + trialNumber  + "," + "test" + "," + "ES" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
         trialNumber++;
     }
 };
@@ -593,6 +595,7 @@ let control = {
         let facialExpressionData;
         let genderData;
         let congruencyData;
+        let isCorrect;
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
@@ -638,11 +641,12 @@ let control = {
             congruencyData = "congruent";
         }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        isCorrect = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
 
         //csv data
-        times += Date.now().toString()  + "," + trialNumber  + "," + "test" + "," + "Control" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
+        times += Date.now().toString()  + "," + trialNumber  + "," + "test" + "," + "Control" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
         trialNumber++;
     }
 };
