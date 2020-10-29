@@ -812,8 +812,14 @@ var debrief_block = {
 
         },
         on_load: function () {
+            /*This saves a .json file
             let filename = "task_" + Date.now().toString() + "_ver" + VERSION + ".json";
             saveData(jsPsych.data.get().json(), filename);
+            */
+
+            //This saves a .csv file
+            let filename = "task_" + Date.now().toString() + "_ver" + VERSION + ".csv";
+            saveData(times, filename);
         }
     };
 //add this to timeline
