@@ -519,43 +519,61 @@ let test = {
     },
     data: jsPsych.timelineVariable('data'),
     on_finish: function (data) {
+        let correctResponseData;
+        let facialExpressionData;
+        let genderData;
+        let congruencyData;
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
+            correctResponseData = KEYBOARD_PRESS_LEFT;
         }
         else if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
+            correctResponseData = KEYBOARD_PRESS_RIGHT;
         }
         else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
+            correctResponseData = KEYBOARD_PRESS_RIGHT;
         }
         else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
+            correctResponseData = KEYBOARD_PRESS_LEFT;
         }
         if(data.stimulus.charAt(7) == 'f'){
             data.facial_expression_type = "fear";
+            facialExpressionData = "fear";
         }
         else{
             data.facial_expression_type = "happy";
+            facialExpressionData = "happy";
         }
         if(data.stimulus.charAt(11) == 'f'){
             data.gender = "female";
+            genderData = "female";
         }
         else{
             data.gender = "male";
+            genderData = "male";
         }
         if(data.stimulus.charAt(9) == 'i'){
             data.congruency = "incongruent";
+            congruencyData = "incongruent";
         }
         else{
             data.congruency = "congruent";
+            congruencyData = "congruent";
         }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
+
+        //csv data
+        times += Date.now().toString()  + "," + trialNumber  + "," + "test" + "," + "ES" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + congruencyData + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
+        trialNumber++;
     }
 };
 
