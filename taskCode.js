@@ -28,6 +28,18 @@ const KEYBOARD_PRESS_LEFT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); 
 let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
+let times = "";
+
+times = "Trial, Time, Event, MetaData, Value\n";
+times += "0, 0,'meta-data',"+ "version," + VERSION + "\n";
+times += "0, 0,'meta-data',"+ "CONTROL_GOES_FIRST," + CONTROL_GOES_FIRST + "\n";
+times += "0, 0,'meta-data',"+ "LEFT_ARROW_IS_FEAR_FEMALE," + LEFT_ARROW_IS_FEAR_FEMALE + "\n";
+times += "0, 0,'meta-data',"+ "SEQUENCE_NUMBER_ES," + SEQUENCE_NUMBER_ES + "\n";
+times += "0, 0,'meta-data',"+ "SEQUENCE_NUMBER_CONTROL," + SEQUENCE_NUMBER_CONTROL + "\n";
+times += "0, 0,'meta-data',"+ "STIMULUS_DURATION," + STIMULUS_DURATION + "\n";
+times += "0, 0,'meta-data',"+ "TRIAL_DURATION," + TRIAL_DURATION + "\n";
+times += "0, 0,'meta-data',"+ "POST_TRIAL_GAP," + POST_TRIAL_GAP + "\n";
+times += "0, 0,'meta-data',"+ "FIXATION_DURATION," + FIXATION_DURATION + "\n";
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test' }}
