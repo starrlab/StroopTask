@@ -31,17 +31,17 @@ let controlSequence = [];
 let times = "";
 let trialNumber = 0;
 
-times = "Trial, Time, Event, MetaData, Value\n";
-times += "0, 0,'meta-data',"+ "version," + VERSION + "\n";
-times += "0, 0,'meta-data',"+ "CONTROL_GOES_FIRST," + CONTROL_GOES_FIRST + "\n";
-times += "0, 0,'meta-data',"+ "LEFT_ARROW_IS_FEAR_FEMALE," + LEFT_ARROW_IS_FEAR_FEMALE + "\n";
-times += "0, 0,'meta-data',"+ "SEQUENCE_NUMBER_ES," + SEQUENCE_NUMBER_ES + "\n";
-times += "0, 0,'meta-data',"+ "SEQUENCE_NUMBER_CONTROL," + SEQUENCE_NUMBER_CONTROL + "\n";
-times += "0, 0,'meta-data',"+ "STIMULUS_DURATION," + STIMULUS_DURATION + "\n";
-times += "0, 0,'meta-data',"+ "TRIAL_DURATION," + TRIAL_DURATION + "\n";
-times += "0, 0,'meta-data',"+ "POST_TRIAL_GAP," + POST_TRIAL_GAP + "\n";
-times += "0, 0,'meta-data',"+ "FIXATION_DURATION," + FIXATION_DURATION + "\n";
-times += "0, 0,'meta-data',"+ "NUMBER_OF_TRIALS," + NUMBER_OF_TRIALS + "\n";
+times += "version," + VERSION + "\n";
+times += "CONTROL_GOES_FIRST," + CONTROL_GOES_FIRST + "\n";
+times += "LEFT_ARROW_IS_FEAR_FEMALE," + LEFT_ARROW_IS_FEAR_FEMALE + "\n";
+times += "SEQUENCE_NUMBER_ES," + SEQUENCE_NUMBER_ES + "\n";
+times += "SEQUENCE_NUMBER_CONTROL," + SEQUENCE_NUMBER_CONTROL + "\n";
+times += "STIMULUS_DURATION," + STIMULUS_DURATION + "\n";
+times += "TRIAL_DURATION," + TRIAL_DURATION + "\n";
+times += "POST_TRIAL_GAP," + POST_TRIAL_GAP + "\n";
+times += "FIXATION_DURATION," + FIXATION_DURATION + "\n";
+times += "NUMBER_OF_TRIALS," + NUMBER_OF_TRIALS + "\n";
+times = "Linux Time on finish, rt, Trial_index, time_elasped, test_part, trial, congruency, facial_expression_type, gender, Correct, user_response, correct_response, Essequence, controlSequence, key press\n"
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test' }}
