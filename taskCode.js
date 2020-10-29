@@ -41,7 +41,7 @@ times += "TRIAL_DURATION," + TRIAL_DURATION + "\n";
 times += "POST_TRIAL_GAP," + POST_TRIAL_GAP + "\n";
 times += "FIXATION_DURATION," + FIXATION_DURATION + "\n";
 times += "NUMBER_OF_TRIALS," + NUMBER_OF_TRIALS + "\n";
-times = "Linux Time on finish, rt, Trial_index, time_elasped, test_part, trial, congruency, facial_expression_type, gender, Correct, user_response, correct_response, Essequence, controlSequence, key press\n"
+times = "Linux Time (on finish), RT Time, Trial Index, Time elapsed, Test Part, Trial, Congruency, Facial Expression Type, Gender, Correct, User Response, Correct Response, Key Press\n"
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test' }}
