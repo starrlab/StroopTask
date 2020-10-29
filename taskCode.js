@@ -497,10 +497,7 @@ let fixation = {
     data: { test_part: 'fixation' },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
-        times += trialNumber + "," + Date.now().toString() + ",FIXATION_END\n";
-    },
-    on_load: function (data) {
-        times += trialNumber + "," + Date.now().toString() + ",FIXATION_START\n";
+        times += Date.now().toString()  + "," + trialNumber  + "," + "fixation" + "," + "fixation" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "\n";
     }
 };
 
