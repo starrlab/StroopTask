@@ -31,7 +31,7 @@ let controlSequence = [];
 let times = "";
 let trialNumber = 0;
 
-times += "version," + VERSION + "\n";
+times = "version," + VERSION + "\n";
 times += "CONTROL_GOES_FIRST," + CONTROL_GOES_FIRST + "\n";
 times += "LEFT_ARROW_IS_FEAR_FEMALE," + LEFT_ARROW_IS_FEAR_FEMALE + "\n";
 times += "SEQUENCE_NUMBER_ES," + SEQUENCE_NUMBER_ES + "\n";
@@ -41,7 +41,7 @@ times += "TRIAL_DURATION," + TRIAL_DURATION + "\n";
 times += "POST_TRIAL_GAP," + POST_TRIAL_GAP + "\n";
 times += "FIXATION_DURATION," + FIXATION_DURATION + "\n";
 times += "NUMBER_OF_TRIALS," + NUMBER_OF_TRIALS + "\n";
-times = "Linux Time (on finish), RT Time, Trial Index, Time elapsed, Test Part, Trial, Congruency, Facial Expression Type, Gender, Correct, User Response, Correct Response, Stimulus, Key Press\n"
+times += "Linux Time (on finish), RT Time, Trial Index, Time elapsed, Test Part, Trial, Congruency, Facial Expression Type, Gender, Correct, User Response, Correct Response, Stimulus, Key Press\n"
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test' }}
@@ -570,11 +570,8 @@ let test = {
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
 
-        console.log(data.rt);
-        console.log(data.time_elapsed);
-
         //csv data
-        times += Date.now().toString()  + "," + data.rt + "," + trialNumber  + "," + data.time_elapsed + "," + "test" + "," + "ES" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + data.stimulus() + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
+        times += Date.now().toString()  + "," + data.rt + "," + trialNumber  + "," + data.time_elapsed + "," + "test" + "," + "ES" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + data.stimulus + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
         trialNumber++;
     }
 };
@@ -649,7 +646,7 @@ let control = {
         data.trial = "Control";
 
         //csv data
-        times += Date.now().toString()  + "," + data.rt + "," + trialNumber  + "," + data.time_elapsed + "," + "test" + "," + "Control" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + data.stimulus() + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
+        times += Date.now().toString()  + "," + data.rt + "," + trialNumber  + "," + data.time_elapsed + "," + "test" + "," + "Control" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + data.stimulus + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
         trialNumber++;
     }
 };
