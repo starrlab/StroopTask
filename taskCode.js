@@ -40,6 +40,7 @@ times += "0, 0,'meta-data',"+ "STIMULUS_DURATION," + STIMULUS_DURATION + "\n";
 times += "0, 0,'meta-data',"+ "TRIAL_DURATION," + TRIAL_DURATION + "\n";
 times += "0, 0,'meta-data',"+ "POST_TRIAL_GAP," + POST_TRIAL_GAP + "\n";
 times += "0, 0,'meta-data',"+ "FIXATION_DURATION," + FIXATION_DURATION + "\n";
+times += "0, 0,'meta-data',"+ "NUMBER_OF_TRIALS," + NUMBER_OF_TRIALS + "\n";
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test' }}
