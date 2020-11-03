@@ -28,6 +28,20 @@ const KEYBOARD_PRESS_LEFT = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(37); 
 let timeline = [];
 let ESSequence = [];
 let controlSequence = [];
+let times = "";
+let trialNumber = 0;
+
+times = "version," + VERSION + "\n";
+times += "CONTROL_GOES_FIRST," + CONTROL_GOES_FIRST + "\n";
+times += "LEFT_ARROW_IS_FEAR_FEMALE," + LEFT_ARROW_IS_FEAR_FEMALE + "\n";
+times += "SEQUENCE_NUMBER_ES," + SEQUENCE_NUMBER_ES + "\n";
+times += "SEQUENCE_NUMBER_CONTROL," + SEQUENCE_NUMBER_CONTROL + "\n";
+times += "STIMULUS_DURATION," + STIMULUS_DURATION + "\n";
+times += "TRIAL_DURATION," + TRIAL_DURATION + "\n";
+times += "POST_TRIAL_GAP," + POST_TRIAL_GAP + "\n";
+times += "FIXATION_DURATION," + FIXATION_DURATION + "\n";
+times += "NUMBER_OF_TRIALS," + NUMBER_OF_TRIALS + "\n";
+times += "Linux Time (on finish), RT Time, Trial Index, Time elapsed, Test Part, Trial, Congruency, Facial Expression Type, Gender, Correct, User Response, Correct Response, Stimulus, Key Press\n"
 
 /***********Image variables (pre-loaded)*************/
 let f_c_f_af_1 = {stimulus: "img/ES/f_c_f_af_1.png",data: { test_part: 'test' }}
@@ -349,8 +363,8 @@ switch(SEQUENCE_NUMBER_CONTROL){
         alert("ERROR: Could not determine Control Sequence! Please pick a Control Sequence between 1-8 and try again.");
 }
 //Used for debugging to have a smaller set to work with
-//ESSequence = [f_c_m_hi_4, f_i_f_as_4, h_c_f_hi_4, f_c_m_af_4, h_i_m_ca_4, f_i_f_hi_1, f_c_f_af_1, h_i_m_ca_3, f_i_m_hi_3, h_c_m_as_1];
-//controlSequence = [h_c_fe_af_4, h_i_fe_as_1, f_i_ma_ca_3, f_c_fe_af_3, f_i_ma_hi_1, f_c_fe_hi_4, h_c_fe_as_2, f_c_ma_hi_4, h_i_fe_as_2, f_i_fe_hi_2];
+ESSequence = [f_c_m_hi_4, f_i_f_as_4, h_c_f_hi_4, f_c_m_af_4, h_i_m_ca_4, f_i_f_hi_1, f_c_f_af_1, h_i_m_ca_3, f_i_m_hi_3, h_c_m_as_1];
+controlSequence = [h_c_fe_af_4, h_i_fe_as_1, f_i_ma_ca_3, f_c_fe_af_3, f_i_ma_hi_1, f_c_fe_hi_4, h_c_fe_as_2, f_c_ma_hi_4, h_i_fe_as_2, f_i_fe_hi_2];
 
 /***********Tutorial Screens*************/
 let EStutorial1 = {
@@ -483,6 +497,7 @@ let fixation = {
     data: { test_part: 'fixation' },
     on_finish: function (data) {
         data.linux_time_on_finish =  Date.now().toString();
+        times += Date.now().toString()  + ","  + "NA" + "," + trialNumber  + "," + data.time_elapsed + "," + "fixation" + "," + "fixation" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA" + "," + "NA\n";
     }
 };
 
@@ -501,43 +516,63 @@ let test = {
     },
     data: jsPsych.timelineVariable('data'),
     on_finish: function (data) {
+        let correctResponseData;
+        let facialExpressionData;
+        let genderData;
+        let congruencyData;
+        let isCorrect;
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
+            correctResponseData = KEYBOARD_PRESS_LEFT;
         }
         else if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
+            correctResponseData = KEYBOARD_PRESS_RIGHT;
         }
         else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'f'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
+            correctResponseData = KEYBOARD_PRESS_RIGHT;
         }
         else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(7) == 'h'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
+            correctResponseData = KEYBOARD_PRESS_LEFT;
         }
         if(data.stimulus.charAt(7) == 'f'){
             data.facial_expression_type = "fear";
+            facialExpressionData = "fear";
         }
         else{
             data.facial_expression_type = "happy";
+            facialExpressionData = "happy";
         }
         if(data.stimulus.charAt(11) == 'f'){
             data.gender = "female";
+            genderData = "female";
         }
         else{
             data.gender = "male";
+            genderData = "male";
         }
         if(data.stimulus.charAt(9) == 'i'){
             data.congruency = "incongruent";
+            congruencyData = "incongruent";
         }
         else{
             data.congruency = "congruent";
+            congruencyData = "congruent";
         }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        isCorrect = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "ES";
+
+        //csv data
+        times += Date.now().toString()  + "," + data.rt + "," + trialNumber  + "," + data.time_elapsed + "," + "test" + "," + "ES" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + data.stimulus + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
+        trialNumber++;
     }
 };
 
@@ -556,43 +591,63 @@ let control = {
     },
     data: jsPsych.timelineVariable('data'),
     on_finish: function (data) {
+        let correctResponseData;
+        let facialExpressionData;
+        let genderData;
+        let congruencyData;
+        let isCorrect;
         data.linux_time_on_finish =  Date.now().toString();
         jsPsych.data.addProperties({Version: VERSION});
         jsPsych.data.addProperties({ESSequence: SEQUENCE_NUMBER_ES});
         jsPsych.data.addProperties({ControlSequence: SEQUENCE_NUMBER_CONTROL});
         if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'f'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
+            correctResponseData = KEYBOARD_PRESS_LEFT;
         }
         else if(LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
+            correctResponseData = KEYBOARD_PRESS_RIGHT;
         }
         else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'f'){
             data.correct_response = KEYBOARD_PRESS_RIGHT;
+            correctResponseData = KEYBOARD_PRESS_RIGHT;
         }
         else if(!LEFT_ARROW_IS_FEAR_FEMALE && data.stimulus.charAt(16) == 'm'){
             data.correct_response = KEYBOARD_PRESS_LEFT;
+            correctResponseData = KEYBOARD_PRESS_LEFT;
         }
         if(data.stimulus.charAt(12) == 'f'){
             data.facial_expression_type = "fear";
+            facialExpressionData = "fear";
         }
         else{
             data.facial_expression_type = "happy";
+            facialExpressionData = "happy";
         }
         if(data.stimulus.charAt(16) == 'f'){
             data.gender = "female";
+            genderData = "female";
         }
         else{
             data.gender = "male";
+            genderData = "male";
         }
         if(data.stimulus.charAt(14) == 'i'){
             data.congruency = "incongruent";
+            congruencyData = "incongruent";
         }
         else{
             data.congruency = "congruent";
+            congruencyData = "congruent";
         }
         data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
+        isCorrect = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);
         data.user_response = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
         data.trial = "Control";
+
+        //csv data
+        times += Date.now().toString()  + "," + data.rt + "," + trialNumber  + "," + data.time_elapsed + "," + "test" + "," + "Control" + "," + congruencyData + "," + facialExpressionData + "," + genderData + "," + isCorrect + "," + jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press) + "," + correctResponseData + "," + data.stimulus + "," + jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response) + "\n";
+        trialNumber++;
     }
 };
 
@@ -761,8 +816,14 @@ var debrief_block = {
 
         },
         on_load: function () {
+            /*This saves a .json file
             let filename = "task_" + Date.now().toString() + "_ver" + VERSION + ".json";
             saveData(jsPsych.data.get().json(), filename);
+            */
+
+            //This saves a .csv file
+            let filename = "task_" + Date.now().toString() + "_ver" + VERSION + ".csv";
+            saveData(times, filename);
         }
     };
 //add this to timeline
